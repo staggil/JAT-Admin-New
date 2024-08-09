@@ -1,0 +1,665 @@
+﻿<%@ Page Title="listPrivate" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="listPrivate.aspx.cs" Inherits="JAT.Inquery.Private.listPrivate" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
+    <style>
+        body {
+            font-size: 17px;
+        }
+        .Grid td {
+            padding: 5px;
+        }
+        table{
+            table-layout: fixed;
+            width: auto;
+        }
+        td {
+            width: 250px;
+        }
+        h3 {
+            font-weight: bold;
+        }
+
+        .form-control {
+            height: 1.5em;
+            padding: 7px 5px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+            padding-right: 0px
+        }
+
+        .box {
+            display: block;
+            margin: auto;
+            width: 95%;
+            align-self: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        input#datepicker1Input, input#datepicker2Input, input#datepicker3Input, input#datepicker4Input {
+            width: inherit;
+        }
+    </style>
+    <br />
+    <div class="box" style="background-color: lightgray">
+        <h3><%=Resources.Resources.view_member_information %></h3>
+        <%--@* ************************************************* 1 ***************************************************** *@--%>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <label><%=Resources.Resources.member_status %></label>
+                        <span style="float: right;">:</span>
+                    </div>
+                    <div class="col-sm-7">
+                        <asp:RadioButtonList ID="rblMemberStatus" AutoPostBack="true" runat="server" CssClass="txtLabel" RepeatDirection="horizontal" CellPadding="4" OnSelectedIndexChanged="rblMemberStatus_SelectedIndexChanged">
+                            <asp:ListItem Value="A" Text="A"></asp:ListItem>
+                            <asp:ListItem Value="NA" Text="NA"></asp:ListItem>
+                            <asp:ListItem Value="Both" Text="<%$Resources:Resources, both %>" Selected="True"></asp:ListItem>
+                        </asp:RadioButtonList>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <label><%=Resources.Resources._event %></label>
+                        <span style="float: right;">:</span>
+                    </div>
+                    <div class="form-group col-md-5">
+                        <asp:ListBox ID="lstFruits" SelectionMode="Multiple" runat="server">
+
+                        </asp:ListBox>
+                        <%--<asp:DropDownList ID="DropDownList2" runat="server" CssClass="listfr">
+
+                        </asp:DropDownList>--%>
+            <%--            <asp:ListBox ID="DropDownList2" runat="server" >
+
+                        </asp:ListBox>--%>
+                        <%--<asp:ListBox ID="lstFruits" runat="server" SelectionMode="Multiple">
+
+                        </asp:ListBox>--%>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <label></label>
+                        <span style="float: right;"></span>
+                    </div>
+                    <div class="form-group col-md-5">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <label>Subcommittee</label>
+                        <span style="float: right;">:</span>
+                    </div>
+                    <div class="form-group col-md-5">
+                        <asp:DropDownList ID="drplstClub" runat="server">
+
+                        </asp:DropDownList>
+                        <%--<asp:ListBox ID="drplstClub" runat="server" >
+
+                        </asp:ListBox>--%>
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-5">
+                       <label>Other</label>
+                        <span style="float: right;">:</span>
+                    </div>
+                    <div class="form-group col-md-7">
+
+                        <asp:DropDownList ID="DropDownList1" runat="server">
+                            <asp:ListItem Text="--Any--" Value="0" />
+                             <asp:ListItem Value="zukuzuku" Text="Sukusuku"></asp:ListItem>
+                            <asp:ListItem Value="children" Text="Children Library"></asp:ListItem>
+                            <asp:ListItem Value="ov_member" Text="Oversea resident member"></asp:ListItem>
+                        </asp:DropDownList>
+
+                       <%--  <asp:CheckBoxList ID="CheckBoxList4" RepeatColumns="1" AutoPostBack="true"   runat="server">
+                            <asp:ListItem Value="zukuzuku" Text="Sukusuku"></asp:ListItem>
+                            <asp:ListItem Value="children" Text="Children Library"></asp:ListItem>
+                            <asp:ListItem Value="ov_member" Text="Oversea resident member"></asp:ListItem>
+                        </asp:CheckBoxList>--%>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <label><%=Resources.Resources._event %></label>
+                        <span style="float: right;">:</span>
+                    </div>
+                    <div class="form-group col-md-5">
+                        <asp:DropDownList ID="drplstMemberType" runat="server">
+                            <asp:ListItem Text="--Any--" Value="0" />
+                        </asp:DropDownList>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <label><%=Resources.Resources.send_method %></label>
+                        <span style="float: right;">:</span>
+                    </div>
+                    <div class="form-group col-md-5">
+                        <asp:DropDownList ID="drplstSendType" runat="server">
+                            <asp:ListItem Text="--Any--" Value="0" />
+                        </asp:DropDownList>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <label><%=Resources.Resources.company_name %></label>
+                        <span style="float: right;">:</span>
+                    </div>
+                    <div class="form-group col-md-7">
+                        <input id="companyNm" type="text" class="form-control" runat="server">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <label><%=Resources.Resources.has_family_member %></label>
+                        <span style="float: right;">:</span>
+                    </div>
+                    <div class="form-group col-md-5">
+                        <asp:DropDownList ID="drplstHasFamily" runat="server" CssClass="listfr">
+                            <asp:ListItem Value="">-- Any --</asp:ListItem>
+                            <asp:ListItem Value="1">Yes</asp:ListItem>
+                            <asp:ListItem Value="0">No</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <label><%=Resources.Resources.applied_date_from %></label>
+                        <span style="float: right;">:</span>
+                    </div>
+                    <div class="form-group col-md-7">
+                        <input type="text" id="appliedDateFrom" style="width: inherit;" autocomplete="off" placeholder="DD/MM/YYYY" runat="server">
+                        <span id="datepicker1" class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <label>To</label>
+                        <span style="float: right;">:</span>
+                    </div>
+                    <div class="form-group col-md-7">
+                        <%--<input required type="text" id="datepicker2Input" autocomplete="off" placeholder="DD/MM/YYYY">
+                        <span id="datepicker2" class="glyphicon glyphicon-calendar"></span>--%>
+                        <input type="text" id="appliedDateTo" style="width: inherit;" autocomplete="off" placeholder="DD/MM/YYYY" runat="server">
+                        <span id="" class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <label><%=Resources.Resources.quit_date_from %></label>
+                        <span style="float: right;">:</span>
+                    </div>
+                    <div class="form-group col-md-7">
+                        <%--<input required type="text" id="datepicker3Input" autocomplete="off" placeholder="DD/MM/YYYY">
+                        <span id="datepicker3" class="glyphicon glyphicon-calendar"></span>--%>
+                        <input type="text" id="txtQuitDateFrom" style="width: inherit;" autocomplete="off" placeholder="DD/MM/YYYY" runat="server">
+                        <span id="" class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <label>To</label>
+                        <span style="float: right;">:</span>
+                    </div>
+                    <div class="form-group col-md-7">
+                        <%--<input required type="text" id="datepicker4Input" autocomplete="off" placeholder="DD/MM/YYYY">
+                        <span id="datepicker4" class="glyphicon glyphicon-calendar"></span>--%>
+                        <input type="text" id="txtQuitDateTo" style="width: inherit;" autocomplete="off" placeholder="DD/MM/YYYY" runat="server">
+                        <span id="" class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%--@* ************************************************* 2 ***************************************************** *@--%>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <label><%=Resources.Resources.address %></label>
+                        <span style="float: right;">:</span>
+                    </div>
+                    <div class="form-group col-sm-5">
+                        <input id="address" type="text" class="form-control" runat="server">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <label><%=Resources.Resources.show_field %></label>
+                        <span style="float: right;">:</span>
+                    </div>
+                    <div class="col-sm-7">
+                        <asp:RadioButtonList ID="rblFieldFormat" runat="server" AutoPostBack="true" OnSelectedIndexChanged="rblFieldFormat_SelectedIndexChanged" RepeatDirection="Horizontal">
+                            <asp:ListItem Value="All" Selected="True" Text="<%$Resources:Resources, all %>"></asp:ListItem>
+                            <asp:ListItem Value="Selection" Text="<%$Resources:Resources, selection %>"></asp:ListItem>
+                        </asp:RadioButtonList>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label>&nbsp</label>
+            </div>
+            <div class="col-md-10">
+                <div class="form-group col-md-12">
+                    <div class="form-check" style="margin-left: 30px;">
+                        <asp:CheckBoxList ID="CheckBoxList1" RepeatColumns="3" AutoPostBack="true" Enabled="false" OnSelectedIndexChanged="CheckBoxList1_SelectedIndexChanged" runat="server">
+                            <asp:ListItem Value="Member Id" Text="<%$Resources:Resources, member_id %>"></asp:ListItem>
+                            <asp:ListItem Value="Prefix Name" Text="<%$Resources:Resources, prefix_name %>"></asp:ListItem>
+                            <asp:ListItem Value="Member Name (Japan)" Text="<%$Resources:Resources, member_name_jp %>"></asp:ListItem>
+                            <asp:ListItem Value="Member Name (English)" Text="<%$Resources:Resources, member_name_eng %>"></asp:ListItem>
+                            <asp:ListItem Value="Birth Place" Text="<%$Resources:Resources, birth_place %>"></asp:ListItem>
+                            <asp:ListItem Value="Applied Date" Text="<%$Resources:Resources, applied_date %>"></asp:ListItem>
+                            <asp:ListItem Value="Birth Date" Text="<%$Resources:Resources, birth_date %>"></asp:ListItem>
+                            <asp:ListItem Value="Effective Date" Text="<%$Resources:Resources, effective_date %>"></asp:ListItem>
+                            <asp:ListItem Value="Expire Date" Text="<%$Resources:Resources, expired_date %>"></asp:ListItem>
+                            <asp:ListItem Value="Pay Duration" Text="<%$Resources:Resources, pay_duration %>"></asp:ListItem>
+                            <asp:ListItem Value="Send Type" Text="<%$Resources:Resources, send_type %>"></asp:ListItem>
+                            <asp:ListItem Value="Company Name" Text="<%$Resources:Resources, company_name %>"></asp:ListItem>
+                            <asp:ListItem Value="Company Address" Text="<%$Resources:Resources, company_address %>"></asp:ListItem>
+                            <asp:ListItem Value="Company Phone" Text="<%$Resources:Resources, company_phone %>"></asp:ListItem>
+                            <asp:ListItem Value="Company Fax" Text="<%$Resources:Resources, company_fax %>"></asp:ListItem>
+                            <asp:ListItem Value="Home Address" Text="<%$Resources:Resources, home_address %>"></asp:ListItem>
+                            <asp:ListItem Value="Home Phone" Text="<%$Resources:Resources, home_phone %>"></asp:ListItem>
+                            <asp:ListItem Value="Mobile Phone" Text="<%$Resources:Resources, mobile_phone %>"></asp:ListItem>
+                            <asp:ListItem Value="Position" Text="<%$Resources:Resources, position %>"></asp:ListItem>
+                            <asp:ListItem Value="Member Type" Text="<%$Resources:Resources, member_type %>"></asp:ListItem>
+                            <asp:ListItem Value="Member Status" Text="<%$Resources:Resources, member_status %>"></asp:ListItem>
+                            <asp:ListItem Value="Golf" Text="<%$Resources:Resources, golf %>"></asp:ListItem>
+                            <asp:ListItem Value="Board" Text="<%$Resources:Resources, board %>"></asp:ListItem>
+                            <asp:ListItem Value="Lady" Text="<%$Resources:Resources, lady %>"></asp:ListItem>
+                            <asp:ListItem Value="Children" Text="<%$Resources:Resources, children %>"></asp:ListItem>
+                            <asp:ListItem Value="Zukuzuku" Text="<%$Resources:Resources, sukusuku %>"></asp:ListItem>
+                            <%--<asp:ListItem Value="Meijinkai" Text="<%$Resources:Resources, meijinkai %>"></asp:ListItem>--%>
+                        </asp:CheckBoxList>
+                        <%--<asp:CheckBoxList ID="CheckBoxList1" RepeatColumns="3" AutoPostBack="true" Enabled="false" OnSelectedIndexChanged="CheckBoxList1_SelectedIndexChanged" runat="server">
+                            <asp:ListItem Value="Member Id"></asp:ListItem>
+							<asp:ListItem Value="Japanese Name"></asp:ListItem>
+							<asp:ListItem Value="English Name"></asp:ListItem>
+                        </asp:CheckBoxList>--%>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <div>Event</div>
+                    <div class="form-check" style="margin-left: 30px;">
+                        <asp:CheckBoxList ID="CheckBoxList2" RepeatColumns="1" OnSelectedIndexChanged="CheckBoxList2_SelectedIndexChanged" Enabled="false" AutoPostBack="true"   runat="server">
+                            <asp:ListItem Value="ev_1" Text="English test"></asp:ListItem>
+                            <asp:ListItem Value="ev_2" Text="Online Event"></asp:ListItem>
+                            <asp:ListItem Value="ev_3" Text="Softball"></asp:ListItem>
+                            <asp:ListItem Value="ev_4" Text="Yoga"></asp:ListItem>
+                            <asp:ListItem Value="ev_tmp1" Text=""></asp:ListItem>
+                            <asp:ListItem Value="ev_tmp2" Text=""></asp:ListItem>
+                            <asp:ListItem Value="ev_tmp3" Text=""></asp:ListItem>
+                        </asp:CheckBoxList>
+                    </div>
+                </div>
+
+                  <div class="form-group col-md-8">
+                    <div>Subcommittee</div>
+                    <div class="form-check" style="margin-left: 10px;">
+                        <asp:CheckBoxList ID="CheckBoxList3" RepeatColumns="2" OnSelectedIndexChanged="CheckBoxList3_SelectedIndexChanged" Enabled="false" AutoPostBack="true"  runat="server">
+                            <asp:ListItem Value="board" Text="Board"></asp:ListItem>
+                            <asp:ListItem Value="sub_board_list" Text="Board[List]"></asp:ListItem>
+                            <asp:ListItem Value="golf" Text="Golf"></asp:ListItem>
+                            <asp:ListItem Value="lady" Text="Lady"></asp:ListItem>
+                            <asp:ListItem Value="sub_secretary" Text="Club secretary"></asp:ListItem>
+                            <asp:ListItem Value="sub_volunteer" Text="Bazaar volunteer"></asp:ListItem>
+                            <asp:ListItem Value="sub_social" Text="Social Gathering members"></asp:ListItem>
+                            <asp:ListItem Value="sub_member" Text="Youth circle members"></asp:ListItem>
+                            <asp:ListItem Value="sub_tmp1" Text=""></asp:ListItem>
+                            <asp:ListItem Value="sub_tmp2" Text=""></asp:ListItem>
+                        </asp:CheckBoxList>
+                    </div>
+                </div>  
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="text-center">
+                <asp:Button ID="view" OnClick="view_Click" class="btn btn-primary" runat="server" Text="View" />
+                <asp:Button ID="reset" OnClick="reset_Click" runat="server" class="btn btn-primary" Text="Reset" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div style="max-height: 500px; overflow-y: scroll;">
+        <asp:DataGrid ID="grdCompany" runat="server" CellPadding="4" BackColor="White"
+            BorderWidth="1px" BorderStyle="None" AllowPaging="true" OnPageIndexChanged="grdCompany_PageIndexChanged" BorderColor="InactiveCaptionText" PageSize="20"
+            AutoGenerateColumns="False">
+            <FooterStyle ForeColor="Desktop" BackColor="#B5C7DE"></FooterStyle>
+            <%--<SelectedItemStyle Font-Bold="True" ForeColor="#F7F7F7" BackColor="#738A9C"></SelectedItemStyle>--%>
+            <AlternatingItemStyle BackColor="#F7F7F7"></AlternatingItemStyle>
+            <ItemStyle ForeColor="Desktop" BackColor="White"></ItemStyle>
+            <%--<HeaderStyle Font-Bold="True" ForeColor="#F7F7F7" BackColor="#24227A"></HeaderStyle>--%>
+            <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="#F7F7F7"></HeaderStyle>
+            <Columns>
+                <asp:HyperLinkColumn HeaderText="<%$Resources:Resources, member_id %>" DataTextField="Member Id" DataNavigateUrlField="Member Id" DataNavigateUrlFormatString="../../Private/privateEntry.aspx?memberid={0}">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White"></HeaderStyle>
+                    <ItemStyle HorizontalAlign="center"></ItemStyle>
+                </asp:HyperLinkColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, prefix_name %>" ReadOnly="True" DataField="Prefix Name">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center"></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, member_name_jp %>" ReadOnly="True" DataField="Member Name (JPN)">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, member_name_eng %>" ReadOnly="True" DataField="Member Name (Eng)">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, birth_place %>" ReadOnly="True" DataField="Birth Place">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, applied_date %>" ReadOnly="True" DataField="Applied Date" DataFormatString="{0:dd-MMM-yyyy}">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, birth_date %>" ReadOnly="True" DataField="Birth Date" DataFormatString="{0:dd-MMM-yyyy}">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, effective_date %>" ReadOnly="True" DataField="Effective Date" DataFormatString="{0:dd-MMM-yyyy}">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, expired_date %>" ReadOnly="True" DataField="Expired" DataFormatString="{0:dd-MMM-yyyy}">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, pay_duration %>" ReadOnly="True" DataField="Pay Duration">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, send_type %>" ReadOnly="True" DataField="Send Type">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center"></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, company_name %>" ReadOnly="True" DataField="Company Name">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, company_address %>" ReadOnly="True" DataField="Company Address">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, company_phone %>" ReadOnly="True" DataField="Company Phone">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, company_fax %>" ReadOnly="True" DataField="Company Fax">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, home_address %>" ReadOnly="True" DataField="Home Address">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center"></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, home_phone %>" ReadOnly="True" DataField="Home Phone">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, mobile_phone %>" ReadOnly="True" DataField="Mobile Phone">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, position %>" ReadOnly="True" DataField="Position">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, member_type %>" ReadOnly="True" DataField="Member Type">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, member_status %>" ReadOnly="True" DataField="Member Status">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center"></ItemStyle>
+                </asp:BoundColumn>
+
+              
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, sukusuku %>" ReadOnly="True" DataField="Zukuzuku">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+
+                 
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, children %>" ReadOnly="True" DataField="Children">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center"></ItemStyle>
+                </asp:BoundColumn>
+
+                <asp:BoundColumn HeaderText="Overseas resident members" ReadOnly="True" DataField="Overseas resident members">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center"></ItemStyle>
+                </asp:BoundColumn>
+
+                <%--0-23--%>
+                <%-----------------------------------------------------------------------%>
+                   <asp:BoundColumn HeaderText="English test" ReadOnly="True" DataField="English test">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="Online Event" ReadOnly="True" DataField="Online Event">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <asp:BoundColumn HeaderText="Softball" ReadOnly="True" DataField="Softball">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                 <asp:BoundColumn HeaderText="Yoga" ReadOnly="True" DataField="Yoga">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                 <asp:BoundColumn HeaderText="ev_tmp1" ReadOnly="True" DataField="ev_tmp1">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                 <asp:BoundColumn HeaderText="ev_tmp2" ReadOnly="True" DataField="ev_tmp2">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                 <asp:BoundColumn HeaderText="ev_tmp3" ReadOnly="True" DataField="ev_tmp3">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+                <%--24-30--%>
+                <%-----------------------------------------------------------------------%>
+                 <asp:BoundColumn HeaderText="<%$Resources:Resources, board %>" ReadOnly="True" DataField="Board">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+
+                 <asp:BoundColumn HeaderText="Board List" ReadOnly="True" DataField="Board List">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+
+                <asp:BoundColumn HeaderText="<%$Resources:Resources, golf %>" ReadOnly="True" DataField="Golf">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+
+                 <asp:BoundColumn HeaderText="<%$Resources:Resources, lady %>" ReadOnly="True" DataField="Lady">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+
+                 <asp:BoundColumn HeaderText="Club secretary" ReadOnly="True" DataField="Club secretary">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+
+                <asp:BoundColumn HeaderText="Bazaar volunteer" ReadOnly="True" DataField="Bazaar volunteer">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+
+                 <asp:BoundColumn HeaderText="Social gathering members" ReadOnly="True" DataField="Social gathering members">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+
+                  <asp:BoundColumn HeaderText="Youth circle members" ReadOnly="True" DataField="Youth circle members">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+
+                   <asp:BoundColumn HeaderText="sub_tmp1" ReadOnly="True" DataField="sub_tmp1">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+
+                <asp:BoundColumn HeaderText="sub_tmp2" ReadOnly="True" DataField="sub_tmp2">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center" ></ItemStyle>
+                </asp:BoundColumn>
+
+                <%--40--%>
+                
+
+               
+
+               <%-- <asp:BoundColumn HeaderText="<%$Resources:Resources, meijinkai %>" ReadOnly="True" DataField="Meijinkai">
+                    <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White" />
+                    <ItemStyle HorizontalAlign="center"></ItemStyle>
+                </asp:BoundColumn>--%>
+            </Columns>
+            <PagerStyle HorizontalAlign="Right" ForeColor="#4A3C8C" BackColor="#E7E7FF" CssClass="tbBody" Mode="NumericPages"></PagerStyle>
+        </asp:DataGrid>
+    </div>
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    <%--@section scripts{--%>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+
+
+    <%--@* *********** Selection Depentdent*********** *@--%>
+
+    <script>
+        $(document).ready(function () {
+            $("#type").change(function () {
+                var val = $(this).val();
+                if (val == "item1") {
+                    $("#size").html("<option value=''>-- Any --</option><option selected value='Z'>Z</option><option value='#'>#</option>");
+                } else if (val == "item2") {
+                    $("#size").html("<option value=''>-- Any --</option><option selected value='#'>#</option><option value='Z'>Z</option>");
+                }
+            });
+        });
+    </script>
+
+    <%--@* *********** Datepicker *********** *@--%>
+    <script type="text/javascript">
+        $(function () {
+            var options = {
+                format: 'yyyy/mm/dd',
+                todayHighlight: true,
+                autoclose: true
+            }
+            $("[id*=appliedDateFrom]").datepicker(options);
+            $("[id*=appliedDateTo]").datepicker(options);
+            $("[id*=txtQuitDateFrom]").datepicker(options);
+            $("[id*=txtQuitDateTo]").datepicker(options);
+        });
+    </script>
+    <%--<script>
+
+    var options = {
+        format: 'dd-M-yyyy',
+        todayHighlight: true,
+        autoclose: true
+    }
+    $(function () {
+        $("#datepicker1").click(function () {
+            $('#datepicker1Input').datepicker(options).datepicker("show")
+        });
+
+        $("#datepicker2").click(function () {
+            $('#datepicker2Input').datepicker(options).datepicker("show")
+        });
+
+        $("#datepicker3").click(function () {
+            $('#datepicker3Input').datepicker(options).datepicker("show")
+        });
+
+        $("#datepicker4").click(function () {
+            $('#datepicker4Input').datepicker(options).datepicker("show")
+        });
+
+    });
+</script>--%>
+    <%--@* *********** /Datepicker *********** *@--%>
+    <%--}--%>
+
+    <%--<script>
+        $(document).ready(function () {
+            $('#dtBasicExample').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+    </script>--%>
+    <%--<script type="text/javascript">
+        $(function () {
+            $('[id*=DropDownList2]').multiselect({
+                includeSelectAllOption: true
+            });
+        });
+    </script>--%>
+</asp:Content>

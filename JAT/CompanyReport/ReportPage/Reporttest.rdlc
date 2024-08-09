@@ -1,0 +1,2013 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSet2">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>804122fd-17b8-45dd-b02c-87294f96a569</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet2">
+      <Query>
+        <DataSourceName>DataSet2</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="paymentDate">
+          <DataField>paymentDate</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="companyNmE">
+          <DataField>companyNmE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="termDate">
+          <DataField>termDate</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="bNo">
+          <DataField>bNo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="cNo">
+          <DataField>cNo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="memberFee">
+          <DataField>memberFee</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="vat">
+          <DataField>vat</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="newsFee">
+          <DataField>newsFee</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="totalFee">
+          <DataField>totalFee</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="payRemark">
+          <DataField>payRemark</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="withHolding">
+          <DataField>withHolding</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="contNm">
+          <DataField>contNm</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="phone">
+          <DataField>phone</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Months">
+          <DataField>Months</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Total">
+          <DataField>Total</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Start">
+          <DataField>Start</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Term">
+          <DataField>Term</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DataSet2</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\WHO_EliteBook\Desktop\Japan System\ASP.net\JAT\JAT\DataSet2.xsd</rd:SchemaPath>
+        <rd:TableName>DataTable1</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Textbox Name="Textbox7">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value />
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>0.49172cm</Top>
+            <Left>1.52064cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.48438cm</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox8">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value />
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>1.41979cm</Top>
+            <Left>1.52063cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.48438cm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox9">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value />
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>2.67656cm</Top>
+            <Left>1.52063cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.83067cm</Width>
+            <ZIndex>2</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox10">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value />
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>3.45295cm</Top>
+            <Left>1.52064cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.83067cm</Width>
+            <ZIndex>3</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox11">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value />
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>6.65552cm</Top>
+            <Left>18.01607cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.48438cm</Width>
+            <ZIndex>4</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox18">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value />
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>7.43191cm</Top>
+            <Left>18.01607cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.48438cm</Width>
+            <ZIndex>5</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox19">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value />
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>8.44146cm</Top>
+            <Left>1.29441cm</Left>
+            <Height>0.6cm</Height>
+            <Width>6.83917cm</Width>
+            <ZIndex>6</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox20">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value />
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>9.21785cm</Top>
+            <Left>2.27337cm</Left>
+            <Height>0.6cm</Height>
+            <Width>6.20417cm</Width>
+            <ZIndex>7</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox21">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>日本人会賛助会員・個人会費の件について</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontSize>11pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>10.39937cm</Top>
+            <Left>7.48566cm</Left>
+            <Height>0.6cm</Height>
+            <Width>8.00334cm</Width>
+            <ZIndex>8</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox22">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>拝啓、貴下益々ご清祥のこととお慶び申し上げます。</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>11.28573cm</Top>
+            <Left>1.29442cm</Left>
+            <Height>0.6cm</Height>
+            <Width>9.35271cm</Width>
+            <ZIndex>9</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox23">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>さて、貴社・貴殿の日本人会会費が             </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>2020/10/1     2021/3/30   </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS Gothic</FontFamily>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>までの </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS Mincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>6 </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS Gothic</FontFamily>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>ヶ月分</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS Mincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>合計   </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>6,000.00 </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS Gothic</FontFamily>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>バ－ツ</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS Mincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value />
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <LeftIndent>0cm</LeftIndent>
+                <RightIndent>0cm</RightIndent>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                  <LineHeight>15.2pt</LineHeight>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>11.99156cm</Top>
+            <Left>1.29442cm</Left>
+            <Height>0.49417cm</Height>
+            <Width>24.08677cm</Width>
+            <ZIndex>10</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox24">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>ご多忙中恐縮ではございますが、バンコク郊外への集金は諸般の事情によりできかねますので、銀行振り込み又は、小切手</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>14.00323cm</Top>
+            <Left>1.29442cm</Left>
+            <Height>0.6cm</Height>
+            <Width>19.83021cm</Width>
+            <ZIndex>11</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox25">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>について、お支払いをお願いいたします。下記のお支払い方法の中で、ご都合の宜しい方法に印をつけて、ご返信頂ければ幸いです。</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>12.59156cm</Top>
+            <Left>1.29442cm</Left>
+            <Height>0.6cm</Height>
+            <Width>19.83021cm</Width>
+            <ZIndex>12</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox26">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>（e‑mail: info@jat.or.th  FAX:0‑2236‑1131）</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>13.2974cm</Top>
+            <Left>1.29442cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.18313cm</Width>
+            <ZIndex>13</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox27">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>ご送付などの方法をご利用下さいますようお願い申し上げます。</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>14.70906cm</Top>
+            <Left>1.29442cm</Left>
+            <Height>0.6cm</Height>
+            <Width>12.36896cm</Width>
+            <ZIndex>14</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox28">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>キ　リ　ト　リ　セ　ン</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value> _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>15.45017cm</Top>
+            <Left>1.29442cm</Left>
+            <Height>0.6cm</Height>
+            <Width>20.42419cm</Width>
+            <ZIndex>15</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox29">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>To JAPANESE ASSOCIATION IN THAILAND</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>16.22656cm</Top>
+            <Left>6.53318cm</Left>
+            <Height>0.6cm</Height>
+            <Width>9.96125cm</Width>
+            <ZIndex>16</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox30">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>（　）① 遠方につき、日本人会までこちらより使いの者を出向かせる。いつ頃…___________________________________</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>17.00295cm</Top>
+            <Left>1.29443cm</Left>
+            <Height>0.6cm</Height>
+            <Width>16.73459cm</Width>
+            <ZIndex>17</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox31">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>（　）② 銀行振込み希望【日本人会の口座に振り込みたい】</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>17.70878cm</Top>
+            <Left>1.29442cm</Left>
+            <Height>0.6cm</Height>
+            <Width>9.35272cm</Width>
+            <ZIndex>18</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox32">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>口座名義：</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value xml:space="preserve"> </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PGothic</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>Japanese Association in Thailand</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>18.41461cm</Top>
+            <Left>1.29442cm</Left>
+            <Height>0.6cm</Height>
+            <Width>9.35272cm</Width>
+            <ZIndex>19</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox33">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>口座番号：</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value xml:space="preserve"> </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PGothic</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>Bank</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS Mincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value xml:space="preserve"> </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>of</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS Mincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value xml:space="preserve"> </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>Ayudhaya </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS Mincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>: Bangkok Tonson Branch 789‑1‑04103‑6／</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>19.10156cm</Top>
+            <Left>1.29442cm</Left>
+            <Height>0.6cm</Height>
+            <Width>11.73397cm</Width>
+            <ZIndex>20</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox34">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Sumitomo Mitsui Banking Corporation</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>@MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>… 204‑0‑10234‑1</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>19.80739cm</Top>
+            <Left>1.29443cm</Left>
+            <Height>0.6cm</Height>
+            <Width>11.28418cm</Width>
+            <ZIndex>21</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox35">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>口座番号：</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value> BANGKOK BANK</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontSize>9.5pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value> （バンコク銀行） 【Silom本店】 101‑7‑884188</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>20.51322cm</Top>
+            <Left>1.29442cm</Left>
+            <Height>0.6cm</Height>
+            <Width>11.73397cm</Width>
+            <ZIndex>22</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox36">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>口座番号： </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>KASIKORN BANK </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontSize>9.5pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>【Silom支店】 001‑2‑74616‑6</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>21.21906cm</Top>
+            <Left>1.29442cm</Left>
+            <Height>0.6cm</Height>
+            <Width>11.73397cm</Width>
+            <ZIndex>23</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox37">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>（お振込み後は、銀行の振込票の控えをファックスまたは、メールにてご送信ください。（e‑mail: info@jat.or.th  FAX:0‑2236‑1131）</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>21.92489cm</Top>
+            <Left>1.29442cm</Left>
+            <Height>0.6cm</Height>
+            <Width>20.4242cm</Width>
+            <ZIndex>24</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox38">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>当地では、お振込人よりご連絡がない場合どなたからの入金か確認できないため必ずご送信ください。</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>22.63072cm</Top>
+            <Left>1.29442cm</Left>
+            <Height>0.6cm</Height>
+            <Width>17.39605cm</Width>
+            <ZIndex>25</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox39">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>また、入金確認後、領収書を郵送いたしております。）</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontSize>11pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>23.33656cm</Top>
+            <Left>1.29442cm</Left>
+            <Height>0.6cm</Height>
+            <Width>14.1946cm</Width>
+            <ZIndex>26</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox40">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>（　）③ 小切手を書留にて送付する。</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>24.43045cm</Top>
+            <Left>1.29442cm</Left>
+            <Height>0.6cm</Height>
+            <Width>14.1946cm</Width>
+            <ZIndex>27</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox41">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>この場合は </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>Crossed Check で、Japanese Association in Thailand </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>とお願いします。</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>25.13628cm</Top>
+            <Left>1.29442cm</Left>
+            <Height>0.6cm</Height>
+            <Width>14.1946cm</Width>
+            <ZIndex>28</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox42">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>（　）④ ついでの折、本人が事務局迄支払いに出向く予定である。</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>25.84211cm</Top>
+            <Left>1.29443cm</Left>
+            <Height>0.6cm</Height>
+            <Width>14.1946cm</Width>
+            <ZIndex>29</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox43">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>＊業務時間…月曜日～金曜日9：00～17：00 ／ 土曜日9：00～12：00（但し、第一土曜日のみ休日）</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>MS PMincho</FontFamily>
+                      <FontWeight>Normal</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>26.6185cm</Top>
+            <Left>1.29443cm</Left>
+            <Height>0.6cm</Height>
+            <Width>15.20001cm</Width>
+            <ZIndex>30</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <Height>10.83334in</Height>
+        <Style>
+          <BackgroundColor>White</BackgroundColor>
+        </Style>
+      </Body>
+      <Width>10.30556in</Width>
+      <Page>
+        <PageHeader>
+          <Height>4.66448cm</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Textbox Name="Textbox12">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>タイ国日本人会</Value>
+                      <Style>
+                        <FontFamily>MS Gothic</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value xml:space="preserve">　</Value>
+                      <Style>
+                        <FontFamily>MS Gothic</FontFamily>
+                        <FontSize>14pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox12</rd:DefaultName>
+              <Top>1.26682cm</Top>
+              <Left>4.05591cm</Left>
+              <Height>0.59451cm</Height>
+              <Width>3.15226cm</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox13">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>JAPANESE ASSOCIATION IN THAILAND</Value>
+                      <Style>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox12</rd:DefaultName>
+              <Top>2.03772cm</Top>
+              <Left>4.05591cm</Left>
+              <Height>0.59451cm</Height>
+              <Width>6.00976cm</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox14">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>1 FL Sathorn Thani Bldg. 2 92/2 North Sathorn Rd. Silom Bangrak Bangkok 10500</Value>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value xml:space="preserve">
+</Value>
+                      <Style>
+                        <FontFamily>MS Gothic</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox12</rd:DefaultName>
+              <Top>2.59696cm</Top>
+              <Left>4.05591cm</Left>
+              <Height>0.59451cm</Height>
+              <Width>10.50768cm</Width>
+              <ZIndex>2</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox15">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Tel : 0-2236-1201-3, 0-2236-1128/1148</Value>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value xml:space="preserve">
+</Value>
+                      <Style>
+                        <FontFamily>MS Gothic</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox12</rd:DefaultName>
+              <Top>3.22674cm</Top>
+              <Left>4.05591cm</Left>
+              <Height>0.59451cm</Height>
+              <Width>5.29539cm</Width>
+              <ZIndex>3</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox16">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Fax : 0-2236-1131 E-mail : info@jat.or.th
+</Value>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox12</rd:DefaultName>
+              <Top>3.82125cm</Top>
+              <Left>4.05591cm</Left>
+              <Height>0.59451cm</Height>
+              <Width>5.29539cm</Width>
+              <ZIndex>4</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Image Name="Image1">
+              <Source>Embedded</Source>
+              <Value>ดาวน์โหลด</Value>
+              <Sizing>FitProportional</Sizing>
+              <Top>0.60307cm</Top>
+              <Left>0.42333cm</Left>
+              <Height>3.8127cm</Height>
+              <Width>3.5973cm</Width>
+              <ZIndex>5</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+            </Image>
+            <Textbox Name="Textbox17">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>สมาคมญี่ปุ่นในประเทศไทย</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox12</rd:DefaultName>
+              <Top>0.60307cm</Top>
+              <Left>4.05591cm</Left>
+              <Height>0.59451cm</Height>
+              <Width>5.29539cm</Width>
+              <ZIndex>6</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+          </ReportItems>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <BackgroundColor>White</BackgroundColor>
+          </Style>
+        </PageHeader>
+        <PageFooter>
+          <Height>2.54cm</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Textbox Name="OverallTotalPages">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=Globals!OverallTotalPages</Value>
+                      <Style>
+                        <FontFamily>MS Gothic</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>OverallTotalPages</rd:DefaultName>
+              <Top>1.46375cm</Top>
+              <Left>24.41117cm</Left>
+              <Height>0.6cm</Height>
+              <Width>0.71998cm</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox53">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>of</Value>
+                      <Style>
+                        <FontFamily>MS Gothic</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox53</rd:DefaultName>
+              <Top>1.46375cm</Top>
+              <Left>23.73323cm</Left>
+              <Height>0.6cm</Height>
+              <Width>0.64266cm</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="PageNumber1">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=Globals!PageNumber</Value>
+                      <Style>
+                        <FontFamily>MS Gothic</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>PageNumber1</rd:DefaultName>
+              <Top>1.46375cm</Top>
+              <Left>22.9399cm</Left>
+              <Height>0.6cm</Height>
+              <Width>0.75806cm</Width>
+              <ZIndex>2</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox51">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Page</Value>
+                      <Style>
+                        <FontFamily>MS Gothic</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox50</rd:DefaultName>
+              <Top>1.46375cm</Top>
+              <Left>21.92457cm</Left>
+              <Height>0.6cm</Height>
+              <Width>0.98005cm</Width>
+              <ZIndex>3</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox44">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>勤務先___________________________________________</Value>
+                      <Style>
+                        <FontStyle>Normal</FontStyle>
+                        <FontFamily>MS PMincho</FontFamily>
+                        <FontWeight>Normal</FontWeight>
+                        <TextDecoration>None</TextDecoration>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox7</rd:DefaultName>
+              <Top>0.29531cm</Top>
+              <Left>1.29441cm</Left>
+              <Height>0.6cm</Height>
+              <Width>6.83918cm</Width>
+              <ZIndex>4</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox45">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>会員番号No._____________________________</Value>
+                      <Style>
+                        <FontStyle>Normal</FontStyle>
+                        <FontFamily>MS PMincho</FontFamily>
+                        <FontWeight>Normal</FontWeight>
+                        <TextDecoration>None</TextDecoration>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox7</rd:DefaultName>
+              <Top>1.0717cm</Top>
+              <Left>10.06536cm</Left>
+              <Height>0.6cm</Height>
+              <Width>6.83918cm</Width>
+              <ZIndex>5</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox46">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>氏名（漢字）______________________________________</Value>
+                      <Style>
+                        <FontStyle>Normal</FontStyle>
+                        <FontFamily>MS PMincho</FontFamily>
+                        <FontWeight>Normal</FontWeight>
+                        <TextDecoration>None</TextDecoration>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox7</rd:DefaultName>
+              <Top>1.0717cm</Top>
+              <Left>1.29441cm</Left>
+              <Height>0.6cm</Height>
+              <Width>6.83918cm</Width>
+              <ZIndex>6</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+          </ReportItems>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <BackgroundColor>White</BackgroundColor>
+          </Style>
+        </PageFooter>
+        <PageHeight>29.7cm</PageHeight>
+        <PageWidth>21cm</PageWidth>
+        <LeftMargin>2cm</LeftMargin>
+        <RightMargin>2cm</RightMargin>
+        <TopMargin>2cm</TopMargin>
+        <BottomMargin>2cm</BottomMargin>
+        <ColumnSpacing>0.13cm</ColumnSpacing>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="showAge">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PayMethod">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="fromDate">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="toDate">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ReportType">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>showAge</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>PayMethod</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>fromDate</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>toDate</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>ReportType</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
+  <EmbeddedImages>
+    <EmbeddedImage Name="ดาวน์โหลด">
+      <MIMEType>image/jpeg</MIMEType>
+      <ImageData>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</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>7204c418-8a79-446b-9fde-762a1b64e540</rd:ReportID>
+</Report>

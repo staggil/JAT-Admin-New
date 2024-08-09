@@ -1,0 +1,747 @@
+﻿<%@ Page Title="companyPayment" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="companyPayment.aspx.cs" Inherits="JAT.Company.companyPayment" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <style type="text/css">
+        .textarea
+        {
+            font-family:monospace;
+            font-size:14px;
+            resize: none;
+        }
+        body {
+            font-size: 17px;
+        }
+        h3 {
+            font-weight: bold;
+        }
+        textarea {
+            border-radius: 5px;
+            border: 1px solid #556677;
+        }
+
+        input#datepicker1Input, input#datepicker2Input, input#datepicker3Input, input#EffectiveDateInput {
+            width: inherit;
+        }
+
+        .form-control {
+            height: 1.5em;
+            padding: 7px 5px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+            padding-right: 0px
+        }
+
+        .box {
+            display: block;
+            margin: auto;
+            /*width: 95%;*/
+            align-self: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        textareak {
+            font-family: monospace;
+        }
+        .tab {
+        overflow: hidden;
+        border: 0px solid #ccc;
+        border-top: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 22.4px;
+            transition: 0.3s;
+            font-size: 16px;
+        }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+                background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                background-color: #ffffff;
+            }
+    </style>
+    <div class="col-sm-12">
+        <div class="tab">
+            <button class="tablinks">
+                 <asp:LinkButton ID="MemberTab" Text="Member Information" runat="server" OnClick="MemberTab_Click"></asp:LinkButton>
+            </button>
+            <button class="tablinks active">
+                 <asp:LinkButton ID="LinkButton2" Text="Payment Management" runat="server"></asp:LinkButton>
+            </button>
+        </div>
+        <br />
+    </div>
+    <div id="PaymentTab" class="tabcontent">
+    <div class="">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="box" style="background-color:lightgray">
+                        <h3>Payment Management</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                        <label style="color:red;visibility:hidden;">*</label>
+                                        <label>Company Name</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-7">
+                                        <asp:Label ID="lbl" style="display: none;" runat="server"></asp:Label>
+                                        <%--<asp:Label ID="Label1" runat="server"></asp:Label>--%>
+                                        <asp:Label ID="PcompanyNmJ" runat="server" Text=""></asp:Label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                        <label style="color:red;visibility:hidden;">*</label>
+                                        <label>Name [Eng.]</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-5">
+                                        <%--<label>&nbsp</label>--%>
+                                        <asp:Label ID="PcompanyNmE" runat="server" Text=""></asp:Label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                        <label style="color:red;visibility:hidden;">*</label>
+                                        <label>Period</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <%--<label>&nbsp</label>--%>
+                                        <asp:Label ID="PpayPeriod" runat="server" Text=""></asp:Label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                        <label style="color:red;visibility:hidden;">*</label>
+                                        <label>Pay Duration</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <%--<label>&nbsp</label>--%>
+                                        <asp:Label ID="PpayDuration" runat="server" Text=""></asp:Label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                        <label style="color:red;visibility:hidden;">*</label>
+                                        <label>Send Method</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <%--<label>&nbsp</label>--%>
+                                        <asp:Label ID="PsendType" runat="server" Text=""></asp:Label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                        <label style="color:red;visibility:hidden;">*</label>
+                                        <label>Payment Method</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-5">
+                                        <asp:Label ID="payMethod" runat="server" Text=""></asp:Label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                        <label style="color:red;visibility:hidden;">*</label>
+                                        <label>Total/Month</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <select id="totalPerMonth" runat="server" required>
+                                            <%--<option value="">--Any--</option>--%>
+                                            <option selected value="1000">1000</option>
+                                            <option value="1500">1500</option>
+                                            <option value="2000">2000</option>
+                                            <option value="2500">2500</option>
+                                            <option value="1300">1300</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                        <label>&nbsp</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <%--<input type="checkbox" name="" value="">--%>
+                                        <input id="checkShort" type="checkbox" runat="server"/>
+                                        <%--<asp:CheckBox ID="checkShort" runat="server" />--%>
+                                        <label>Get Short</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                        <label style="color:red;">*</label>
+                                        <label>B No.</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <%--<asp:TextBox ID="TextBox1" runat="server" Width="50%"></asp:TextBox>--%>
+                                        <input type="text" id="bNo" class="form-control" runat="server">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                        <label style="color:red;">*</label>
+                                        <label>C No.</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <input type="text" id="cNo" class="form-control" placeholder="" runat="server">
+                                        <%--<asp:TextBox ID="cNo" runat="server" Width="50%"></asp:TextBox>--%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                        <label style="color:red;">*</label>
+                                        <label>Pay Duration</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <input id="noPayMonth" type="number" min="0" class="form-control" runat="server">
+                                        <%--<input id="noPayMonth" type="number" onchange="setexpiredate();" min="0" class="form-control" runat="server">--%>
+                                        <%--<asp:TextBox ID="TextBox3" runat="server" Width="80%"></asp:TextBox>--%>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Months</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                        <label style="color:red;">*</label>
+                                        <label>Payment Date</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-7">
+                                        <input type="text" id="paymentDate" style="width: inherit;" autocomplete="off" placeholder="DD/MM/YYYY" runat="server">
+                                        <%--<asp:TextBox ID="paymentDate" runat="server" Width="50%" ReadOnly = "true"></asp:TextBox>--%>
+                                        <span id="datepicker3" class="glyphicon glyphicon-calendar"></span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                        <label style="color:red;">*</label>
+                                        <label>Effective Date</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-7">
+                                        <input type="text" id="effectiveDate" style="width: inherit;" oncuechange="setExpireDate();" autocomplete="off" placeholder="DD/MM/YYYY" runat="server">
+                                        <span id="EffectiveDate" class="glyphicon glyphicon-calendar"></span>
+                                        <%--<asp:TextBox ID="effectiveDate" runat="server" Width="50%" ReadOnly = "true"></asp:TextBox>
+                                        <span id="EffectiveDate" class="glyphicon glyphicon-calendar"></span>--%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group col-md-5">
+                                        <label style="color:red;visibility:hidden">*</label>
+                                        <label>Expired Date</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <input type="text" id="expiredDate" autocomplete="off" class="form-control" runat="server">
+                                        <%--<asp:TextBox ID="TextBox6" runat="server" Width="90%" ReadOnly = "true"></asp:TextBox>--%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-5" style="margin-bottom: 0;">
+                                <label style="color:red;visibility:hidden">*</label>
+                                <label for="">Remark</label>
+                                <span style="float:right;">:</span>
+                            </div>
+                        </div>
+                        <div id="charNum2" style="text-align:right;width:400px;font-size:10px;">500/500</div>    
+                        <asp:TextBox id="TextBox7" TextMode="multiline" onkeyup="countChar2(this)" CssClass="textarea" width="395px"  Rows="10" runat="server" />
+                        
+                        <%--<div id="charNum2" style="text-align:right;width:400px;font-size:10px;">500/500</div>
+                        <textarea onkeyup="countChar2(this)" style="font-family: monospace;width:395px; font-size:14px; overflow: hidden; resize: none;" maxlength="500" rows="10"></textarea>--%>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box" style="background-color:lightgray">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label style="color:red;">*</label>
+                                        <label>Member Fee</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <input type="text" id="memberFee" class="form-control" runat="server">
+                                        <%--<asp:TextBox ID="memberfee" runat="server" Width="100%"></asp:TextBox>--%>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Baht</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label style="color:red;">*</label>
+                                        <label>News Fee</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <input type="text" id="newsFee" class="form-control" runat="server">
+                                        <%--<asp:TextBox ID="newsFee" runat="server" Width="100%"></asp:TextBox>--%>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Baht</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label style="color:red;">*</label>
+                                        <label>Total Fee</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <input type="text" id="totalFee" class="form-control" runat="server">
+                                        <%--<asp:TextBox ID="totalFee" runat="server" Width="100%"></asp:TextBox>--%>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Baht</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4" style="margin-bottom:0">
+                                <label style="color:red;visibility:hidden">*</label>
+                                <label for="">Remark</label>
+                                <span style="float:right;">:</span>
+                            </div>
+                        </div>
+                        <div id="charNum3" style="text-align:right;width:400px;font-size:10px;">500/500</div>    
+                        <asp:TextBox id="payRemark" TextMode="multiline" onkeyup="countChar3(this)" CssClass="textarea" width="395px"  Rows="10" runat="server" />
+                        <%--<div id="charNum3" style="text-align:right;width:400px;font-size:10px;">500/500</div>
+                        <textarea onkeyup="countChar3(this)" style="font-family: monospace;width:395px; font-size:14px; overflow: hidden; resize: none;" maxlength="500" rows="10"></textarea>--%>
+                        <div class="form-group">
+                            <div class="text-center">
+                                <button type="button" id="cclt">calculation</button>
+                                <%--<asp:Button ID="cclt" runat="server" Text="Button" OnClick="cclt_Click" />--%>
+                                <%--<asp:Button ID="Button2" runat="server" Text="Button" OnClick="Button2_Click" />--%>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="box" style="background-color:lightgray">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group col-md-4" ">
+                                        <label style="color:red;visibility:hidden">*</label>
+                                        <label>Bank Account</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <select runat="server" id="select" disabled>
+                                            <option selected>--Any--</option>
+                                            <option>230790:JA6-130</option>
+                                            <option>1100230790:JA6-130</option>
+                                        </select>
+                                        <input type="text" class="form-control" id="accNumber" runat="server" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label style="color:red;visibility:hidden">*</label>
+                                        <label>Bank Code</label>
+                                        <span style="float:right;">:</span>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <input type="text" class="form-control" id="bankCode" runat="server" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="text-center">
+                                <%--<button type="submit" class="btn btn-primary">Save</button>--%>
+                                <asp:Button ID="save" class="btn btn-primary" OnClick="save_Click" runat="server" Text="save" />
+                                <button type="submit" class="btn btn-primary">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+    </div>
+    <asp:datagrid id="DataGrid1" AutoGenerateColumns="false" runat="server" CellPadding="4" BackColor="White" BorderWidth="1px"
+		DataKeyField="staffID" 
+		BorderStyle="None" BorderColor="InactiveCaptionText" PageSize="20" Width="100%">
+		<FooterStyle ForeColor="Desktop" BackColor="#B5C7DE"></FooterStyle>
+		<SelectedItemStyle Font-Bold="True" ForeColor="#F7F7F7" BackColor="#738A9C"></SelectedItemStyle>
+		<AlternatingItemStyle BackColor="#F7F7F7"></AlternatingItemStyle>
+		<ItemStyle ForeColor="Desktop" BackColor="White"></ItemStyle>
+		<HeaderStyle Font-Bold="True" ForeColor="#F7F7F7" BackColor="Desktop"></HeaderStyle>
+		<Columns>
+			<asp:BoundColumn DataField="PcompanyNmJ" HeaderText="Company Name">
+				<HeaderStyle HorizontalAlign="center" Width="35%"></HeaderStyle>
+				<ItemStyle></ItemStyle>
+			</asp:BoundColumn>
+			<asp:BoundColumn DataField="totalFee" HeaderText="Total Fee">
+				<HeaderStyle HorizontalAlign="center" Width="25%"></HeaderStyle>
+				<ItemStyle></ItemStyle>
+			</asp:BoundColumn>
+			<asp:BoundColumn DataField="branchNm" HeaderText="Payment Date">
+				<HeaderStyle HorizontalAlign="center" Width="15%"></HeaderStyle>
+				<ItemStyle></ItemStyle>
+			</asp:BoundColumn>
+            <asp:BoundColumn DataField="staffFName" HeaderText="Effective Date">
+				<HeaderStyle HorizontalAlign="center" Width="35%"></HeaderStyle>
+				<ItemStyle></ItemStyle>
+			</asp:BoundColumn>
+            <asp:BoundColumn DataField="staffFName" HeaderText="Expired Date">
+				<HeaderStyle HorizontalAlign="center" Width="35%"></HeaderStyle>
+				<ItemStyle></ItemStyle>
+			</asp:BoundColumn>
+            <asp:BoundColumn DataField="staffFName" HeaderText="Payment Method">
+				<HeaderStyle HorizontalAlign="center" Width="35%"></HeaderStyle>
+				<ItemStyle></ItemStyle>
+			</asp:BoundColumn>
+            <asp:BoundColumn DataField="staffFName" HeaderText="B NO.">
+				<HeaderStyle HorizontalAlign="center" Width="35%"></HeaderStyle>
+				<ItemStyle></ItemStyle>
+			</asp:BoundColumn>
+            <asp:BoundColumn DataField="staffFName" HeaderText="C NO.">
+				<HeaderStyle HorizontalAlign="center" Width="35%"></HeaderStyle>
+				<ItemStyle></ItemStyle>
+			</asp:BoundColumn>
+		</Columns>
+	</asp:datagrid>
+</div>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+<%--@section scripts{--%>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function () {
+            var options = {
+                //format: 'dd-mm-yyyy',
+                todayHighlight: true,
+                autoclose: true
+            }
+            $("[id*=appliedDate]").datepicker(options);
+            $("[id*=establishedDate]").datepicker(options); 
+            $("[id*=paymentDate]").datepicker(options);
+            $("[id*=effectiveDate]").datepicker(options);
+        });
+    </script>
+
+    <script type="text/javascript">
+
+    </script>
+    <%--@* *********** Selection Depentdent*********** *@--%>
+    <script>
+        $(document).ready(function () {
+            $("[id*=memberStatus]").change(function () {
+                var val = $(this).val();
+                if (val == "A") {
+                    $("[id*=sendType]").html("<option value=''>-- Any --</option><option selected value='Z'>Z</option><option value='#'>#</option>");
+                } else if (val == "NA") {
+                    $("[id*=sendType]").html("<option value=''>-- Any --</option><option selected value='#'>#</option><option value='Z'>Z</option>");
+                }
+            });
+        });
+    </script>
+    <%--@* *********** /Selection Depentdent*********** *@--%>
+
+    <script>
+        $(document).ready(function () {
+            $("[id*=bNo]").change(function () {
+                var v = $(this).val();
+                $("[id*=cNo]").val(v);
+            });
+        });
+    </script>
+
+    <%-- @* *********** Period 1-12 *********** *@ --%>
+    <script>
+        $(function () {
+            var $select = $(".1-12");
+            for (i = 1; i <= 12; i++) {
+                $select.append($('<option value="'+i+'"></option>').val(i).html(i))
+            }
+        });
+    </script>
+   <%-- @* *********** /Period 1-12*********** *@--%>
+
+    <%--@* *********** Calculation Date*********** *@--%>
+    <script>
+        //function setExpireDate() {
+        //    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        //    var myDate = new Date(effectiveDate.value);
+        //    alert(myDate);
+        //    month = myDate.getMonth();
+        //    modifiedMonth = month + parseInt(noPayMonth.value);
+        //    modifiedDate = new Date(myDate.getFullYear(), modifiedMonth, 0);
+        //    modifiedMonth = months[modifiedDate.getMonth() + 0];
+        //    if (modifiedDate.getDate() + "-" + modifiedMonth + "-" + modifiedDate.getFullYear() != "NaN-undefined-NaN") {
+        //        expiredDate.value = modifiedDate.getDate() + "-" + modifiedMonth + "-" + modifiedDate.getFullYear();
+        //    } else {
+        //        expiredDate.value = " ";
+        //    }
+        //}
+        $(document).ready(function () {
+            $("[id*=effectiveDate]").change(function () {
+                var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                var effectiveDate = $(this).val();
+                //alert();
+                var myDate = new Date(effectiveDate);
+                month = myDate.getMonth();
+                modifiedMonth = month + parseInt($("[id*=noPayMonth]").val());
+                //alert(modifiedMonth);
+                modifiedDate = new Date(myDate.getFullYear(), modifiedMonth, 0);
+                modifiedMonth = months[modifiedDate.getMonth() + 0];
+                //alert(modifiedMonth);
+                if (modifiedDate.getDate() + "-" + modifiedMonth + "-" + modifiedDate.getFullYear() != "NaN-undefined-NaN") {
+                    //expiredDate.value = modifiedDate.getDate() + "-" + modifiedMonth + "-" + modifiedDate.getFullYear();
+                    var r = modifiedDate.getDate() + "-" + modifiedMonth + "-" + modifiedDate.getFullYear();
+                    $("[id*=expiredDate]").val(r);
+                } else {
+                    //expiredDate.value = " ";
+                    $("[id*=expiredDate]").val(" ");
+                }
+            });
+        });
+
+    </script>
+    <%--@* *********** /Calculation Date*********** *@--%>
+
+    <%--@* *********** Datepicker *********** *@--%>
+    <script>
+
+        //var options = {
+        //    format: 'dd-M-yyyy',
+        //    todayHighlight: true,
+        //    autoclose: true
+        //}
+        //$(function () {
+        //    $("#datepicker1").click(function () {
+        //        $('#datepicker1Input').datepicker(options).datepicker("show")
+        //    });
+
+        //    $("#datepicker2").click(function () {
+        //        $('#datepicker2Input').datepicker(options).datepicker("show")
+        //    });
+        //    $("#datepicker3").click(function () {
+        //        $('#datepicker3Input').datepicker(options).datepicker("show")
+        //    });
+        //    $("#EffectiveDate").click(function () {
+        //        $('#EffectiveDateInput').datepicker(options).datepicker("show")
+        //    });
+        //});
+    </script>
+    <%--@* *********** /Datepicker *********** *@--%>
+
+    <%--@* ***********  Calculation Total Fee *********** *@--%>
+    <script>
+        
+        //function cclt() {
+            //var tm = document.getElementById("totalPerMonth").value;
+            //alert(tm);
+            
+        //}
+        $(document).ready(function () {
+            $("[id*=cclt]").click(function () {
+                var tm = $("[id*=totalPerMonth]").val(); 
+                var pd = $("[id*=noPayMonth]").val();
+                var totalfee = tm * pd;
+                var MemberFee = totalfee * 0.3
+                var NewsFee = totalfee * 0.7
+
+                if (tm == 1000) {
+                    $("[id*=newsFee]").val(NewsFee);
+                    $("[id*=memberFee]").val(MemberFee);
+                    $("[id*=totalFee]").val(totalfee);
+                } else if (tm == 1500){
+                    $("[id*=newsFee]").val(NewsFee);
+                    $("[id*=memberFee]").val(MemberFee);
+                    $("[id*=totalFee]").val(totalfee);
+                } else if (tm == 2000) {
+                    $("[id*=newsFee]").val(NewsFee);
+                    $("[id*=memberFee]").val(MemberFee);
+                    $("[id*=totalFee]").val(totalfee);
+                } else if (tm == 2500) {
+                    $("[id*=newsFee]").val(NewsFee);
+                    $("[id*=memberFee]").val(MemberFee);
+                    $("[id*=totalFee]").val(totalfee);
+                } else if (tm == 1300) {
+                    $("[id*=newsFee]").val(NewsFee);
+                    $("[id*=memberFee]").val(MemberFee);
+                    $("[id*=totalFee]").val(totalfee);
+                }
+            });
+        });
+    </script>
+    <%--@* ***********  /Calculation Total Fee *********** *@--%>
+<%--}--%>
+
+<script>
+    //@* *********** Auto Expand Area Text *********** *@
+    //var comfyText = (function () {
+    //    var tag = document.querySelectorAll('textarea')
+    //    for (var i = 0; i < tag.length; i++) {
+    //        tag[i].addEventListener('paste', autoExpand)
+    //        tag[i].addEventListener('input', autoExpand)
+    //        tag[i].addEventListener('keyup', autoExpand)
+    //    }
+    //    function autoExpand(e, el) {
+    //        var el = el || e.target
+    //        el.style.height = 'inherit'
+    //        el.style.height = el.scrollHeight + 'px'
+    //    }
+    //    window.addEventListener('load', expandAll)
+    //    window.addEventListener('resize', expandAll)
+    //    function expandAll() {
+    //        var tag = document.querySelectorAll('textarea')
+    //        for (var i = 0; i < tag.length; i++) {
+    //            autoExpand(e, tag[i])
+    //        }
+    //    }
+    //})()
+    //@* *********** /Auto Expand Area Text *********** *@
+
+    //@* *********** count number 500 / 500 *********** *@
+    function countChar(val) {
+        var len = val.value.length;
+        if (len >= 501) {
+            val.value = val.value.substring(0, 500);
+        } else {
+            $('#charNum').text(500 - len + '/500');
+        }
+    };
+    function countChar2(val) {
+        var len = val.value.length;
+        if (len >= 501) {
+            val.value = val.value.substring(0, 500);
+        } else {
+            $('#charNum2').text(500 - len + '/500');
+        }
+    };
+    function countChar3(val) {
+        var len = val.value.length;
+        if (len >= 501) {
+            val.value = val.value.substring(0, 500);
+        } else {
+            $('#charNum3').text(500 - len + '/500');
+        }
+    };
+    //@* *********** /count number 500 / 500 *********** *@
+
+    document.getElementById("MemberTab").style.display = "block";
+    var canType = document.querySelectorAll("[id='blockInput']");
+    //$('.tabcontent').find('input, textarea, button, select').prop('disabled', 'disabled');
+
+    function changeTAB(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    function addData() {
+        $(canType).prop("disabled", false);
+        document.getElementById("hideAddBtn").style.display = "none";
+
+    }
+
+</script>
+</asp:Content>

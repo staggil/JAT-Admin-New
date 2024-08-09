@@ -1,0 +1,1158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="1_month" xml:space="preserve">
+    <value>1 Month</value>
+  </data>
+  <data name="1_year" xml:space="preserve">
+    <value>1 Year</value>
+  </data>
+  <data name="6_month" xml:space="preserve">
+    <value>6 Month</value>
+  </data>
+  <data name="accounting" xml:space="preserve">
+    <value>Accounting</value>
+  </data>
+  <data name="account_no" xml:space="preserve">
+    <value>Account No.</value>
+  </data>
+  <data name="activate_member" xml:space="preserve">
+    <value>Activate Member</value>
+  </data>
+  <data name="add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="address1" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="age" xml:space="preserve">
+    <value>Age</value>
+  </data>
+  <data name="all" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="all1" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="all_expired_date" xml:space="preserve">
+    <value>All Expired Date</value>
+  </data>
+  <data name="annual_fee" xml:space="preserve">
+    <value>Annual Fee</value>
+  </data>
+  <data name="applied_date" xml:space="preserve">
+    <value>Applied Date</value>
+  </data>
+  <data name="applied_date1" xml:space="preserve">
+    <value>Applied Date</value>
+  </data>
+  <data name="applied_date_from" xml:space="preserve">
+    <value>Applied Date From</value>
+  </data>
+  <data name="applied_date_from1" xml:space="preserve">
+    <value>Applied Date From</value>
+  </data>
+  <data name="applied_date_to_print" xml:space="preserve">
+    <value>Applied Date To</value>
+  </data>
+  <data name="assign_expired_date" xml:space="preserve">
+    <value>Assign Expired Date</value>
+  </data>
+  <data name="baht" xml:space="preserve">
+    <value>Baht</value>
+  </data>
+  <data name="bank_account" xml:space="preserve">
+    <value>Bank Account</value>
+  </data>
+  <data name="bank_code" xml:space="preserve">
+    <value>Bank Code</value>
+  </data>
+  <data name="bank_code1" xml:space="preserve">
+    <value>Bank Code</value>
+  </data>
+  <data name="bazaar_volunteer" xml:space="preserve">
+    <value>Bazaar volunteer</value>
+  </data>
+  <data name="bill" xml:space="preserve">
+    <value>Company Bill</value>
+  </data>
+  <data name="bill1" xml:space="preserve">
+    <value>Bill</value>
+  </data>
+  <data name="birth_date" xml:space="preserve">
+    <value>Birth Date</value>
+  </data>
+  <data name="birth_date1" xml:space="preserve">
+    <value>Birth Date</value>
+  </data>
+  <data name="birth_place" xml:space="preserve">
+    <value>Birth Place</value>
+  </data>
+  <data name="birth_place1" xml:space="preserve">
+    <value>Birth Place</value>
+  </data>
+  <data name="board" xml:space="preserve">
+    <value>Board</value>
+  </data>
+  <data name="board1" xml:space="preserve">
+    <value>Board</value>
+  </data>
+  <data name="board_list" xml:space="preserve">
+    <value>Board [List]</value>
+  </data>
+  <data name="both" xml:space="preserve">
+    <value>Both</value>
+  </data>
+  <data name="both1" xml:space="preserve">
+    <value>Both</value>
+  </data>
+  <data name="business_type" xml:space="preserve">
+    <value>Business Type</value>
+  </data>
+  <data name="business_type1" xml:space="preserve">
+    <value>Business Type</value>
+  </data>
+  <data name="b_no" xml:space="preserve">
+    <value>B No.</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="cancel_form" xml:space="preserve">
+    <value>Approve Cancel Member</value>
+  </data>
+  <data name="cancel_member" xml:space="preserve">
+    <value>Cancel Member</value>
+  </data>
+  <data name="change_address" xml:space="preserve">
+    <value>Change Address</value>
+  </data>
+  <data name="change_date_from" xml:space="preserve">
+    <value>Change Date From</value>
+  </data>
+  <data name="change_first_member" xml:space="preserve">
+    <value>Change First Member</value>
+  </data>
+  <data name="change_member_id" xml:space="preserve">
+    <value>Change Member ID</value>
+  </data>
+  <data name="change_password" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="child" xml:space="preserve">
+    <value>Child</value>
+  </data>
+  <data name="children" xml:space="preserve">
+    <value>Children</value>
+  </data>
+  <data name="children1" xml:space="preserve">
+    <value>Children</value>
+  </data>
+  <data name="children_library" xml:space="preserve">
+    <value>Children's library</value>
+  </data>
+  <data name="club" xml:space="preserve">
+    <value>Club</value>
+  </data>
+  <data name="club1" xml:space="preserve">
+    <value>Club</value>
+  </data>
+  <data name="club_secretary" xml:space="preserve">
+    <value>Club secretary</value>
+  </data>
+  <data name="comBill" xml:space="preserve">
+    <value>Name [Bill]</value>
+  </data>
+  <data name="company_address" xml:space="preserve">
+    <value>Company Address</value>
+  </data>
+  <data name="company_address1" xml:space="preserve">
+    <value>Company Address</value>
+  </data>
+  <data name="company_entrance_fee" xml:space="preserve">
+    <value>Company Entrance Fee</value>
+  </data>
+  <data name="company_fax" xml:space="preserve">
+    <value>Company Fax</value>
+  </data>
+  <data name="company_fee_description" xml:space="preserve">
+    <value>Company Fee Description</value>
+  </data>
+  <data name="company_id" xml:space="preserve">
+    <value>Company ID</value>
+  </data>
+  <data name="company_information" xml:space="preserve">
+    <value>Company Information</value>
+  </data>
+  <data name="company_in_bangkok" xml:space="preserve">
+    <value>Company In Bangkok</value>
+  </data>
+  <data name="company_list" xml:space="preserve">
+    <value>Company List</value>
+  </data>
+  <data name="company_name" xml:space="preserve">
+    <value>Company Name</value>
+  </data>
+  <data name="company_name1" xml:space="preserve">
+    <value>Company Name</value>
+  </data>
+  <data name="company_news_fee" xml:space="preserve">
+    <value>Company News Fee</value>
+  </data>
+  <data name="company_payment" xml:space="preserve">
+    <value>Company Payment</value>
+  </data>
+  <data name="company_phone" xml:space="preserve">
+    <value>Company Phone</value>
+  </data>
+  <data name="contract_name" xml:space="preserve">
+    <value>Contract Name</value>
+  </data>
+  <data name="contract_position" xml:space="preserve">
+    <value>Contract Position</value>
+  </data>
+  <data name="c_no" xml:space="preserve">
+    <value>C No.</value>
+  </data>
+  <data name="date_from" xml:space="preserve">
+    <value>Date From</value>
+  </data>
+  <data name="date_from1" xml:space="preserve">
+    <value>Date From</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="description1" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="divide_family" xml:space="preserve">
+    <value>Divide Family</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="effective_date" xml:space="preserve">
+    <value>Effective Date</value>
+  </data>
+  <data name="effective_date1" xml:space="preserve">
+    <value>Effective Date</value>
+  </data>
+  <data name="effective_fee_maintenance" xml:space="preserve">
+    <value>Effective Fee Maintenance</value>
+  </data>
+  <data name="effective_id" xml:space="preserve">
+    <value>Effective ID</value>
+  </data>
+  <data name="election_label" xml:space="preserve">
+    <value>Election Label</value>
+  </data>
+  <data name="english_name" xml:space="preserve">
+    <value>English Name</value>
+  </data>
+  <data name="english_test" xml:space="preserve">
+    <value>English Test</value>
+  </data>
+  <data name="entrance_fee" xml:space="preserve">
+    <value>Entrance Fee</value>
+  </data>
+  <data name="entrance_fee1" xml:space="preserve">
+    <value>Entrance Fee</value>
+  </data>
+  <data name="entrance_fee_title" xml:space="preserve">
+    <value>Entrance Fee</value>
+  </data>
+  <data name="established _date" xml:space="preserve">
+    <value>Established Date</value>
+  </data>
+  <data name="established_date" xml:space="preserve">
+    <value>Established Date</value>
+  </data>
+  <data name="event" xml:space="preserve">
+    <value>Event</value>
+  </data>
+  <data name="expired_date" xml:space="preserve">
+    <value>Expired Date</value>
+  </data>
+  <data name="expired_date1" xml:space="preserve">
+    <value>Expired Date</value>
+  </data>
+  <data name="expired_date_from" xml:space="preserve">
+    <value>Expired Date From</value>
+  </data>
+  <data name="expire_month_from" xml:space="preserve">
+    <value>Expire Month From</value>
+  </data>
+  <data name="expire_month_to" xml:space="preserve">
+    <value>Expire Month To</value>
+  </data>
+  <data name="Extraction_Period" xml:space="preserve">
+    <value>Extraction Period</value>
+  </data>
+  <data name="e_mail" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="e_mail1" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="e_mail_address" xml:space="preserve">
+    <value>E-mail Address</value>
+  </data>
+  <data name="family_member" xml:space="preserve">
+    <value>Family Member</value>
+  </data>
+  <data name="family_member1" xml:space="preserve">
+    <value>Family Member</value>
+  </data>
+  <data name="family_member_older_than_18" xml:space="preserve">
+    <value>Family Member (Older than 18 years old)</value>
+  </data>
+  <data name="family_member_younger_than_18" xml:space="preserve">
+    <value>Family Member (Younger than 18 years old)</value>
+  </data>
+  <data name="family_name" xml:space="preserve">
+    <value>Family Name</value>
+  </data>
+  <data name="fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="fax1" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="fee_id" xml:space="preserve">
+    <value>Fee ID</value>
+  </data>
+  <data name="first_member" xml:space="preserve">
+    <value>First Member</value>
+  </data>
+  <data name="first_member_name" xml:space="preserve">
+    <value>First Member Name</value>
+  </data>
+  <data name="format" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="from_date" xml:space="preserve">
+    <value>From Date</value>
+  </data>
+  <data name="get_invoice" xml:space="preserve">
+    <value>Get Invoice</value>
+  </data>
+  <data name="get_receipt" xml:space="preserve">
+    <value>Get Receipt</value>
+  </data>
+  <data name="get_short" xml:space="preserve">
+    <value>Get Short</value>
+  </data>
+  <data name="get_wht" xml:space="preserve">
+    <value>Get WHT</value>
+  </data>
+  <data name="golf" xml:space="preserve">
+    <value>Golf</value>
+  </data>
+  <data name="golf1" xml:space="preserve">
+    <value>Golf</value>
+  </data>
+  <data name="Greet" xml:space="preserve">
+    <value>Hello</value>
+  </data>
+  <data name="Greet1" xml:space="preserve">
+    <value>Hello</value>
+  </data>
+  <data name="group by_prefix_name" xml:space="preserve">
+    <value>Group by Prefix name</value>
+  </data>
+  <data name="group_by_age" xml:space="preserve">
+    <value>Group by Age</value>
+  </data>
+  <data name="has_family_member" xml:space="preserve">
+    <value>Has Family Member</value>
+  </data>
+  <data name="history" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="home_address" xml:space="preserve">
+    <value>Home Address</value>
+  </data>
+  <data name="home_address1" xml:space="preserve">
+    <value>Home Address</value>
+  </data>
+  <data name="home_phone" xml:space="preserve">
+    <value>Home Phone</value>
+  </data>
+  <data name="honor_member" xml:space="preserve">
+    <value>Honor Member</value>
+  </data>
+  <data name="information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="japan" xml:space="preserve">
+    <value>Japan</value>
+  </data>
+  <data name="japanese_member_list" xml:space="preserve">
+    <value>Japanese Member List</value>
+  </data>
+  <data name="japanese_name" xml:space="preserve">
+    <value>Japanese Name</value>
+  </data>
+  <data name="krung_thep_magazine" xml:space="preserve">
+    <value>Krung Thep Magazine</value>
+  </data>
+  <data name="label" xml:space="preserve">
+    <value>Company Label</value>
+  </data>
+  <data name="label1" xml:space="preserve">
+    <value>Label</value>
+  </data>
+  <data name="lady" xml:space="preserve">
+    <value>Lady</value>
+  </data>
+  <data name="lady1" xml:space="preserve">
+    <value>Lady</value>
+  </data>
+  <data name="list" xml:space="preserve">
+    <value>Company List</value>
+  </data>
+  <data name="list1" xml:space="preserve">
+    <value>List</value>
+  </data>
+  <data name="list_receiver" xml:space="preserve">
+    <value>List Receiver</value>
+  </data>
+  <data name="log_off" xml:space="preserve">
+    <value>Log Off</value>
+  </data>
+  <data name="meijinkai" xml:space="preserve">
+    <value>Meijinkai</value>
+  </data>
+  <data name="meijinkai1" xml:space="preserve">
+    <value>Meijinkai</value>
+  </data>
+  <data name="member" xml:space="preserve">
+    <value>Member</value>
+  </data>
+  <data name="member_fee" xml:space="preserve">
+    <value>Member Fee</value>
+  </data>
+  <data name="member_fee1" xml:space="preserve">
+    <value>Member Fee</value>
+  </data>
+  <data name="member_fee_description" xml:space="preserve">
+    <value>Member Fee Description</value>
+  </data>
+  <data name="member_id" xml:space="preserve">
+    <value>Member Id</value>
+  </data>
+  <data name="member_id1" xml:space="preserve">
+    <value>Member Id</value>
+  </data>
+  <data name="member_information" xml:space="preserve">
+    <value>Member Information</value>
+  </data>
+  <data name="member_name" xml:space="preserve">
+    <value>Member Name</value>
+  </data>
+  <data name="member_name_eng" xml:space="preserve">
+    <value>Member Name (English)</value>
+  </data>
+  <data name="member_name_eng1" xml:space="preserve">
+    <value>Member Name (English)</value>
+  </data>
+  <data name="member_name_jp" xml:space="preserve">
+    <value>Member Name (Japan)</value>
+  </data>
+  <data name="member_overview" xml:space="preserve">
+    <value>Member overview</value>
+  </data>
+  <data name="member_status" xml:space="preserve">
+    <value>Member Status</value>
+  </data>
+  <data name="member_status1" xml:space="preserve">
+    <value>Member Status</value>
+  </data>
+  <data name="member_summary" xml:space="preserve">
+    <value>Member Summary</value>
+  </data>
+  <data name="member_type" xml:space="preserve">
+    <value>Member Type</value>
+  </data>
+  <data name="member_type1" xml:space="preserve">
+    <value>Member Type</value>
+  </data>
+  <data name="menu_1_header" xml:space="preserve">
+    <value>Private</value>
+  </data>
+  <data name="menu_1_item_1" xml:space="preserve">
+    <value>Private Entry</value>
+  </data>
+  <data name="menu_1_item_2" xml:space="preserve">
+    <value>Private Search</value>
+  </data>
+  <data name="menu_1_item_3" xml:space="preserve">
+    <value>Private Change Member ID</value>
+  </data>
+  <data name="menu_2_header" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="menu_2_item_1" xml:space="preserve">
+    <value>Company Entry</value>
+  </data>
+  <data name="menu_2_item_2" xml:space="preserve">
+    <value>Company Search</value>
+  </data>
+  <data name="menu_3_header" xml:space="preserve">
+    <value>Private Report</value>
+  </data>
+  <data name="menu_3_item_1" xml:space="preserve">
+    <value>Print Detail</value>
+  </data>
+  <data name="menu_3_item_10" xml:space="preserve">
+    <value>Private Accrued Summary Payment by Type</value>
+  </data>
+  <data name="menu_3_item_11" xml:space="preserve">
+    <value>Data Extraction</value>
+  </data>
+  <data name="menu_3_item_2" xml:space="preserve">
+    <value>Print Age</value>
+  </data>
+  <data name="menu_3_item_3" xml:space="preserve">
+    <value>Print Club</value>
+  </data>
+  <data name="menu_3_item_4" xml:space="preserve">
+    <value>Print Member</value>
+  </data>
+  <data name="menu_3_item_5" xml:space="preserve">
+    <value>Print Payment</value>
+  </data>
+  <data name="menu_3_item_6" xml:space="preserve">
+    <value>Print History</value>
+  </data>
+  <data name="menu_3_item_7" xml:space="preserve">
+    <value>Print Accrued Payment</value>
+  </data>
+  <data name="menu_3_item_8" xml:space="preserve">
+    <value>Print Label</value>
+  </data>
+  <data name="menu_3_item_9" xml:space="preserve">
+    <value>Private Accrued Payment by Type</value>
+  </data>
+  <data name="menu_4_header" xml:space="preserve">
+    <value>Company Report</value>
+  </data>
+  <data name="menu_4_item_1" xml:space="preserve">
+    <value>Company Payment</value>
+  </data>
+  <data name="menu_4_item_2" xml:space="preserve">
+    <value>Company List</value>
+  </data>
+  <data name="menu_4_item_3" xml:space="preserve">
+    <value>Company Bill</value>
+  </data>
+  <data name="menu_4_item_4" xml:space="preserve">
+    <value>Company Label</value>
+  </data>
+  <data name="menu_5_header" xml:space="preserve">
+    <value>Inquery</value>
+  </data>
+  <data name="menu_5_item_1_1" xml:space="preserve">
+    <value>Personal Detail</value>
+  </data>
+  <data name="menu_5_item_1_2" xml:space="preserve">
+    <value>Payment Detail</value>
+  </data>
+  <data name="menu_5_item_1_3" xml:space="preserve">
+    <value>Statistic Detail</value>
+  </data>
+  <data name="menu_5_item_1_4" xml:space="preserve">
+    <value>Summary Member</value>
+  </data>
+  <data name="menu_5_item_1_5" xml:space="preserve">
+    <value>Member Check List</value>
+  </data>
+  <data name="menu_5_item_2_1" xml:space="preserve">
+    <value>Company Detail</value>
+  </data>
+  <data name="menu_5_item_2_2" xml:space="preserve">
+    <value>Payment Detail</value>
+  </data>
+  <data name="menu_5_item_2_3" xml:space="preserve">
+    <value>Statistic Detail</value>
+  </data>
+  <data name="menu_5_subheader_1" xml:space="preserve">
+    <value>Private</value>
+  </data>
+  <data name="menu_5_subheader_2" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="menu_6_header" xml:space="preserve">
+    <value>Send Mail</value>
+  </data>
+  <data name="menu_7_header" xml:space="preserve">
+    <value>Maintenance</value>
+  </data>
+  <data name="menu_7_item_1" xml:space="preserve">
+    <value>Member Type</value>
+  </data>
+  <data name="menu_7_item_2" xml:space="preserve">
+    <value>Send Type</value>
+  </data>
+  <data name="menu_7_item_3" xml:space="preserve">
+    <value>Staff</value>
+  </data>
+  <data name="menu_7_item_4" xml:space="preserve">
+    <value>Fee Maintenance</value>
+  </data>
+  <data name="menu_7_item_5" xml:space="preserve">
+    <value>Event Variable Item</value>
+  </data>
+  <data name="menu_7_item_6" xml:space="preserve">
+    <value>Subcommittees Variable Item</value>
+  </data>
+  <data name="menu_7_item_7" xml:space="preserve">
+    <value>Change Maintenance Password</value>
+  </data>
+  <data name="merge_family" xml:space="preserve">
+    <value>Merge Family</value>
+  </data>
+  <data name="mobile" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="mobile_phone" xml:space="preserve">
+    <value>Mobile Phone</value>
+  </data>
+  <data name="mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="months" xml:space="preserve">
+    <value>Months</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="name1" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="name_eng" xml:space="preserve">
+    <value>Name [Eng.]</value>
+  </data>
+  <data name="name_eng1" xml:space="preserve">
+    <value>Name [Eng.]</value>
+  </data>
+  <data name="name_english" xml:space="preserve">
+    <value>Name(English)</value>
+  </data>
+  <data name="name_japanese" xml:space="preserve">
+    <value>Name(Japanese)</value>
+  </data>
+  <data name="name_member_id" xml:space="preserve">
+    <value>Name/Member ID</value>
+  </data>
+  <data name="name_remark" xml:space="preserve">
+    <value>Name(Remark)</value>
+  </data>
+  <data name="newsletter" xml:space="preserve">
+    <value>Newsletter</value>
+  </data>
+  <data name="news_fee" xml:space="preserve">
+    <value>News Fee</value>
+  </data>
+  <data name="news_fee1" xml:space="preserve">
+    <value>News Fee</value>
+  </data>
+  <data name="news_letter" xml:space="preserve">
+    <value>News Letter</value>
+  </data>
+  <data name="new_member" xml:space="preserve">
+    <value>New Member</value>
+  </data>
+  <data name="new_member_id" xml:space="preserve">
+    <value>New Member ID</value>
+  </data>
+  <data name="no_member" xml:space="preserve">
+    <value>Non-member</value>
+  </data>
+  <data name="number_of_member" xml:space="preserve">
+    <value>Number of Member</value>
+  </data>
+  <data name="old_member_id_from" xml:space="preserve">
+    <value>Old Member ID From</value>
+  </data>
+  <data name="online_event" xml:space="preserve">
+    <value>Online Event</value>
+  </data>
+  <data name="overseas_resident_members" xml:space="preserve">
+    <value>Overseas resident members</value>
+  </data>
+  <data name="payment_date" xml:space="preserve">
+    <value>Payment Date</value>
+  </data>
+  <data name="payment_date1" xml:space="preserve">
+    <value>Payment Date</value>
+  </data>
+  <data name="payment_date_from" xml:space="preserve">
+    <value>Payment Date From</value>
+  </data>
+  <data name="payment_date_from1" xml:space="preserve">
+    <value>Payment Date From</value>
+  </data>
+  <data name="payment_duration" xml:space="preserve">
+    <value>Payment Duration</value>
+  </data>
+  <data name="payment_group_by_duration" xml:space="preserve">
+    <value>Payment Group by Duration</value>
+  </data>
+  <data name="payment_information" xml:space="preserve">
+    <value>Payment Information</value>
+  </data>
+  <data name="payment_management" xml:space="preserve">
+    <value>Payment Management</value>
+  </data>
+  <data name="payment_method" xml:space="preserve">
+    <value>Payment Method</value>
+  </data>
+  <data name="payment_method1" xml:space="preserve">
+    <value>Payment Method</value>
+  </data>
+  <data name="payment_period" xml:space="preserve">
+    <value>Payment Period</value>
+  </data>
+  <data name="payment_remark" xml:space="preserve">
+    <value>Payment Remark</value>
+  </data>
+  <data name="payment_split" xml:space="preserve">
+    <value>Payment Split</value>
+  </data>
+  <data name="payment_summary" xml:space="preserve">
+    <value>Payment Summary</value>
+  </data>
+  <data name="payment_type" xml:space="preserve">
+    <value>Payment Type</value>
+  </data>
+  <data name="payment_type1" xml:space="preserve">
+    <value>Payment Type</value>
+  </data>
+  <data name="pay_at" xml:space="preserve">
+    <value>Pay At</value>
+  </data>
+  <data name="pay_at1" xml:space="preserve">
+    <value>Pay At</value>
+  </data>
+  <data name="pay_by" xml:space="preserve">
+    <value>Pay By</value>
+  </data>
+  <data name="pay_duration" xml:space="preserve">
+    <value>Pay Duration</value>
+  </data>
+  <data name="pay_duration1" xml:space="preserve">
+    <value>Pay Duration</value>
+  </data>
+  <data name="pay_overdue" xml:space="preserve">
+    <value>Pay Overdue</value>
+  </data>
+  <data name="pay_period" xml:space="preserve">
+    <value>Pay Period</value>
+  </data>
+  <data name="period" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="person_in_charge" xml:space="preserve">
+    <value>Contact Person</value>
+  </data>
+  <data name="phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="position1" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="prefix_name" xml:space="preserve">
+    <value>Prefix Name</value>
+  </data>
+  <data name="prefix_name1" xml:space="preserve">
+    <value>Prefix Name</value>
+  </data>
+  <data name="print" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="print_accruedtype_header" xml:space="preserve">
+    <value>Private Accrued By Type</value>
+  </data>
+  <data name="print_accrued_header" xml:space="preserve">
+    <value>Print Accrued Payment</value>
+  </data>
+  <data name="print_accrued_payment" xml:space="preserve">
+    <value>Print Accrued Payment</value>
+  </data>
+  <data name="print_age_header" xml:space="preserve">
+    <value>Print Age</value>
+  </data>
+  <data name="print_club_header" xml:space="preserve">
+    <value>Print Club</value>
+  </data>
+  <data name="print_dataextraction_header" xml:space="preserve">
+    <value>Data Extraction</value>
+  </data>
+  <data name="print_detail_header" xml:space="preserve">
+    <value>Print Detail</value>
+  </data>
+  <data name="print_history_header" xml:space="preserve">
+    <value>Print History</value>
+  </data>
+  <data name="print_label_header" xml:space="preserve">
+    <value>Print Label</value>
+  </data>
+  <data name="print_member_header" xml:space="preserve">
+    <value>Print Member</value>
+  </data>
+  <data name="print_payment_header" xml:space="preserve">
+    <value>Print Payment</value>
+  </data>
+  <data name="print_summaryaccrue_header" xml:space="preserve">
+    <value>Private Accrued Summary Payment by Type</value>
+  </data>
+  <data name="private_accrued_by_type" xml:space="preserve">
+    <value>Private Accrued By Type</value>
+  </data>
+  <data name="private_accrued_payment" xml:space="preserve">
+    <value>Private Accrued Payment</value>
+  </data>
+  <data name="private_accrued_summary_by_type" xml:space="preserve">
+    <value>Private Accrued Summary By Type</value>
+  </data>
+  <data name="quit_date_from" xml:space="preserve">
+    <value>Quit Date From</value>
+  </data>
+  <data name="quit_date_from1" xml:space="preserve">
+    <value>Quit Date From</value>
+  </data>
+  <data name="register_date" xml:space="preserve">
+    <value>Register Date</value>
+  </data>
+  <data name="register_email" xml:space="preserve">
+    <value>Member Email</value>
+  </data>
+  <data name="register_form" xml:space="preserve">
+    <value>Approve Register Member</value>
+  </data>
+  <data name="register_id" xml:space="preserve">
+    <value>Register No.</value>
+  </data>
+  <data name="register_information" xml:space="preserve">
+    <value>Register Information</value>
+  </data>
+  <data name="register_status" xml:space="preserve">
+    <value>Register Status</value>
+  </data>
+  <data name="remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="remark1" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="report_payment03" xml:space="preserve">
+    <value>Payment Date Form</value>
+  </data>
+  <data name="report_type" xml:space="preserve">
+    <value>Report Type</value>
+  </data>
+  <data name="report_type1" xml:space="preserve">
+    <value>Report Type</value>
+  </data>
+  <data name="representative" xml:space="preserve">
+    <value>Representative</value>
+  </data>
+  <data name="represent_name_eng" xml:space="preserve">
+    <value>Represent Name(Eng)</value>
+  </data>
+  <data name="represent_name_jpn" xml:space="preserve">
+    <value>Represent Name(Jpn)</value>
+  </data>
+  <data name="represent_person" xml:space="preserve">
+    <value>Represent Person</value>
+  </data>
+  <data name="represent_person_id" xml:space="preserve">
+    <value>Represent Person ID</value>
+  </data>
+  <data name="represent_position" xml:space="preserve">
+    <value>Represent Position</value>
+  </data>
+  <data name="retrieve_information" xml:space="preserve">
+    <value>Retrieve Information</value>
+  </data>
+  <data name="retrieve_key" xml:space="preserve">
+    <value>Retrieve Key</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="selection" xml:space="preserve">
+    <value>Selection</value>
+  </data>
+  <data name="selection1" xml:space="preserve">
+    <value>Selection</value>
+  </data>
+  <data name="send_history" xml:space="preserve">
+    <value>Send History</value>
+  </data>
+  <data name="send_method" xml:space="preserve">
+    <value>Send Method</value>
+  </data>
+  <data name="send_method1" xml:space="preserve">
+    <value>Send Method</value>
+  </data>
+  <data name="send_type" xml:space="preserve">
+    <value>Send Type</value>
+  </data>
+  <data name="send_type_st" xml:space="preserve">
+    <value>Send Type</value>
+  </data>
+  <data name="short_from" xml:space="preserve">
+    <value>Short From</value>
+  </data>
+  <data name="short_to" xml:space="preserve">
+    <value>Short To</value>
+  </data>
+  <data name="show_field" xml:space="preserve">
+    <value>Show Field</value>
+  </data>
+  <data name="social_gathering_members" xml:space="preserve">
+    <value>Social gathering members</value>
+  </data>
+  <data name="softball" xml:space="preserve">
+    <value>Softball</value>
+  </data>
+  <data name="sort_board" xml:space="preserve">
+    <value>Sort Board</value>
+  </data>
+  <data name="sort_by" xml:space="preserve">
+    <value>Sort By</value>
+  </data>
+  <data name="sort_lady" xml:space="preserve">
+    <value>Sort Lady</value>
+  </data>
+  <data name="Spassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="special_feature" xml:space="preserve">
+    <value>Special Feature</value>
+  </data>
+  <data name="spouse" xml:space="preserve">
+    <value>Spouse</value>
+  </data>
+  <data name="staff" xml:space="preserve">
+    <value>Staff</value>
+  </data>
+  <data name="subcommittee" xml:space="preserve">
+    <value>Subcommittee</value>
+  </data>
+  <data name="sukusuku" xml:space="preserve">
+    <value>Sukusuku</value>
+  </data>
+  <data name="sukusuku1" xml:space="preserve">
+    <value>Sukusuku</value>
+  </data>
+  <data name="summary_member" xml:space="preserve">
+    <value>Summary Member</value>
+  </data>
+  <data name="supporting_member_companies" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="S_new_password" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="telephone" xml:space="preserve">
+    <value>Telephone</value>
+  </data>
+  <data name="telephone1" xml:space="preserve">
+    <value>Telephone</value>
+  </data>
+  <data name="thai" xml:space="preserve">
+    <value>Thai</value>
+  </data>
+  <data name="thai_main_member" xml:space="preserve">
+    <value>Thai Main Member</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="total_fee" xml:space="preserve">
+    <value>Total Fee</value>
+  </data>
+  <data name="total_fee1" xml:space="preserve">
+    <value>Total Fee</value>
+  </data>
+  <data name="total_month" xml:space="preserve">
+    <value>Total/Month</value>
+  </data>
+  <data name="total_per_month" xml:space="preserve">
+    <value>Total Per Month</value>
+  </data>
+  <data name="to_date" xml:space="preserve">
+    <value>To Date</value>
+  </data>
+  <data name="transmission_type" xml:space="preserve">
+    <value>Transmission type</value>
+  </data>
+  <data name="treasurer" xml:space="preserve">
+    <value>Accounting</value>
+  </data>
+  <data name="update_date" xml:space="preserve">
+    <value>Update Date</value>
+  </data>
+  <data name="view_company_information" xml:space="preserve">
+    <value>View Company Information</value>
+  </data>
+  <data name="view_company_payment" xml:space="preserve">
+    <value>View Company Payment</value>
+  </data>
+  <data name="view_company_statistic" xml:space="preserve">
+    <value>View Company Statistic</value>
+  </data>
+  <data name="view_member_information" xml:space="preserve">
+    <value>View Member Information</value>
+  </data>
+  <data name="view_member_information1" xml:space="preserve">
+    <value>View Member Information</value>
+  </data>
+  <data name="view_member_payment" xml:space="preserve">
+    <value>View Member Payment</value>
+  </data>
+  <data name="view_member_statistic" xml:space="preserve">
+    <value>View Member Statistic</value>
+  </data>
+  <data name="view_type" xml:space="preserve">
+    <value>View Type</value>
+  </data>
+  <data name="yoga" xml:space="preserve">
+    <value>Yoga</value>
+  </data>
+  <data name="youth_circle_members" xml:space="preserve">
+    <value>Youth circle members</value>
+  </data>
+  <data name="zip_code" xml:space="preserve">
+    <value>Zip Code</value>
+  </data>
+</root>

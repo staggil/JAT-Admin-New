@@ -1,0 +1,3 @@
+2021-06-09 15:29:58 sender: "Japanese Association in Thailand"<krichaya@mstt.co.th> to: y.matsuda0918@gmail.com
+subject: Log file test
+content: t

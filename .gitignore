@@ -1,0 +1,4 @@
+
+*.bak
+JAT/obj/Debug/*
+.vs/JAT/*

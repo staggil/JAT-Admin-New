@@ -1,0 +1,392 @@
+﻿<%@ Page Title="reportLabel" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="reportLabel.aspx.cs" Inherits="JAT.PrivateReport.reportLabel" %>
+<%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
+<style>
+    body {
+        font-size: 17px;
+    }
+
+    h3 {
+        font-weight: bold;
+    }
+    .form-control {
+        height: 1.5em;
+        padding: 7px 5px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+        padding-right: 0px
+    }
+
+    .box {
+        display: block;
+        margin: auto;
+        width: 80%;
+        align-self: center;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 20px;
+        box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.1);
+    }
+    .space {
+        margin-left: 20px;
+    }
+    input#datepicker1, input#datepicker2 {
+        width: inherit;
+    }
+</style>
+
+<%--@*PRINTLABEL*@--%>
+<br />
+<div class="">
+    <%--@*<h3>Label</h3>*@--%>
+    <div class="box" style="background-color:lightgray;">
+        <h2><%=Resources.Resources.label %></h2>
+        <form>
+            <br/>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row space">
+                        <div class="form-group col-md-3">
+                            <label for="inputState"><%=Resources.Resources.report_type %></label>
+                            <span style="float:right;">:</span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <asp:DropDownList ID="drplstReportTyp" ClientIDMode="Static" runat="server">
+                                <asp:ListItem Selected Text="Private" Value="Private" />
+                                <asp:ListItem Text="Club" Value="Club" />
+                                <asp:ListItem Text="Change Address" Value="ChangeAddress" />
+                            </asp:DropDownList>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="row space">
+                        <div class="form-group col-md-3">
+                            <label><%=Resources.Resources.change_date_from %></label>
+                            <span style="float:right;">:</span>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <input disabled="disabled" id="datepicker1Input" class="" name="" placeholder="DD/MM/YYYY" style="width:inherit" ClientIDMode="Static" runat="server" value="">
+                            <span class="glyphicon glyphicon-calendar" id="datepicker1"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row space">
+                        <div class="form-group col-md-3">
+                            <label><%=Resources.Resources.to %></label>
+                            <span style="float:right;">:</span>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <input disabled="disabled" id="datepicker2Input" class="" name="" placeholder="DD/MM/YYYY" style="width:inherit" ClientIDMode="Static" runat="server" value="" >
+                            <span class="glyphicon glyphicon-calendar" id="datepicker2"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                    <div class="row space">
+                        <div class="form-group">
+                            <%--<label for="inputState"><%=Resources.Resources.club %></label>--%>
+                            <label for="inputState">Event</label>
+                        </div>
+                        <div >
+                                <asp:RadioButtonList ID="RadioButtonList1" runat="server"  AutoPostBack="true">
+                                    <asp:ListItem Value="english_test" Text="<%$Resources:Resources,english_test%>" Selected></asp:ListItem>
+                                    <asp:ListItem Value="online_event" Text="<%$Resources:Resources,online_event %>"></asp:ListItem>
+                                    <asp:ListItem Value="softball" Text="<%$Resources:Resources,softball %>"></asp:ListItem>
+                                    <asp:ListItem Value="yoga" Text="<%$Resources:Resources,yoga %>"></asp:ListItem>
+                                    <asp:ListItem Value="ev_tmp1" Text=""></asp:ListItem>
+                                    <asp:ListItem Value="ev_tmp2" Text=""></asp:ListItem>
+                                    <asp:ListItem Value="ev_tmp3" Text=""></asp:ListItem>
+                                </asp:RadioButtonList>
+
+                           <%-- <asp:DropDownList ClientIDMode="Static" ID="drplstClub" runat="server">
+                                <asp:ListItem Selected Text="All" Value="" />
+                                <asp:ListItem Text="<%$Resources:Resources,golf %>" Value="Golf" />
+                                <asp:ListItem Text="<%$Resources:Resources,board %>" Value="Board" />
+                                <asp:ListItem Text="<%$Resources:Resources,lady %>" Value="Lady" />
+                                <asp:ListItem Text="<%$Resources:Resources,children %>" Value="Children" />
+                                <asp:ListItem Text="<%$Resources:Resources,sukusuku %>" Value="Zukuzuku" />
+                                <asp:ListItem Text="<%$Resources:Resources,meijinkai %>" Value="Meijinkai" />
+                            </asp:DropDownList>--%>
+
+
+
+                        </div>
+                      </div>
+                    </div>
+                     <div class="col-md-7">
+                        <div class="row space">
+                        <div class="form-group">
+                            <label for="inputState">Subcommittee</label>
+
+                        </div>
+                        <div >
+                              <asp:RadioButtonList ID="RadioButtonList2" runat="server" RepeatColumns="2" AutoPostBack="true">
+                                    <asp:ListItem Value="board" Text="<%$Resources:Resources,board%>"></asp:ListItem>
+                                    <asp:ListItem Value="board_list" Text="<%$Resources:Resources,board_list %>"></asp:ListItem>
+                                    <asp:ListItem Value="golf" Text="<%$Resources:Resources,golf %>"></asp:ListItem>
+                                    <asp:ListItem Value="lady" Text="<%$Resources:Resources,lady %>"></asp:ListItem>
+                                    <asp:ListItem Value="club_secretary" Text="<%$Resources:Resources,club_secretary %>"></asp:ListItem>
+                                    <asp:ListItem Value="bazaar_volunteer" Text="<%$Resources:Resources,bazaar_volunteer %>"></asp:ListItem>
+                                    <asp:ListItem Value="social_gathering_members" Text="<%$Resources:Resources,social_gathering_members %>"></asp:ListItem>
+                                    <asp:ListItem Value="youth_circle_members" Text="<%$Resources:Resources,youth_circle_members %>"></asp:ListItem>
+                                    <asp:ListItem Value="sub_tmp1" Text=""></asp:ListItem>
+                                    <asp:ListItem Value="sub_tmp2" Text=""></asp:ListItem>
+                                </asp:RadioButtonList>
+                        </div>
+                    </div>
+                         </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="row space">
+                         <div class="form-group">
+                            <label for="inputState">Sukusuku</label>
+                        </div>
+                          <div >
+                              <asp:RadioButtonList ID="RadioButtonList3" runat="server" RepeatColumns="2" AutoPostBack="true">
+                                    <asp:ListItem Value="board" Text="<%$Resources:Resources,board%>"></asp:ListItem>
+                                    <asp:ListItem Value="board_list" Text="<%$Resources:Resources,board_list %>"></asp:ListItem>
+                                    <asp:ListItem Value="golf" Text="<%$Resources:Resources,golf %>"></asp:ListItem>
+                                    <asp:ListItem Value="lady" Text="<%$Resources:Resources,lady %>"></asp:ListItem>
+                                    <asp:ListItem Value="club_secretary" Text="<%$Resources:Resources,club_secretary %>"></asp:ListItem>
+                                    <asp:ListItem Value="bazaar_volunteer" Text="<%$Resources:Resources,bazaar_volunteer %>"></asp:ListItem>
+                                    <asp:ListItem Value="social_gathering_members" Text="<%$Resources:Resources,social_gathering_members %>"></asp:ListItem>
+                                    <asp:ListItem Value="youth_circle_members" Text="<%$Resources:Resources,youth_circle_members %>"></asp:ListItem>
+                                    <asp:ListItem Value="sub_tmp1" Text=""></asp:ListItem>
+                                    <asp:ListItem Value="sub_tmp2" Text=""></asp:ListItem>
+                                </asp:RadioButtonList>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="row space">
+                        <div class="form-group col-md-3">
+                            <label><%=Resources.Resources.member_id %></label>
+                            <span style="float:right;">:</span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <asp:TextBox ID="tbmemberid" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="row space">
+                        <div class="form-group col-md-3">
+                            <label><%=Resources.Resources.name %></label>
+                            <span style="float:right;">:</span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <asp:TextBox ID="tbname" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="row space">
+                        <div class="form-group col-md-3">
+                            <label for="inputState"><%=Resources.Resources.name_eng %></label>
+                            <span style="float:right;">:</span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <asp:TextBox ID="tbnameE" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <br/>
+                    <asp:Button ID="view" runat="server" class="btn btn-primary" OnClick="view_Click" Text="View" />
+                    <asp:Button ID="reset" runat="server" class="btn btn-primary" OnClick="reset_Click" Text="Reset" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="text-center">
+        <br/>
+        <asp:Button ID="print" runat="server" class="btn btn-primary" OnClick="print_Click" Text="Print Selection" />
+    </div>
+</div>
+    <%--<asp:datagrid id="DataGrid1" runat="server" CellPadding="4" BackColor="White" AllowPaging="true" OnPageIndexChanged="DataGrid1_PageIndexChanged"
+							BorderWidth="1px" BorderStyle="None" BorderColor="InactiveCaptionText" PageSize="20"
+							 AutoGenerateColumns="False">
+        <FooterStyle ForeColor="Desktop" BackColor="#B5C7DE">
+        </FooterStyle>
+        <SelectedItemStyle Font-Bold="True" ForeColor="#F7F7F7" BackColor="#738A9C">
+        </SelectedItemStyle>
+        <AlternatingItemStyle BackColor="#F7F7F7">
+        </AlternatingItemStyle>
+        <ItemStyle ForeColor="Desktop" BackColor="White">
+        </ItemStyle>
+        <HeaderStyle Font-Bold="True" ForeColor="#F7F7F7" BackColor="Desktop">
+        </HeaderStyle>
+        <Columns>
+            <asp:templatecolumn itemstyle-horizontalalign="center" headertext="">
+                <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White"></HeaderStyle>
+				<ItemStyle HorizontalAlign="center" Width="3%" ></ItemStyle>
+                <itemtemplate>
+                    <asp:CheckBox ID="chkSelect" runat="server"></asp:CheckBox>
+                </itemtemplate>
+            </asp:templatecolumn>
+            <asp:BoundColumn DataField="memberId" HeaderText="MemberId">
+                <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White"></HeaderStyle>
+				<ItemStyle HorizontalAlign="center" ></ItemStyle>
+            </asp:BoundColumn>
+            <asp:BoundColumn DataField="nameJ" HeaderText="Name">
+                <HeaderStyle HorizontalAlign="center" Height="50px" Width="120" BackColor="#24227A" ForeColor="White"></HeaderStyle>
+				<ItemStyle HorizontalAlign="center" ></ItemStyle>
+            </asp:BoundColumn>
+            <asp:BoundColumn DataField="nameEng" HeaderText="Name English">
+                <HeaderStyle HorizontalAlign="center" Height="50px" Width="130" BackColor="#24227A" ForeColor="White"></HeaderStyle>
+				<ItemStyle HorizontalAlign="center" ></ItemStyle>
+            </asp:BoundColumn>
+            <asp:BoundColumn DataField="homeAddress" HeaderText="Home Address">
+                <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White"></HeaderStyle>
+				<ItemStyle HorizontalAlign="center" ></ItemStyle>
+            </asp:BoundColumn>
+            <asp:BoundColumn DataField="companyNm" HeaderText="Company Name">
+                <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White"></HeaderStyle>
+				<ItemStyle HorizontalAlign="center" ></ItemStyle>
+            </asp:BoundColumn>
+            <asp:BoundColumn DataField="companyAddress" HeaderText="Address">
+                <HeaderStyle HorizontalAlign="center" Height="50px" BackColor="#24227A" ForeColor="White"></HeaderStyle>
+				<ItemStyle HorizontalAlign="center" ></ItemStyle>
+            </asp:BoundColumn>
+        </Columns>
+        <PagerStyle HorizontalAlign="Right" ForeColor="#4A3C8C" BackColor="#E7E7FF" CssClass="tbBody" Mode="NumericPages">
+    </PagerStyle>
+	</asp:datagrid>--%>
+
+    <asp:GridView ID="DataGrid1" runat="server" AutoGenerateColumns="false" CssClass="Grid"  AllowPaging="true" OnPageIndexChanging="DataGrid1_PageIndexChanging">
+        <Columns>
+            <asp:TemplateField>
+                <HeaderTemplate>
+                    <asp:CheckBox ID="chkAll" Checked="true" runat="server" onclick = "checkAll(this);" />
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <asp:CheckBox ID="chkSelect" Checked="true" runat="server" />
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:BoundField DataField="memberId" HeaderText="<%$Resources:Resources,member_id%>" />
+            <asp:BoundField DataField="nameJ" HeaderText="<%$Resources:Resources,name%>" />
+            <asp:BoundField DataField="nameEng" HeaderText="Name English" />
+            <asp:BoundField DataField="homeAddress" HeaderText="Home Address" />
+            <asp:BoundField DataField="companyNm" HeaderText="<%$Resources:Resources,company_name%>" />
+            <asp:BoundField DataField="companyAddress" HeaderText="<%$Resources:Resources,address%>" />
+        </Columns>
+        <PagerStyle BackColor="" ForeColor="DarkSlateBlue"
+                HorizontalAlign="Right" />
+    </asp:GridView>
+
+    <rsweb:ReportViewer ID="ReportViewer1" runat="server" BackColor="" ClientIDMode="AutoID" DocumentMapCollapsed="True" HighlightBackgroundColor="" InternalBorderColor="204, 204, 204" InternalBorderStyle="Solid" InternalBorderWidth="1px" LinkActiveColor="" LinkActiveHoverColor="" LinkDisabledColor="" PrimaryButtonBackgroundColor="" PrimaryButtonForegroundColor="" PrimaryButtonHoverBackgroundColor="" PrimaryButtonHoverForegroundColor="" SecondaryButtonBackgroundColor="" SecondaryButtonForegroundColor="" SecondaryButtonHoverBackgroundColor="" SecondaryButtonHoverForegroundColor="" SplitterBackColor="" ToolbarDividerColor="" ToolbarForegroundColor="" ToolbarForegroundDisabledColor="" ToolbarHoverBackgroundColor="" ToolbarHoverForegroundColor="" ToolBarItemBorderColor="" ToolBarItemBorderStyle="Solid" ToolBarItemBorderWidth="1px" ToolBarItemHoverBackColor="" ToolBarItemPressedBorderColor="51, 102, 153" ToolBarItemPressedBorderStyle="Solid" ToolBarItemPressedBorderWidth="1px" ToolBarItemPressedHoverBackColor="153, 187, 226" Width="1000px" Height="800px" ZoomMode="PageWidth">
+            <localreport reportpath="">
+            </localreport>
+            </rsweb:ReportViewer>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+<%--@section scripts{--%>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <%--@* *********** Selection Depentdent*********** *@--%>
+<script>
+    $(document).ready(function () {
+        $("#type").change(function () {
+            var val = $(this).val();
+            if (val == "item1") {
+                $("#size").html("<option value=''>-- Any --</option><option selected value='Z'>Z</option><option value='#'>#</option>");
+            } else if (val == "item2") {
+                $("#size").html("<option value=''>-- Any --</option><option selected value='#'>#</option><option value='Z'>Z</option>");
+            }
+        });
+    });
+</script>
+
+    <script>
+        $(document).ready(function () {
+            $("#drplstReportTyp").change(function () {
+                var val = $(this).val();
+                if (val == "Private") {
+                    $("#datepicker1Input").attr('disabled', 'disabled');
+                    $("#datepicker2Input").attr('disabled', 'disabled');
+                    $("#drplstClub").attr('disabled', 'disabled');
+                    $("#datepicker1Input").val('');
+                    $("#datepicker2Input").val('');
+                } else if (val == "Club") {
+                    $("#datepicker1Input").attr('disabled', 'disabled');
+                    $("#datepicker2Input").attr('disabled', 'disabled'); 
+                    $("#drplstClub").removeAttr('disabled', 'disabled');
+                    $("#datepicker1Input").val('');
+                    $("#datepicker2Input").val('');
+                } else if (val == "ChangeAddress") {
+                    $("#datepicker1Input").removeAttr('disabled', 'disabled');
+                    $("#datepicker2Input").removeAttr('disabled', 'disabled');
+                    $("#drplstClub").attr('disabled', 'disabled');
+                }
+            });
+        });
+    </script>
+
+    <%--@* *********** Datepicker *********** *@--%>
+<script>
+
+    var options = {
+        format: 'dd-M-yyyy',
+        todayHighlight: true,
+        autoclose: true
+    }
+    $(function () {
+        //$("#datepicker1").datepicker(options);
+        //$("#datepicker2").datepicker(options);
+
+        $("#datepicker1Input").click(function () {
+            $('#datepicker1Input').datepicker(options).datepicker("show")
+        });
+
+        $("#datepicker2Input").click(function () {
+            $('#datepicker2Input').datepicker(options).datepicker("show")
+        });
+
+
+    });
+
+</script>
+    <%--@* *********** /Datepicker *********** *@--%>
+<%--}--%>
+<script type = "text/javascript">
+
+    function checkAll(objRef) {
+        var GridView = objRef.parentNode.parentNode.parentNode;
+        var inputList = GridView.getElementsByTagName("input");
+        for (var i = 0; i < inputList.length; i++) {
+            //Get the Cell To find out ColumnIndex
+            var row = inputList[i].parentNode.parentNode;
+            if (inputList[i].type == "checkbox" && objRef != inputList[i]) {
+                if (objRef.checked) {
+                    //If the header checkbox is checked
+                    //check all checkboxes
+                    inputList[i].checked = true;
+                }
+                else {
+                    //If the header checkbox not checked
+                    //uncheck all checkboxes
+                    inputList[i].checked = false;
+                }
+            }
+        }
+    }
+</script>
+
+
+</asp:Content>
