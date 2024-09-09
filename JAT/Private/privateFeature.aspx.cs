@@ -48,7 +48,7 @@ namespace JAT.Private
             string sql = "SELECT nameJ, CONCAT(prefixNm, nameE) " +
                             "FROM PrivateDetail " +
                             "WHERE firstmemberid = '" + showfristMem + "'" + "AND memberid = firstmemberid";
-            //string sqlBrithPlace = "SELECT birthPlace FROM PrivateDetail WHERE memberid = '" + showMem +"'";
+            //string sqlBrithPlace = "SELECT birthPlace FROM PrivateDetail WHERE memberid = '" + companyId +"'";
             try
             {
                 conn.Open();

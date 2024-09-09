@@ -89,6 +89,7 @@
                                 <asp:ListItem Text="Annex" Value="2" />
                                 <asp:ListItem Text="Rec." Value="3" />
                                 <asp:ListItem Text="Transfer" Value="4" />
+                                <asp:ListItem Text="Credit card" Value="5" />
                             </asp:DropDownList>
                         </div>
                     </div>

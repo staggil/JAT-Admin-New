@@ -100,8 +100,16 @@
     </div>
 </div>
 <br />
+
 <br />
 <br />
+
+<!-- 2024-08-22 at 01.43pm : Toon add -->
+<div>
+    
+</div>
+<!-- End add -->
+
 <div style="float: right;">
     <label>Last Editor: </label>
     <asp:Label ID="updateBy" Text="" runat="server" />
@@ -234,7 +242,7 @@
                                 <span style="float:right;">:</span>
                             </div>
                             <div class="form-group col-lg-3">
-                                    <input type="text" id="phone" style="width: 90%;" runat="server" maxlength="20" required>
+                                    <input type="text" id="phone" class="form-control" style="width: 90%;" runat="server" maxlength="20" required>
                             </div>
                         </div>
                     </div>
@@ -249,7 +257,7 @@
                                 <span style="float:right;">:</span>
                             </div>
                             <div class="form-group col-lg-3">
-                                    <input type="text" id="fax" style="width: 90%;" placeholder="xxx-xxx-xxxx" runat="server" maxlength="20">
+                                    <input type="text" id="fax" class="form-control" style="width: 90%;" placeholder="xxx-xxx-xxxx" runat="server" maxlength="20">
                             </div>
                         </div>
                     </div>
@@ -271,6 +279,20 @@
                                 <input type="email" id="email" class="form-control" placeholder="" runat="server" maxlength="40">
                             </div>
                         </div>
+
+                        <%-- 2024-08-21 at 10.20am : Toon add --%>
+                        <div class="row">
+                            <div class="form-group col-lg-6">
+                                <label style="color:red;visibility: hidden;">*</label>
+                                <label><%=Resources.Resources.password %></label>
+                                <span style="float:right;">:</span>
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <input type="password" id="txtPassword" class="form-control" placeholder="" runat="server" maxlength="40">
+                            </div>
+                        </div>
+                        <%-- End add --%>
+
                     </div>
                     <div class="col-lg-6">
                         <div class="row">
@@ -279,11 +301,11 @@
                                 <label><%=Resources.Resources.established_date %></label>
                                 <span style="float:right;">:</span>
                             </div>
-                            <div class="form-group col-lg-6">
+                            <div class="form-group col-lg-6 ">
                                 <%--<input type="text" id="datepicker2Input" autocomplete="off" class="" placeholder="dd/MM/yyyy">--%>
                                 <%--<asp:TextBox ID="establishedDate" runat="server"></asp:TextBox>--%>
                                 <%--<asp:TextBox ID="establishedDate" runat="server" Width="50%" ReadOnly = "true" ></asp:TextBox>--%>
-                                <input  type="text" id="establishedDate" style="width: inherit;" autocomplete="off" placeholder="dd/mm/yyyy" runat="server" required>
+                                <input type="text" id="establishedDate" style="width: inherit;" autocomplete="off" placeholder="dd/mm/yyyy" runat="server" required>
                                 <span id="datepicker2" class="glyphicon glyphicon-calendar"></span>
                             </div>
                         </div>
@@ -298,7 +320,7 @@
                                 <span style="float:right;">:</span>
                             </div>
                             <div class="form-group col-lg-3">
-                                <select id="sendType" runat="server" required>
+                                <select id="sendType" class="form-control" style="height:fit-content;" runat="server" required>
                                     <option value="">-- Any --</option>
                                     <option selected value="Z">Z</option>
                                     <option value="#">#</option>
@@ -314,7 +336,7 @@
                                 <span style="float:right;">:</span>
                             </div>
                             <div class="form-group col-lg-3">
-                                <select id="memberStatus" runat="server" required>
+                                <select id="memberStatus" class="form-control" style="height:fit-content;" runat="server" required>
                                     <option value="A">A</option>
                                     <option value="NA">NA</option>
                                 </select>
@@ -335,7 +357,7 @@
                                 <input type="text" id="represID" class="form-control" runat="server" maxlength="10">
                             </div>
                             <div class="form-group col-lg-2">
-                                <asp:Button ID="Retrieve" Height="25px" runat="server" OnClick="Retrieve_Click" Text="Retrieve" formnovalidate/>
+                                <asp:Button ID="Retrieve" Height="25px" runat="server" CssClass="form-control btn btn-success" OnClick="Retrieve_Click" Text="Retrieve" formnovalidate/>
                             </div>
                         </div>
                     </div>
@@ -471,7 +493,7 @@
                                 <span style="float:right;">:</span>
                             </div>
                             <div class="col-md-4 form-group">
-                                <input  type="text" id="personinchargeTp" class="form-control" runat="server" maxlength="50"/>
+                                <input type="text" id="personinchargeTp" class="form-control" runat="server" maxlength="50"/>
                                 <%--<asp:TextBox ID="personinchargeTp" runat="server"></asp:TextBox>--%>
                             </div>
                         </div>
@@ -669,7 +691,8 @@
                 <div class="form-group">
                     <div class="text-center">
                         <asp:Button ID="Button1" class="btn btn-primary" OnClick="Button1_Click" runat="server" Text="Save" />
-                        <asp:Button ID="update" class="btn btn-primary" OnClick="update_Click" runat="server" Text="Update" />                        
+                        <asp:Button ID="update" class="btn btn-primary" OnClick="update_Click" runat="server" Text="Update" /> 
+                        <%--<input type="button" ID="update" class="btn btn-primary" OnClick="update_Click" value="Update"  />--%> 
                         <asp:Button ID="cancel" class="btn btn-primary" OnClick="cancel_Click" runat="server" Text="Cancel" UseSubmitBehavior="false" />
                     </div>
                 </div>

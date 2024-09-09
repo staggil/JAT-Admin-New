@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Publish\WEB\JAT ADMIN</_PublishTargetUrl>
-    <History>True|2024-03-19T02:39:27.8046037Z;True|2024-01-19T15:38:36.3639183+07:00;False|2024-01-19T15:18:14.3636590+07:00;False|2024-01-19T15:17:27.9236326+07:00;False|2024-01-19T15:16:30.2258560+07:00;</History>
+    <History>False|2024-08-23T07:57:48.2607013Z||;True|2024-03-19T09:39:27.8046037+07:00||;True|2024-01-19T15:38:36.3639183+07:00||;False|2024-01-19T15:18:14.3636590+07:00||;False|2024-01-19T15:17:27.9236326+07:00||;False|2024-01-19T15:16:30.2258560+07:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -67,19 +67,25 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="Admin/RegisterMember/regApprove.aspx">
-      <publishTime>02/15/2024 11:58:03</publishTime>
+      <publishTime>03/26/2024 16:13:53</publishTime>
     </File>
     <File Include="Admin/RegisterMember/regCheck.aspx">
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="Admin/RegisterMember/regEntryCheck.aspx">
-      <publishTime>02/15/2024 11:58:03</publishTime>
+      <publishTime>04/05/2024 15:47:09</publishTime>
     </File>
     <File Include="Admin/RegisterMember/regFamilyCheck.aspx">
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="Admin/RegisterMember/regKidCheck.aspx">
       <publishTime>02/15/2024 11:58:03</publishTime>
+    </File>
+    <File Include="App_GlobalResources/Resources.ja-JP.resx">
+      <publishTime>08/21/2024 10:06:32</publishTime>
+    </File>
+    <File Include="App_GlobalResources/Resources.resx">
+      <publishTime>08/21/2024 10:06:32</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -154,10 +160,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="bin/EnvDTE.dll">
-      <publishTime>01/11/2024 11:02:28</publishTime>
+      <publishTime>05/06/2021 15:41:24</publishTime>
     </File>
     <File Include="bin/EnvDTE80.dll">
-      <publishTime>01/11/2024 11:02:28</publishTime>
+      <publishTime>05/06/2021 15:41:24</publishTime>
     </File>
     <File Include="bin/es/Microsoft.ReportViewer.Common.resources.dll">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -235,10 +241,19 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="bin/JAT.dll">
-      <publishTime>03/19/2024 09:37:59</publishTime>
+      <publishTime>08/23/2024 14:58:33</publishTime>
     </File>
     <File Include="bin/JAT.pdb">
-      <publishTime>03/19/2024 09:37:59</publishTime>
+      <publishTime>08/23/2024 14:58:33</publishTime>
+    </File>
+    <File Include="bin/JATMEMBER.dll">
+      <publishTime>08/23/2024 13:47:11</publishTime>
+    </File>
+    <File Include="bin/JATMEMBER.dll.config">
+      <publishTime>08/21/2024 13:17:55</publishTime>
+    </File>
+    <File Include="bin/JATMEMBER.pdb">
+      <publishTime>08/23/2024 13:47:11</publishTime>
     </File>
     <File Include="bin/ko/Microsoft.ReportViewer.Common.resources.dll">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -538,13 +553,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="bin/stdole.dll">
-      <publishTime>02/01/2002 19:02:02</publishTime>
+      <publishTime>05/06/2021 15:41:24</publishTime>
     </File>
     <File Include="bin/System.Web.Optimization.dll">
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
+    <File Include="bin/VSLangProj.dll">
+      <publishTime>05/06/2021 15:41:24</publishTime>
+    </File>
     <File Include="bin/VsWebSite.Interop.dll">
-      <publishTime>03/02/2015 02:55:24</publishTime>
+      <publishTime>03/02/2015 10:55:24</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -589,7 +607,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="Company/companyEntry.aspx">
-      <publishTime>02/15/2024 11:58:03</publishTime>
+      <publishTime>08/23/2024 13:01:37</publishTime>
     </File>
     <File Include="Company/companyEntry.aspx.cs~RF39a14ac.TMP">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -703,6 +721,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.woff2">
+      <publishTime>02/15/2024 11:58:03</publishTime>
+    </File>
+    <File Include="Global.asax">
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="images/addnew.png">
@@ -928,7 +949,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="Private/privateEntry.aspx">
-      <publishTime>02/15/2024 11:58:03</publishTime>
+      <publishTime>08/21/2024 10:06:59</publishTime>
     </File>
     <File Include="Private/privateEntryKid.aspx">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -1045,7 +1066,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="PrivateReport/reportPayment.aspx">
-      <publishTime>02/15/2024 11:58:03</publishTime>
+      <publishTime>07/26/2024 10:47:59</publishTime>
     </File>
     <File Include="PrivateReport/reportPrivateAge.aspx">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -1189,7 +1210,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>03/19/2024 09:38:01</publishTime>
+      <publishTime>08/23/2024 14:58:33</publishTime>
     </File>
   </ItemGroup>
 </Project>

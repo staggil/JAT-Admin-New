@@ -89,7 +89,7 @@ namespace JAT.Maintenance
             {
                 branch = "2";
             }
-            //cmd = new SqlCommand("UPDATE SStaff SET staffFName = '" + name + "'  WHERE staffID = '" + showMem + "'", conn);
+            //cmd = new SqlCommand("UPDATE SStaff SET staffFName = '" + name + "'  WHERE staffID = '" + companyId + "'", conn);
             cmd = new SqlCommand("UPDATE SStaff SET staffFName = '" + name + "'," +
                                 "staffEmail = '" + staffEmail.Value + "'," +
                                 "staffBranch= '" + branch + "',staffName ='" + staffName.Value + "',authority ='" + rdbAuthority.SelectedValue.ToString() + "'" +

@@ -389,7 +389,7 @@ namespace JAT.Private
                             "FROM PrivateDetail t1 " +
                             "INNER JOIN privateAddress t2 ON t1.firstmemberid = t2.memberid " +
                             "WHERE t1.memberid = '" + showfristMem + "'" + "AND t2.addressType = '2'";
-            //string sqlBrithPlace = "SELECT birthPlace FROM PrivateDetail WHERE memberid = '" + showMem +"'";
+            //string sqlBrithPlace = "SELECT birthPlace FROM PrivateDetail WHERE memberid = '" + companyId +"'";
             try
             {
                 conn.Open();
@@ -587,6 +587,8 @@ namespace JAT.Private
             //                    "FROM PrivatePayment t1 " +
             //                    "INNER JOIN PrivateDetail t2 ON t1.memberid = t2.memberid INNER JOIN PrivateAccount t3 ON t2.memberid = t3.accId " +
             //                    "WHERE t2.firstmemberid = " + "'" + showfristMem + "'");
+
+            // *** 2024-09-06 02.55pm : Toon Jiradech.K have revised code
             td = SelectSqlTable("select t1.tranId, t1.payBy, t2.nameE, FORMAT(t1.paymentDate, 'dd/MM/yyyy') AS paymentDate, " +
                                 "FORMAT(t1.effectiveDate, 'dd/MM/yyyy') AS effectiveDate, FORMAT(t1.expireDate, 'dd/MM/yyyy') AS expireDate, " +
                                 "t1.payMethod, t3.accno, t3.bankcode, t1.receiptNo, t1.payNoMember, t1.entranceFee, " +
@@ -597,8 +599,10 @@ namespace JAT.Private
                                 "left outer join privatePayAccount ppa on ppa.tranId = t1.tranId " +
                                 "left outer join privateAccount t3 on t3.memberid = t1.memberid and t3.accId = ppa.accId " +
                                 "WHERE t2.firstmemberid = " + "'" + showfristMem + "' " +
+                                "AND t1.Deleted_at IS NULL " +
                                 //"ORDER BY t1.paymentDate DESC, t1.expireDate DESC, t1.receiptNo");
                                 "ORDER BY t1.expireDate DESC, t1.receiptNo");
+            // *** End Of Ryvised
             //GridView1.Columns[0].Visible = false;
             GridView1.DataSource = td;
             //ImageButton1.Visible = true;
@@ -846,28 +850,42 @@ namespace JAT.Private
                 if (confirmValue == "Yes")
                 {
                     connection();
-                    cmd = new SqlCommand("DELETE FROM PrivatePayment WHERE tranId = '" + tranId + "'", conn);
+
+                    // *** 2024-09-06 10.22am : Toon Jiradech.k have changed code from hard deleting to soft deleting
+                    #region 'Hard Deleting'
+                    //cmd = new SqlCommand("DELETE FROM PrivatePayment WHERE tranId = '" + tranId + "'", conn);
+                    #endregion
+
+                    #region 'Soft Deleting'
+                    cmd = new SqlCommand($"UPDATE PrivatePayment SET Deleted_at = GETDATE() " +
+                                         $"WHERE tranId = '{tranId}'", conn);
+                    #endregion
+                    // *** End of revise
+
                     conn.Open();
-                    
                     try
                     {
 						cmd.ExecuteNonQuery();
-						string activityDetail = $"Deleted data in a table 'PrivatePayment' where tranId is '{tranId}' successful (user id = {staffID})";
+						string activityDetail = $"Soft deleted data in a table 'PrivatePayment' where tranId is '{tranId}' successful (user id = {staffID})";
 						logActivity.LogStaffActivity(staffID, activityDetail);
 					}
                     catch (SqlException ex)
                     {
-						string activityDetail = $"Deleted data in a table 'PrivatePayment' where tranId is '{tranId}' unsuccessful [{ex.Message}] (user id = {staffID})";
-						logActivity.LogStaffActivity(staffID, activityDetail);
-					}
+                        //string activityDetail = $"Soft deleted data in a table 'PrivatePayment' where tranId is '{tranId}' unsuccessful [{ex.Message}] (user id = {staffID})";
+                        logActivity.LogStaffActivity(staffID, $"ERROR at {ex.LineNumber} {ex.StackTrace} " +
+                                                              $"{ex.Message}");
+                    }
 					catch (Exception ex)
 					{
-						string activityDetail = $"Deleted data in a table 'PrivatePayment' where tranId is '{tranId}' unsuccessful [{ex.Message}] (user id = {staffID})";
-						logActivity.LogStaffActivity(staffID, activityDetail);
-					}
+                        //string activityDetail = $"Soft deleted data in a table 'PrivatePayment' where tranId is '{tranId}' unsuccessful [{ex.Message}] (user id = {staffID})";
+                        logActivity.LogStaffActivity(staffID, $"ERROR at {ex.StackTrace} {ex.Message}");
+                    }
 
 					conn.Close();
-                    Page.Response.Redirect(Page.Request.Url.ToString(), true);
+                    // *** 2024-09-06 02.53pm : Too Jiradech.K have revised code 
+                    //Page.Response.Redirect(Page.Request.Url.ToString(), true);
+                    this.showInGrid();
+                    // *** End of Revised
                 }
             }
             else if (e.CommandName == "edit")

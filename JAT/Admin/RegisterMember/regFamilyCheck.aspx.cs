@@ -780,21 +780,31 @@ namespace JAT.Admin.RegisterMember
             //                    "WHERE memberid = " + "'" + row.Cells[0].Text + "'");
             try
             {
-				td = SelectSqlTable("DELETE FROM RegisterFamMem " +
-									"WHERE run_num = " + "'" + row.Cells[0].Text + "'" + "AND register_id = " + "'" + reg_id + "'");
-                string activityDetail = $"Deleted data in a table 'RegisterFamMem' where run_num is '{row.Cells[0].Text}' and register_id is '{reg_id}' successful (User id = '{reg_id}')";
+                // *** 2024-09-06 02.17pm : Toon Jiradech.K Toon Jiradech.k have changed code from hard deleting to soft deleting
+                #region 'Hard Deleting'
+                //       td = SelectSqlTable("DELETE FROM RegisterFamMem " +
+                //"WHERE run_num = " + "'" + row.Cells[0].Text + "'" + "AND register_id = " + "'" + reg_id + "'");
+                #endregion
+
+                #region 'Soft Deleting'
+                td = SelectSqlTable($"UPDATE RegisterFamMem SET Deleted_at = GETDATE() " +
+                                    $"WHERE run_num = '{row.Cells[0].Text}' AND register_id = '{reg_id}'");
+                #endregion
+                // *** End of Revised
+                string activityDetail = $"Soft deleted data in a table 'RegisterFamMem' where run_num is '{row.Cells[0].Text}' and register_id is '{reg_id}' successful (User id = '{reg_id}')";
                 logActivity.LogStaffActivity(staffID, activityDetail);
 			}
 			catch (SqlException ex)
             {
-				string activityDetail = $"Deleted data in a table 'RegisterFamMem' where run_num is '{row.Cells[0].Text}' and register_id is '{reg_id}' unsuccessful [{ex.Message}] (User id = '{reg_id}')";
-				logActivity.LogStaffActivity(staffID, activityDetail);
+				//string activityDetail = $"Deleted data in a table 'RegisterFamMem' where run_num is '{row.Cells[0].Text}' and register_id is '{reg_id}' unsuccessful [{ex.Message}] (User id = '{reg_id}')";
+				logActivity.LogStaffActivity(staffID, $"ERROR at {ex.LineNumber} {ex.StackTrace} " +
+                    $"{ex.Message}");
 			}
 			catch (Exception ex)
 			{
-				string activityDetail = $"Deleted data in a table 'RegisterFamMem' where run_num is '{row.Cells[0].Text}' and register_id is '{reg_id}' unsuccessful [{ex.Message}] (User id = '{reg_id}')";
-				logActivity.LogStaffActivity(staffID, activityDetail);
-			}
+                //string activityDetail = $"Deleted data in a table 'RegisterFamMem' where run_num is '{row.Cells[0].Text}' and register_id is '{reg_id}' unsuccessful [{ex.Message}] (User id = '{reg_id}')";
+                logActivity.LogStaffActivity(staffID, $"ERROR at {ex.StackTrace} {ex.Message}");
+            }
 
 			Response.Redirect("regFamilyCheck.aspx?registerid=" + reg_id);
 

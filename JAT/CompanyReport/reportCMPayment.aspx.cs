@@ -119,16 +119,17 @@ namespace JAT.CompanyReport
 					string activityDetail = $"Deleted data in a table companyReport where staffid is '{v}' successful (user name = '{staffID}')";
 					logActivity.LogStaffActivity(staffID, activityDetail);
 				}
-                catch (SqlException sqlex)
+                catch (SqlException ex)
                 {
-					string activityDetail = $"Deleted data in a table companyReport where staffid is '{v}' unsuccessful [{sqlex.Message}] (user name = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
-				}
+                    //string activityDetail = $"Deleted data in a table companyReport where staffid is '{v}' unsuccessful [{sqlex.Message}] (user name = '{staffID}')";
+                    logActivity.LogStaffActivity(staffID, $"ERROR at {ex.LineNumber} {ex.StackTrace} " +
+                                                          $"{ex.Message}");
+                }
 				catch (Exception ex)
 				{
-					string activityDetail = $"Deleted data in a table companyReport where staffid is '{v}' unsuccessful [{ex.Message}] (user name = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
-				}
+                    //string activityDetail = $"Deleted data in a table companyReport where staffid is '{v}' unsuccessful [{ex.Message}] (user name = '{staffID}')";
+                    logActivity.LogStaffActivity(staffID, $"ERROR at {ex.StackTrace} {ex.Message}");
+                }
 
                 //connection();
                 //cmd = new SqlCommand("DELETE FROM companyReport WHERE staffid = 1", conn);

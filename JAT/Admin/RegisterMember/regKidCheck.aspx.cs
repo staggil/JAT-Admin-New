@@ -495,21 +495,32 @@ namespace JAT.Admin.RegisterMember
             
 			try
 			{
-				td = SelectSqlTable("DELETE FROM RegisterChildMem  " +
-						 "WHERE run_num = " + "'" + row.Cells[0].Text + "'");
-				string activityDetail = $"Deleted data in a table 'RegisterChildMem' where run_num is '{row.Cells[0].Text}' successful (User id = '{staffID}')";
+                // *** 2024-09-06 02.10pm : Toon Jiradech.K Toon Jiradech.k have changed code from hard deleting to soft deleting
+                #region 'Hard Deleting'
+                // td = SelectSqlTable("DELETE FROM RegisterChildMem  " +
+                //"WHERE run_num = " + "'" + row.Cells[0].Text + "'");
+                #endregion
+
+                #region 'Soft Deleting'
+                td = SelectSqlTable($"UPDATE RegisterChildMem SET Deleted_at = GETDATE() " +
+                                    $"WHERE run_num = '{row.Cells[0].Text}'");
+                #endregion
+                // *** End of Revised
+
+                string activityDetail = $"Soft deleted data in a table 'RegisterChildMem' where run_num is '{row.Cells[0].Text}' successful (User id = '{staffID}')";
 				logActivity.LogStaffActivity(staffID, activityDetail);
 			}
 			catch (SqlException ex)
 			{
-				string activityDetail = $"Deleted data in a table 'RegisterChildMem' where run_num is '{row.Cells[0].Text}' unsuccessful [{ex.Message}] (User id = '{staffID}')";
-				logActivity.LogStaffActivity(staffID, activityDetail);
-			}
+                //string activityDetail = $"Soft deleted data in a table 'RegisterChildMem' where run_num is '{row.Cells[0].Text}' unsuccessful [{ex.Message}] (User id = '{staffID}')";
+                logActivity.LogStaffActivity(staffID, $"ERROR at {ex.LineNumber} {ex.StackTrace} " +
+                    $"{ex.Message}");
+            }
 			catch (Exception ex)
 			{
-				string activityDetail = $"Deleted data in a table 'RegisterChildMem' where run_num is '{row.Cells[0].Text}' unsuccessful [{ex.Message}] (User id = '{staffID}')";
-				logActivity.LogStaffActivity(staffID, activityDetail);
-			}
+                //string activityDetail = $"Soft deleted data in a table 'RegisterChildMem' where run_num is '{row.Cells[0].Text}' unsuccessful [{ex.Message}] (User id = '{staffID}')";
+                logActivity.LogStaffActivity(staffID, $"ERROR at {ex.StackTrace} {ex.Message}");
+            }
 
 			Response.Redirect("regKidCheck.aspx?registerid=" + reg_id, false);
 

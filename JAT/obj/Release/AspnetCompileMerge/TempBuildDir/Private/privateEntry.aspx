@@ -755,7 +755,7 @@
                         <div class="text-center">
                             <%--<asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>--%>
                             <asp:Button ID="saveBtn" runat="server" Text="Save" type="submit" class="btn btn-primary" Style="text-align: center;" OnClientClick="ConfirmSave()" OnClick="saveBtn_Click" />
-                            <asp:Button ID="updateBtn" runat="server" Text="Update" type="submit" class="btn btn-primary" Style="text-align: center;" CausesValidation="false" OnClientClick="ConfirmEdit()" OnClick="updateBtn_Click" />
+                            <asp:Button ID="updateBtn" ClientIDMode="Static" runat="server" Text="Update" type="submit" class="btn btn-primary" Style="text-align: center;" CausesValidation="false" OnClientClick="ConfirmEdit()" OnClick="updateBtn_Click" />
                             <asp:Button ID="cancelBtn" runat="server" Text="Cancel" type="submit" class="btn btn-primary" CausesValidation="false" OnClick="cancelBtn_Click" UseSubmitBehavior="false" />
                             <asp:Button ID="cancelBtnMem" runat="server" Text="Cancel" type="submit" class="btn btn-primary" CausesValidation="false" OnClick="cancelBtnMem_Click" UseSubmitBehavior="false" />
                             <%--@*<button lang="jpn" id="saveBtnJP" type="submit" class="btn btn-primary">追加</button>*@--%>

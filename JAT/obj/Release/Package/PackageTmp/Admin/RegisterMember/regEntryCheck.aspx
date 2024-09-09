@@ -133,7 +133,7 @@
             </button>
             <button class="tablinks">
                <%-- <asp:LinkButton ID="cancelTab" Text="✔" runat="server" OnClientClick="ConfirmApprove()" OnClick="Approve_Click"></asp:LinkButton>--%>
-                <asp:LinkButton ID="cancelTab" Text="✔" runat="server"  OnClick="Approve_Click"></asp:LinkButton>
+                <asp:LinkButton  ID="cancelTab" Text="✔" runat="server"  OnClick="Approve_Click"></asp:LinkButton>
             </button>
             <button class="tablinks">
                 <asp:LinkButton ID="specialTab" Text="✘" runat="server" OnClientClick="ConfirmReject()" OnClick="Reject_Click"></asp:LinkButton>
@@ -198,7 +198,7 @@
                                         <span style="float: right;">:</span>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="text" maxlength="10" id="Box2" runat="server" placeholder="" autocomplete="off" style="width: 220px" pattern="[0-9]{0,10}" title="number only">
+                                        <input type="text" maxlength="10" id="Box2" runat="server" placeholder="" autocomplete="off" style="width: 220px" >
                                         <br/>                                
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Id can't be empty." ControlToValidate="Box2" ForeColor="Red" Enabled="True"></asp:RequiredFieldValidator>
                                         <br/>                                

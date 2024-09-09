@@ -63,7 +63,7 @@ namespace JAT.Private
 
             showfristMem = Request.QueryString["firstmemberid"];
             showMem = Request.QueryString["memberid"];
-            //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Record Inserted Successfully" + showMem + "'" + ")", true);
+            //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Record Inserted Successfully" + companyId + "'" + ")", true);
 
             addValue = Request.QueryString["mode"];
 
@@ -421,7 +421,7 @@ namespace JAT.Private
             //                "FROM PrivateDetail t1 " +
             //                "INNER JOIN Private t2 ON t1.memberid = t2.memberid INNER JOIN privateAddress t3 ON t1.memberid = t3.memberid INNER JOIN PrivateBoard t5 ON t1.firstmemberid = t5.memberId INNER JOIN SStaff ss ON t1.updatedBy = ss.staffID " +
             //                "WHERE t1.memberid = '" + showfristMem + "'" + "AND t3.addressType = '2'" + "AND t1.memberid = t1.firstmemberid ";
-            //string sqlBrithPlace = "SELECT birthPlace FROM PrivateDetail WHERE memberid = '" + showMem +"'";
+            //string sqlBrithPlace = "SELECT birthPlace FROM PrivateDetail WHERE memberid = '" + companyId +"'";
             string sql = "select p.memberid, p.checkmember, p.checkCompanyNm, p.checkCompanyAddress, " +
                 "p.checkCompanyPhone, p.checkCompanyFax, p.checkHomeAddress, p.checkHomePhone, " +
                 "p.checkHomeMobile, p.sendType, p.birthPlace, p.email, p.changeAddressDate, " +
@@ -1017,10 +1017,20 @@ namespace JAT.Private
                 {
                     //update_01JUL2022
                     DataTable old_cancel_Date = SelectSqlTable(string.Format("SELECT cancelledDate FROM PrivateDetail WHERE memberid = '" + showfristMem + "'"));
-
                     if (old_cancel_Date.Rows.Count > 0)
                     {
-                        cancelDate = "'" + cancelDateTmp.ToString() + "'";
+                        // *** 2024-08-26 at 04.48pm : Toon Jiradech.K revised the below code to fix the bug.
+                        // *** Because the app has taken today's value to update it to the value of a canceled date.
+
+                        #region "Bug cause."
+                        cancelDate = "'" + cancelDateTmp.ToString() + "'";               // *** Bug cause.
+                        #endregion
+
+                        #region "Fixed"
+                        var _oldCancelDate = old_cancel_Date.Rows[0]["cancelledDate"].ToString();           // *** Fixed it.
+                        cancelDate = DateTime.Parse(_oldCancelDate).ToString("dd/MM/yyyy HH:mm:ss.fff");    // *** Fixed it.
+                        #endregion
+                        // *** End of revised ***
                     }
 
                     //var canceldatearray = cancelDateTmp.Split('/');
@@ -1143,36 +1153,155 @@ namespace JAT.Private
                     {
                         try
                         {
-							td = SelectSqlTable("SET dateformat dmy " +
-																			"UPDATE Private " +
-																			"SET changeAddressDate = GETDATE() " +
-																			"WHERE memberid =" + "'" + showfristMem + "'" + " and (not exists (select * from privateAddress where address = N'" + comAddinput + "' and phone = '" + comPhoneinput + "' and fax = '" + comFaxinput + "' and companyNm = N'" + comNminput + "' and addressType = '2') or " +
-																			"not exists (select * from privateAddress where address = N'" + Addinput + "' and phone = '" + Phoneinput + "' and mobile = '" + Mobileinput + "' and addressType = '1'))" +
-																			"UPDATE Private " +
-																			"SET birthplace = " + "N'" + birthPlaceinput + "'" + "," + "checkmember = " + "' '" + "," + "checkMainName = " + "' '" + "," + "checkBirthPlace = " + "' '" + "," + "checkCompanyNm = " + "' '" + "," + "checkCompanyAddress = " + "' '" + "," + "checkCompanyPhone = " + "' '" + "," + "checkCompanyFax = " + "' '" + "," + "checkHomeAddress = " + "' '" + "," + "checkHomePhone = " + "' '" + "," + "checkHomeMobile = " + "' '" + "," + "getSplitPayment = " + "'" + chkPayment + "'" + "," + "zip_code = " + "'" + zipcode + "'" + "," + "email = " + "'" + emailVal + "'" + updateSendMethod +
-																			"WHERE memberid =" + "'" + showfristMem + "'" +
-																			"UPDATE PrivateDetail " +
-																			"SET nameJ = " + "N'" + nameJinput + "'" + "," + "nameE = " + "'" + nameEinput + "'" + "," + "prefixNm = " + "'" + preFixCho + "'" + "," + "cancelledDate = " + cancelDate + "," + "memberStatus = " + "'" + memStaCho + "'" + "," + "birthDate = " + "'" + birthDateinput + "'" + "," + "memberType = " + "'" + memTypeCho + "'" + "," + "appliedDate = " + "'" + AppliedInput + "'" + "," + "updatedBy = " + "'" + updateuid + "'" + updateNAToA +// chkEngtest + "'" + "," + "'" + chkOnevent + "'" + "," + "'" + chkSoftball + "'" + "," + "'" + chkYoga + "'" + "," + "'" + chkValue1 + "'" + "," + "'" + chkValue2 + "'" + "," + "'" + chkValue3 + "'" + "," + "'" + chkBoardlist + "'" + "," + "'" + chkClubSecre + "'" + "," + "'" + chkBaVolun + "'" + "," + "'" + chkSocialMem + "'" + "," + "'" + chkYouthMem + "'" + "," + "'" + chkValue4 + "'" + "," + "'" + chkValue5 + "'" + "," + "'" + chkOverseasMem + "'" + ")");
-																																																																																																																																//"SET nameJ = " + "N'" + nameJinput + "'" + "," + "nameE = " + "'" + nameEinput + "'" + "," + "prefixNm = " + "'" + preFixCho + "'" + "," + "cancelledDate = " + cancelDate + "," + "memberStatus = " + "'" + memStaCho + "'" + "," + "birthDate = " + "'" + birthDateinput + "'" + "," + "memberType = " + "'" + memTypeCho + "'" + "," + "appliedDate = " + "'" + AppliedInput + "'" + "," + "updatedBy = " + "'" + updateuid + "'" +// chkEngtest + "'" + "," + "'" + chkOnevent + "'" + "," + "'" + chkSoftball + "'" + "," + "'" + chkYoga + "'" + "," + "'" + chkValue1 + "'" + "," + "'" + chkValue2 + "'" + "," + "'" + chkValue3 + "'" + "," + "'" + chkBoardlist + "'" + "," + "'" + chkClubSecre + "'" + "," + "'" + chkBaVolun + "'" + "," + "'" + chkSocialMem + "'" + "," + "'" + chkYouthMem + "'" + "," + "'" + chkValue4 + "'" + "," + "'" + chkValue5 + "'" + "," + "'" + chkOverseasMem + "'" + ")");
-																			"WHERE memberid =" + "'" + showfristMem + "'" +
-																			"UPDATE privateAddress " +
-																			"SET address = " + "N'" + comAddinput + "'" + "," + "phone = " + "'" + comPhoneinput + "'" + "," + "fax = " + "'" + comFaxinput + "'" + "," + "companyNm = " + "N'" + comNminput + "'" +
-																			"WHERE memberid =" + "'" + showfristMem + "'" + "AND addressType = '2'" +
-																			"UPDATE privateAddress " +
-																			"SET address = " + "N'" + Addinput + "'" + "," + "phone = " + "'" + Phoneinput + "'" + "," + "mobile = " + "'" + Mobileinput + "'" +
-																			"WHERE memberid =" + "'" + showfristMem + "'" + "AND addressType = '1'" +
-																			"UPDATE PrivateClub " +
-																			"SET golf = " + "'" + chkGolf + "'" + "," + "children = " + "'" + chkChild + "'" + "," + "board = " + "'" + chkBoard + "'" + "," + "zukuzuku = " + "'" + chkSukuzuku + "'" + "," + "lady = " + "'" + chkLady + "'" + "," + "ev_1 = " + "'" + chkEngtest + "'" + "," + "ev_2 = " + "'" + chkOnevent + "'" + "," + "ev_3 = " + "'" + chkSoftball + "'" + "," + "ev_4 = " + "'" + chkYoga + "'" + "," + "ev_tmp1 = " + "'" + chkValue1 + "'" + "," + "ev_tmp2 = " + "'" + chkValue2 + "'" + "," + "ev_tmp3 = " + "'" + chkValue3 + "'" + "," + "sub_board_list = " + "'" + chkBoardlist + "'" + "," + "sub_secretary = " + "'" + chkClubSecre + "'" + "," + "sub_volunteer = " + "'" + chkBaVolun + "'" + "," + "sub_social = " + "'" + chkSocialMem + "'" + "," + "sub_member = " + "'" + chkYouthMem + "'" + "," + "sub_tmp1 = " + "'" + chkValue4 + "'" + "," + "sub_tmp2 = " + "'" + chkValue5 + "'" + "," + "ov_member = " + "'" + chkOverseasMem + "'" +
-																			"WHERE memberid =" + "'" + showfristMem + "'" +
-																			"IF NOT EXISTS (SELECT * FROM PrivateRemark WHERE memberid = '" + showfristMem + "') BEGIN INSERT INTO PrivateRemark VALUES('" + showfristMem + "','') END " +
-																			"UPDATE PrivateRemark " +
-																			"SET remark = " + "N'" + remarkInput + "'" +
-																			"WHERE memberid =" + "'" + showfristMem + "'" +
-																			"UPDATE PrivateBoard " +
-																			"SET sortBoard = " + "'" + sortBoardinput + "'" + "," + "sortLady = " + "'" + sortLadyinput + "'" + "," + "boardPosition = " + "'" + positioninput + "'" +
-																			"WHERE memberid =" + "'" + showfristMem + "'" +
-																			insertToHistory);
-							string activityDetail = $"Changed data in 6 tables ('Private, PrivateDetail, " +
+                            // *** 2024-08-27 at 02.49pm :
+                            //     Toon Jiradech.K have revised the sql transaction statement from string
+                            //     concatenate to string interpolate. Because, It's easier to read and
+                            //     debugging the code.
+
+                            // *** The original code from 2022. It's too difficult to read and debugging. ****
+                            #region "The original code from 2022"
+                            //td = SelectSqlTable("SET dateformat dmy " +
+                            //	        "UPDATE Private " +
+                            //	        "SET changeAddressDate = GETDATE() " +
+                            //	        "WHERE memberid =" + "'" + showfristMem + "'" + " and (not exists (select * from privateAddress where address = N'" + comAddinput + "' and phone = '" + comPhoneinput + "' and fax = '" + comFaxinput + "' and companyNm = N'" + comNminput + "' and addressType = '2') or " +
+                            //	        "not exists (select * from privateAddress where address = N'" + Addinput + "' and phone = '" + Phoneinput + "' and mobile = '" + Mobileinput + "' and addressType = '1'))" +
+                            //	        "UPDATE Private " +
+                            //	        "SET birthplace = " + "N'" + birthPlaceinput + "'" + "," + "checkmember = " + "' '" + "," + "checkMainName = " + "' '" + "," + "checkBirthPlace = " + "' '" + "," + "checkCompanyNm = " + "' '" + "," + "checkCompanyAddress = " + "' '" + "," + "checkCompanyPhone = " + "' '" + "," + "checkCompanyFax = " + "' '" + "," + "checkHomeAddress = " + "' '" + "," + "checkHomePhone = " + "' '" + "," + "checkHomeMobile = " + "' '" + "," + "getSplitPayment = " + "'" + chkPayment + "'" + "," + "zip_code = " + "'" + zipcode + "'" + "," + "email = " + "'" + emailVal + "'" + updateSendMethod +
+                            //	        "WHERE memberid =" + "'" + showfristMem + "'" +
+                            //	        "UPDATE PrivateDetail " +
+                            //	        "SET nameJ = " + "N'" + nameJinput + "'" + "," + "nameE = " + "'" + nameEinput + "'" + "," + "prefixNm = " + "'" + preFixCho + "'" + "," + "cancelledDate = " + cancelDate + "," + "memberStatus = " + "'" + memStaCho + "'" + "," + "birthDate = " + "'" + birthDateinput + "'" + "," + "memberType = " + "'" + memTypeCho + "'" + "," + "appliedDate = " + "'" + AppliedInput + "'" + "," + "updatedBy = " + "'" + updateuid + "'" + updateNAToA +// chkEngtest + "'" + "," + "'" + chkOnevent + "'" + "," + "'" + chkSoftball + "'" + "," + "'" + chkYoga + "'" + "," + "'" + chkValue1 + "'" + "," + "'" + chkValue2 + "'" + "," + "'" + chkValue3 + "'" + "," + "'" + chkBoardlist + "'" + "," + "'" + chkClubSecre + "'" + "," + "'" + chkBaVolun + "'" + "," + "'" + chkSocialMem + "'" + "," + "'" + chkYouthMem + "'" + "," + "'" + chkValue4 + "'" + "," + "'" + chkValue5 + "'" + "," + "'" + chkOverseasMem + "'" + ")");
+                            //	        																																																																																																													//"SET nameJ = " + "N'" + nameJinput + "'" + "," + "nameE = " + "'" + nameEinput + "'" + "," + "prefixNm = " + "'" + preFixCho + "'" + "," + "cancelledDate = " + cancelDate + "," + "memberStatus = " + "'" + memStaCho + "'" + "," + "birthDate = " + "'" + birthDateinput + "'" + "," + "memberType = " + "'" + memTypeCho + "'" + "," + "appliedDate = " + "'" + AppliedInput + "'" + "," + "updatedBy = " + "'" + updateuid + "'" +// chkEngtest + "'" + "," + "'" + chkOnevent + "'" + "," + "'" + chkSoftball + "'" + "," + "'" + chkYoga + "'" + "," + "'" + chkValue1 + "'" + "," + "'" + chkValue2 + "'" + "," + "'" + chkValue3 + "'" + "," + "'" + chkBoardlist + "'" + "," + "'" + chkClubSecre + "'" + "," + "'" + chkBaVolun + "'" + "," + "'" + chkSocialMem + "'" + "," + "'" + chkYouthMem + "'" + "," + "'" + chkValue4 + "'" + "," + "'" + chkValue5 + "'" + "," + "'" + chkOverseasMem + "'" + ")");
+                            //	        "WHERE memberid =" + "'" + showfristMem + "'" +
+                            //	        "UPDATE privateAddress " +
+                            //	        "SET address = " + "N'" + comAddinput + "'" + "," + "phone = " + "'" + comPhoneinput + "'" + "," + "fax = " + "'" + comFaxinput + "'" + "," + "companyNm = " + "N'" + comNminput + "'" +
+                            //	        "WHERE memberid =" + "'" + showfristMem + "'" + "AND addressType = '2'" +
+                            //	        "UPDATE privateAddress " +
+                            //	        "SET address = " + "N'" + Addinput + "'" + "," + "phone = " + "'" + Phoneinput + "'" + "," + "mobile = " + "'" + Mobileinput + "'" +
+                            //	        "WHERE memberid =" + "'" + showfristMem + "'" + "AND addressType = '1'" +
+                            //	        "UPDATE PrivateClub " +
+                            //	        "SET golf = " + "'" + chkGolf + "'" + "," + "children = " + "'" + chkChild + "'" + "," + "board = " + "'" + chkBoard + "'" + "," + "zukuzuku = " + "'" + chkSukuzuku + "'" + "," + "lady = " + "'" + chkLady + "'" + "," + "ev_1 = " + "'" + chkEngtest + "'" + "," + "ev_2 = " + "'" + chkOnevent + "'" + "," + "ev_3 = " + "'" + chkSoftball + "'" + "," + "ev_4 = " + "'" + chkYoga + "'" + "," + "ev_tmp1 = " + "'" + chkValue1 + "'" + "," + "ev_tmp2 = " + "'" + chkValue2 + "'" + "," + "ev_tmp3 = " + "'" + chkValue3 + "'" + "," + "sub_board_list = " + "'" + chkBoardlist + "'" + "," + "sub_secretary = " + "'" + chkClubSecre + "'" + "," + "sub_volunteer = " + "'" + chkBaVolun + "'" + "," + "sub_social = " + "'" + chkSocialMem + "'" + "," + "sub_member = " + "'" + chkYouthMem + "'" + "," + "sub_tmp1 = " + "'" + chkValue4 + "'" + "," + "sub_tmp2 = " + "'" + chkValue5 + "'" + "," + "ov_member = " + "'" + chkOverseasMem + "'" +
+                            //	        "WHERE memberid =" + "'" + showfristMem + "'" +
+                            //	        "IF NOT EXISTS (SELECT * FROM PrivateRemark WHERE memberid = '" + showfristMem + "') BEGIN INSERT INTO PrivateRemark VALUES('" + showfristMem + "','') END " +
+                            //	        "UPDATE PrivateRemark " +
+                            //	        "SET remark = " + "N'" + remarkInput + "'" +
+                            //	        "WHERE memberid =" + "'" + showfristMem + "'" +
+                            //	        "UPDATE PrivateBoard " +
+                            //	        "SET sortBoard = " + "'" + sortBoardinput + "'" + "," + "sortLady = " + "'" + sortLadyinput + "'" + "," + "boardPosition = " + "'" + positioninput + "'" +
+                            //	        "WHERE memberid =" + "'" + showfristMem + "'" +
+                            //	        insertToHistory);
+
+                            // *** End of the original code ***
+                            #endregion
+
+                            // *** This is the part of code revised ****
+                            #region "This is the part of code revised on 2024-08-27"
+                            var _sqlTrans = $"SET dateformat dmy " +
+                                            $"UPDATE Private " +
+                                            $"  SET changeAddressDate = GETDATE() " +
+                                            $"WHERE memberid = '{showfristMem}' " +
+                                            $"  AND (NOT EXISTS (SELECT * FROM privateAddress " +
+                                            $"                      WHERE address = N'{comAddinput}' " +
+                                            $"                              AND phone = '{comPhoneinput}' " +
+                                            $"                              AND fax = '{comFaxinput}' " +
+                                            $"                              AND companyNm = N'{comNminput}' " +
+                                            $"                              AND addressType = '2') " +
+                                            $"  OR NOT EXISTS (SELECT * FROM privateAddress " +
+                                            $"                      WHERE address = N'{Addinput}' " +
+                                            $"                              AND phone = '{Phoneinput}' " +
+                                            $"                              AND mobile = '{Mobileinput}' " +
+                                            $"                              AND addressType = '1') " +
+                                            $" ) " +
+
+                                            $"UPDATE Private " +
+                                            $"  SET birthplace = N'{birthPlaceinput}',     " +
+                                            $"      checkmember = ' ', " +
+                                            $"      checkMainName = ' ', " +
+                                            $"      checkBirthPlace = ' ', " +
+                                            $"      checkCompanyNm = ' ', " +
+                                            $"      checkCompanyAddress = ' ', " +
+                                            $"      checkCompanyPhone = ' ', " +
+                                            $"      checkCompanyFax = ' ', " +
+                                            $"      checkHomeAddress = ' ', " +
+                                            $"      checkHomePhone = ' ', " +
+                                            $"      checkHomeMobile = ' ', " +
+                                            $"      getSplitPayment = '{chkPayment}', " +
+                                            $"      zip_code = '{zipcode}', " +
+                                            $"      email = '{emailVal}', " +
+                                            $"      sendType = '{updateSendMethod}'  " +
+                                            $"WHERE memberid = '{showfristMem}' " +
+
+                                            $"UPDATE PrivateDetail " +
+                                            $"  SET nameJ = N'{nameJinput}', " +
+                                            $"      nameE = '{nameEinput}', " +
+                                            $"      prefixNm = '{preFixCho}', " +
+                                            $"      cancelledDate = '{cancelDate}', " +
+                                            $"      memberStatus = '{memStaCho}', " +
+                                            $"      birthDate = '{birthDateinput}', " +
+                                            $"      memberType = '{memTypeCho}', " +
+                                            $"      appliedDate = '{AppliedInput}', " +
+                                            $"      updatedBy = '{updateuid}' " +
+                                            // $", '{updateNAToA}'
+                                            $"WHERE memberid = '{showfristMem}' " +
+
+                                            $"UPDATE privateAddress " +
+                                            $"  SET address = N'{comAddinput}', " +
+                                            $"      phone = '{comPhoneinput}', " +
+                                            $"      fax = '{comFaxinput}', " +
+                                            $"      companyNm = N'{comNminput}' " +
+                                            $"WHERE memberid = '{showfristMem}' " +
+                                            $"      AND addressType = '2' " +
+
+                                            $"UPDATE privateAddress " +
+                                            $"  SET address = N'{Addinput}', " +
+                                            $"      phone = '{Phoneinput}', " +
+                                            $"      mobile = '{Mobileinput}' " +
+                                            $"WHERE memberid = '{showfristMem}' " +
+                                            $"      AND addressType = '1' " +
+
+                                            $"UPDATE PrivateClub " +
+                                            $"  SET golf = '{chkGolf}', " +
+                                            $"      children = '{chkChild}', " +
+                                            $"      board = '{chkBoard}', " +
+                                            $"      zukuzuku = '{chkSukuzuku}', " +
+                                            $"      lady = '{chkLady}', " +
+                                            $"      ev_1 = '{chkEngtest}', " +
+                                            $"      ev_2 = '{chkOnevent}', " +
+                                            $"      ev_3 = '{chkSoftball}', " +
+                                            $"      ev_4 = '{chkYoga}', " +
+                                            $"      ev_tmp1 = '{chkValue1}', " +
+                                            $"      ev_tmp2 = '{chkValue2}', " +
+                                            $"      ev_tmp3 = '{chkValue3}', " +
+                                            $"      sub_board_list = '{chkBoardlist}', " +
+                                            $"      sub_secretary = '{chkClubSecre}', " +
+                                            $"      sub_volunteer = '{chkBaVolun}', " +
+                                            $"      sub_social = '{chkSocialMem}', " +
+                                            $"      sub_member = '{chkYouthMem}', " +
+                                            $"      sub_tmp1 = '{chkValue4}', " +
+                                            $"      sub_tmp2 = '{chkValue5}', " +
+                                            $"      ov_member = '{chkOverseasMem}' " +
+                                            $"WHERE memberid = '{showfristMem}' " +
+
+                                            $"IF NOT EXISTS (SELECT * FROM PrivateRemark " +
+                                            $"      WHERE memberid = '{showfristMem}') " +
+                                            $"BEGIN " +
+                                            $"  INSERT INTO PrivateRemark VALUES('{showfristMem}', '') " +
+                                            $"END " +
+
+                                            $"UPDATE PrivateRemark SET remark = N'{remarkInput}' " +
+                                            $"WHERE memberid = '{showfristMem}' " +
+
+                                            $"UPDATE PrivateBoard " +
+                                            $"  SET sortBoard = '{sortBoardinput}', " +
+                                            $"      sortLady = '{sortLadyinput}', " +
+                                            $"      boardPosition = '{positioninput}' " +
+                                            $"WHERE memberid = '{showfristMem}' ;";
+                                            //{insertToHistory}
+
+                            td = SelectSqlTable(_sqlTrans);
+                            // *** End of revised **** 
+                            #endregion
+
+                            string activityDetail = $"Changed data in 6 tables ('Private, PrivateDetail, " +
                                 $"privateAddress, PrivateClub, PrivateRemark, PrivateBoard') where memberid is '{showfristMem}' successful (user id = {staffID})";
 							logActivity.LogStaffActivity(staffID, activityDetail);
 						}

@@ -36,8 +36,8 @@ namespace JAT.Maintenance
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            //showMem = Request.QueryString["staffID"];
-            //if (showMem != null)
+            //companyId = Request.QueryString["staffID"];
+            //if (companyId != null)
             //{
             //    BindData();
             //}
@@ -61,10 +61,10 @@ namespace JAT.Maintenance
 			//if (staffPass.Value != "" && staffPass.Value == password.Value)
 			//{
 			//    string confirmValue = Request.Form["confirm_value"];
-			//    showMem = Session["UID"].ToString();
+			//    companyId = Session["UID"].ToString();
 			//    if (confirmValue == "Yes")
 			//    {
-			//        cmd = new SqlCommand("UPDATE SStaff SET staffPass = '" + staffPass.Value + "'  WHERE staffID = '" + showMem + "' AND staffPass = '" + passOld.Value + "'", conn);
+			//        cmd = new SqlCommand("UPDATE SStaff SET staffPass = '" + staffPass.Value + "'  WHERE staffID = '" + companyId + "' AND staffPass = '" + passOld.Value + "'", conn);
 			//        conn.Open();
 			//        int k = cmd.ExecuteNonQuery();
 			//        if (k != 0)

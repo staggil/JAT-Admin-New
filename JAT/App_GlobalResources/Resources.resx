@@ -801,6 +801,9 @@
   <data name="overseas_resident_members" xml:space="preserve">
     <value>Overseas resident members</value>
   </data>
+  <data name="password" xml:space="preserve">
+    <value>Password</value>
+  </data>
   <data name="payment_date" xml:space="preserve">
     <value>Payment Date</value>
   </data>

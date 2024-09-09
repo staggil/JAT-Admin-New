@@ -93,8 +93,8 @@ namespace JAT.Company
                     connection();
                     SqlCommand sc;
                     SqlDataReader rd;
-                    //string sql = "select top 1 cp.tranId,cp.accId,cp.companyId from CompanyPayment cp,CompanyAccount ca where cp.companyId = ca.companyId AND cp.companyId = '" + showMem + "' order by cp.tranId DESC ,cp.accId DESC;";
-                    //string sql = "select top 1 tranId,accId,companyId from CompanyPayment where companyId = '" + showMem + "' AND Deleted_at is null order by tranId DESC";
+                    //string sql = "select top 1 cp.tranId,cp.accId,cp.companyId from CompanyPayment cp,CompanyAccount ca where cp.companyId = ca.companyId AND cp.companyId = '" + companyId + "' order by cp.tranId DESC ,cp.accId DESC;";
+                    //string sql = "select top 1 tranId,accId,companyId from CompanyPayment where companyId = '" + companyId + "' AND Deleted_at is null order by tranId DESC";
                     string sql = "select top 1 tranId,accId,companyId from CompanyPayment where companyId = '" + showMem + "' order by tranId DESC";
                     try
                     {
@@ -255,8 +255,8 @@ namespace JAT.Company
             Label2.Text = (string)accid;
             SqlCommand sc;
             SqlDataReader rd;
-            //string sql = "SELECT cp.totalPerMonth,cp.bNo,cp.cNo,cp.noPayMonth,cp.paymentDate,cp.effectiveDate,cp.expiredDate,cp.memberFee,cp.newsFee,cp.totalFee,cp.payRemark,ca.bankCode,ca.accNumber FROM CompanyPayment cp,CompanyAccount ca WHERE cp.companyId = ca.companyId AND cp.companyId = '" + showMem + "' AND cp.tranId = '" + tran + "'AND ca.accid = '" + accid + "'";
-            //string sql = "SELECT * FROM CompanyPayment cp LEFT JOIN CompanyAccount ca ON cp.companyId=ca.companyId AND cp.accId=ca.accId WHERE cp.companyId='" + showMem + "' AND cp.tranId='" + Label1.Text + "'  AND cp.Deleted_at IS NULL ORDER BY tranid DESC";
+            //string sql = "SELECT cp.totalPerMonth,cp.bNo,cp.cNo,cp.noPayMonth,cp.paymentDate,cp.effectiveDate,cp.expiredDate,cp.memberFee,cp.newsFee,cp.totalFee,cp.payRemark,ca.bankCode,ca.accNumber FROM CompanyPayment cp,CompanyAccount ca WHERE cp.companyId = ca.companyId AND cp.companyId = '" + companyId + "' AND cp.tranId = '" + tran + "'AND ca.accid = '" + accid + "'";
+            //string sql = "SELECT * FROM CompanyPayment cp LEFT JOIN CompanyAccount ca ON cp.companyId=ca.companyId AND cp.accId=ca.accId WHERE cp.companyId='" + companyId + "' AND cp.tranId='" + Label1.Text + "'  AND cp.Deleted_at IS NULL ORDER BY tranid DESC";
             string sql = "SELECT * FROM CompanyPayment cp LEFT JOIN CompanyAccount ca ON cp.companyId=ca.companyId AND cp.accId=ca.accId WHERE cp.companyId='" + showMem + "' AND cp.tranId='" + Label1.Text + "' ORDER BY tranid DESC";
             try
             {
@@ -307,8 +307,8 @@ namespace JAT.Company
 			
 			var uid = Session["UID"];
 			int staffID = uid != null ? Convert.ToInt32(uid) : 0;
-            //string sql = "SELECT cp.totalPerMonth,cp.bNo,cp.cNo,cp.noPayMonth,cp.paymentDate,cp.effectiveDate,cp.expiredDate,cp.memberFee,cp.newsFee,cp.totalFee,cp.payRemark,ca.bankCode,ca.accNumber,st.staffName FROM CompanyPayment cp,CompanyAccount ca,SStaff st WHERE cp.companyId = ca.companyId AND cp.accId=st.staffID AND cp.companyId = '" + showMem + "' AND cp.tranId = '" + Label1.Text + "' AND ca.accId = '" + Label2.Text + "'";
-            //string sql = "SELECT * FROM CompanyPayment cp LEFT JOIN CompanyAccount ca ON cp.companyId=ca.companyId AND cp.accId=ca.accId LEFT JOIN CompanyMember cm ON cp.companyId=cm.companyId LEFT JOIN SStaff ON updatedBy=staffID WHERE cp.companyId='" + showMem + "' AND cp.accId='" + Label2.Text + "' AND cp.tranId='" + Label1.Text + "'  AND cp.Deleted_at IS NULL ORDER BY tranid DESC";
+            //string sql = "SELECT cp.totalPerMonth,cp.bNo,cp.cNo,cp.noPayMonth,cp.paymentDate,cp.effectiveDate,cp.expiredDate,cp.memberFee,cp.newsFee,cp.totalFee,cp.payRemark,ca.bankCode,ca.accNumber,st.staffName FROM CompanyPayment cp,CompanyAccount ca,SStaff st WHERE cp.companyId = ca.companyId AND cp.accId=st.staffID AND cp.companyId = '" + companyId + "' AND cp.tranId = '" + Label1.Text + "' AND ca.accId = '" + Label2.Text + "'";
+            //string sql = "SELECT * FROM CompanyPayment cp LEFT JOIN CompanyAccount ca ON cp.companyId=ca.companyId AND cp.accId=ca.accId LEFT JOIN CompanyMember cm ON cp.companyId=cm.companyId LEFT JOIN SStaff ON updatedBy=staffID WHERE cp.companyId='" + companyId + "' AND cp.accId='" + Label2.Text + "' AND cp.tranId='" + Label1.Text + "'  AND cp.Deleted_at IS NULL ORDER BY tranid DESC";
             string sql = "SELECT * FROM CompanyPayment cp LEFT JOIN CompanyAccount ca ON cp.companyId=ca.companyId AND cp.accId=ca.accId LEFT JOIN CompanyMember cm ON cp.companyId=cm.companyId LEFT JOIN SStaff ON updatedBy=staffID WHERE cp.companyId='" + showMem + "' AND cp.accId='" + Label2.Text + "' AND cp.tranId='" + Label1.Text + "' ORDER BY tranid DESC";
             try
             {
@@ -375,7 +375,7 @@ namespace JAT.Company
             connection();
             SqlCommand sc;
             SqlDataReader rd;
-            //string sql = "select top 1 tranId,companyId from CompanyPayment where companyId = '" + showMem + "' AND Deleted_at IS NULL order by tranId desc;";
+            //string sql = "select top 1 tranId,companyId from CompanyPayment where companyId = '" + companyId + "' AND Deleted_at IS NULL order by tranId desc;";
             string sql = "select top 1 tranId,companyId from CompanyPayment where companyId = '" + showMem + "' order by tranId desc;";
             var uid = Session["UID"];
 			int staffID = uid != null ? Convert.ToInt32(uid) : 0;
@@ -415,7 +415,7 @@ namespace JAT.Company
             var accidTemp = "";
             SqlCommand sc3;
             SqlDataReader rd3;
-            //string sql3 = "select top 1 accId,companyId from CompanyAccount where companyId = '" + showMem + "' order by accId desc;";
+            //string sql3 = "select top 1 accId,companyId from CompanyAccount where companyId = '" + companyId + "' order by accId desc;";
             string sql3 = "select top 1 accId,accNumber,bankCode from CompanyAccount where companyId = '" + showMem + "' AND accNumber = '" + accNumber.Value + "' AND bankCode = '" + bankCode.Value + "'";
             try
             {
@@ -462,11 +462,11 @@ namespace JAT.Company
                         
                         conn.Close();
 
-                        string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@showMem,@accNumber,@bankCode)";
+                        string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@companyId,@accNumber,@bankCode)";
                         SqlCommand vlozSQL = new SqlCommand(InsertSQL, conn);
                         conn.Open();
                         vlozSQL.Parameters.AddWithValue("@temp", accId);
-                        vlozSQL.Parameters.AddWithValue("@showMem", showMem);
+                        vlozSQL.Parameters.AddWithValue("@companyId", showMem);
                         vlozSQL.Parameters.AddWithValue("@accNumber", accNumber.Value);
                         vlozSQL.Parameters.AddWithValue("@bankCode", bankCode.Value);
                         try
@@ -522,11 +522,11 @@ namespace JAT.Company
 
 							conn.Close();
 
-                            //string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@showMem,@accNumber,@bankCode)";
+                            //string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@companyId,@accNumber,@bankCode)";
                             //SqlCommand vlozSQL = new SqlCommand(InsertSQL, conn);
                             //conn.Open();
                             //vlozSQL.Parameters.AddWithValue("@temp", accidTemp);
-                            //vlozSQL.Parameters.AddWithValue("@showMem", showMem);
+                            //vlozSQL.Parameters.AddWithValue("@companyId", companyId);
                             //vlozSQL.Parameters.AddWithValue("@accNumber", accNumber.Value);
                             //vlozSQL.Parameters.AddWithValue("@bankCode", bankCode.Value);
                             //vlozSQL.ExecuteNonQuery();
@@ -560,11 +560,11 @@ namespace JAT.Company
 							}
 							conn.Close();
 
-                            string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@showMem,@accNumber,@bankCode)";
+                            string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@companyId,@accNumber,@bankCode)";
                             SqlCommand vlozSQL = new SqlCommand(InsertSQL, conn);
                             conn.Open();
                             vlozSQL.Parameters.AddWithValue("@temp", accId);
-                            vlozSQL.Parameters.AddWithValue("@showMem", showMem);
+                            vlozSQL.Parameters.AddWithValue("@companyId", showMem);
                             vlozSQL.Parameters.AddWithValue("@accNumber", accNumber.Value);
                             vlozSQL.Parameters.AddWithValue("@bankCode", bankCode.Value);
 							try
@@ -645,11 +645,11 @@ namespace JAT.Company
 						}
 						conn.Close();
 
-                        string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@showMem,@accNumber,@bankCode)";
+                        string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@companyId,@accNumber,@bankCode)";
                         SqlCommand vlozSQL = new SqlCommand(InsertSQL, conn);
                         conn.Open();
                         vlozSQL.Parameters.AddWithValue("@temp", accId);
-                        vlozSQL.Parameters.AddWithValue("@showMem", showMem);
+                        vlozSQL.Parameters.AddWithValue("@companyId", showMem);
                         vlozSQL.Parameters.AddWithValue("@accNumber", accNumber.Value);
                         vlozSQL.Parameters.AddWithValue("@bankCode", bankCode.Value);
 						try
@@ -700,11 +700,11 @@ namespace JAT.Company
 							}
 							conn.Close();
 
-                            //string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@showMem,@accNumber,@bankCode)";
+                            //string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@companyId,@accNumber,@bankCode)";
                             //SqlCommand vlozSQL = new SqlCommand(InsertSQL, conn);
                             //conn.Open();
                             //vlozSQL.Parameters.AddWithValue("@temp", accidTemp);
-                            //vlozSQL.Parameters.AddWithValue("@showMem", showMem);
+                            //vlozSQL.Parameters.AddWithValue("@companyId", companyId);
                             //vlozSQL.Parameters.AddWithValue("@accNumber", accNumber.Value);
                             //vlozSQL.Parameters.AddWithValue("@bankCode", bankCode.Value);
                             //vlozSQL.ExecuteNonQuery();
@@ -739,11 +739,11 @@ namespace JAT.Company
 							}
 							conn.Close();
 
-                            string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@showMem,@accNumber,@bankCode)";
+                            string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@companyId,@accNumber,@bankCode)";
                             SqlCommand vlozSQL = new SqlCommand(InsertSQL, conn);
                             conn.Open();
                             vlozSQL.Parameters.AddWithValue("@temp", accId);
-                            vlozSQL.Parameters.AddWithValue("@showMem", showMem);
+                            vlozSQL.Parameters.AddWithValue("@companyId", showMem);
                             vlozSQL.Parameters.AddWithValue("@accNumber", accNumber.Value);
                             vlozSQL.Parameters.AddWithValue("@bankCode", bankCode.Value);
 							try
@@ -822,7 +822,7 @@ namespace JAT.Company
             string nameComJ = PcompanyNmJ.Text.Replace("'","''");            
             String SQLStatement = "SELECT tranId, N'" + nameComJ + "' as PcompanyNmJ,totalFee,paymentDate,effectiveDate,expiredDate,payMethod,bNo,cNo,payRemark,accId " +
             "FROM  CompanyPayment WHERE companyId = '" + showMem + "' and Deleted_at IS NULL order by tranId DESC ";
-            //"FROM  CompanyPayment WHERE companyId = '" + showMem + "' order by tranId DESC ";
+            //"FROM  CompanyPayment WHERE companyId = '" + companyId + "' order by tranId DESC ";
             SqlDataAdapter dataAdapter = new SqlDataAdapter(SQLStatement, conn);
             DataSet myDataSet;
             dataAdapter.SelectCommand.CommandType = CommandType.Text;
@@ -936,16 +936,17 @@ namespace JAT.Company
 						logActivity.LogStaffActivity(staffID, activityDetail);
 
 					}
-					catch (SqlException sqlex)
+					catch (SqlException ex)
 					{
-						activityDetail = $"Changed data in a table 'CompanyPayment' where tranId is '{tranId}' and companyid is '{showMem}' unsuccessful [{sqlex.Message}] (User id = '{staffID}')";
-						logActivity.LogStaffActivity(staffID, activityDetail);
-					}
+                        //activityDetail = $"Changed data in a table 'CompanyPayment' where tranId is '{tranId}' and companyid is '{showMem}' unsuccessful [{sqlex.Message}] (User id = '{staffID}')";
+                        logActivity.LogStaffActivity(staffID, $"ERROR at {ex.LineNumber} {ex.StackTrace} " +
+                                                              $"{ex.Message}");
+                    }
 					catch (Exception ex)
 					{
-						activityDetail = $"Changed data in a table 'CompanyPayment' where tranId is '{tranId}' and companyid is '{showMem}' unsuccessful [{ex.Message}] (User id = '{staffID}')";
-						logActivity.LogStaffActivity(staffID, activityDetail);
-					}
+                        //activityDetail = $"Changed data in a table 'CompanyPayment' where tranId is '{tranId}' and companyid is '{showMem}' unsuccessful [{ex.Message}] (User id = '{staffID}')";
+                        logActivity.LogStaffActivity(staffID, $"ERROR at {ex.StackTrace} {ex.Message}");
+                    }
 
 					conn.Close();
 
@@ -966,7 +967,7 @@ namespace JAT.Company
 				connection();
 				SqlCommand sc;
 				SqlDataReader rd;
-                //string sql = "select cp.tranId,ca.accId,cp.companyId from CompanyPayment cp,CompanyAccount ca where cp.companyId = ca.companyId AND cp.companyId = '" + showMem + "' AND cp.tranId = '" + tranId + "' AND ca.accId = '" + accId + "' AND cp.Deleted_at IS NULL";
+                //string sql = "select cp.tranId,ca.accId,cp.companyId from CompanyPayment cp,CompanyAccount ca where cp.companyId = ca.companyId AND cp.companyId = '" + companyId + "' AND cp.tranId = '" + tranId + "' AND ca.accId = '" + accId + "' AND cp.Deleted_at IS NULL";
                 string sql = "select cp.tranId,ca.accId,cp.companyId from CompanyPayment cp,CompanyAccount ca where cp.companyId = ca.companyId AND cp.companyId = '" + showMem + "' AND cp.tranId = '" + tranId + "' AND ca.accId = '" + accId + "'";
                 try
 				{
@@ -991,7 +992,7 @@ namespace JAT.Company
 				//var temp = "";
 				//SqlCommand sc2;
 				//SqlDataReader rd2;
-				//string sql2 = "select accId,companyId from CompanyAccount where companyId = '" + showMem + "' AND accId = '" + accId + "'";
+				//string sql2 = "select accId,companyId from CompanyAccount where companyId = '" + companyId + "' AND accId = '" + accId + "'";
 				//try
 				//{
 				//    conn.Open();
@@ -1154,11 +1155,11 @@ namespace JAT.Company
 
                     //insert
 
-                    string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@showMem,@accNumber,@bankCode)";
+                    string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@companyId,@accNumber,@bankCode)";
                     SqlCommand vlozSQL = new SqlCommand(InsertSQL, conn);
                     conn.Open();
                     vlozSQL.Parameters.AddWithValue("@temp", accId);
-                    vlozSQL.Parameters.AddWithValue("@showMem", showMem);
+                    vlozSQL.Parameters.AddWithValue("@companyId", showMem);
                     vlozSQL.Parameters.AddWithValue("@accNumber", accNumber.Value);
                     vlozSQL.Parameters.AddWithValue("@bankCode", bankCode.Value);
                     
@@ -1188,14 +1189,14 @@ namespace JAT.Company
                 //                "nopaymonth= '" + noPayMonth.Value + "',expireddate ='" + expiredDate.Value + "',payremark ='" + payRemark.Text + "'," +
                 //                "checkshort = '" + checkShort.Checked + "', memberfee = '" + memberFee.Value + "', newsfee= '" + newsFee.Value + "',totalpermonth ='" + totalPerMonth.SelectedValue + "',totalfee ='" + totalFee.Value + "'," +
                 //                "paymethod ='" + payMethod.Text + "'" +
-                //                "where companyid = '" + showMem + "' and tranid = '" + Label1.Text + "'", conn);
+                //                "where companyid = '" + companyId + "' and tranid = '" + Label1.Text + "'", conn);
                 //conn.Open();
                 //cmd.ExecuteNonQuery();
                 //conn.Close();
 
                 //cmd = new SqlCommand("update CompanyAccount set accNumber = '" + accNumber.Value + "'," +
                 //                "bankCode ='" + bankCode.Value + "'" +
-                //                "where companyid = '" + showMem + "' and accId = '" + Label2.Text + "'", conn);
+                //                "where companyid = '" + companyId + "' and accId = '" + Label2.Text + "'", conn);
                 //conn.Open();
                 //cmd.ExecuteNonQuery();
                 //conn.Close();
@@ -1244,13 +1245,13 @@ namespace JAT.Company
 				//try
 				//{
 				//	var k = cmd.ExecuteNonQuery();
-				//	activityDetail = $"Update CompanyPayment Where tranId = '{Label1.Text}' and companyid = '{showMem}' successful (User id = '{staffID}')";
+				//	activityDetail = $"Update CompanyPayment Where tranId = '{Label1.Text}' and companyid = '{companyId}' successful (User id = '{staffID}')";
 				//	logActivity.LogStaffActivity(staffID, activityDetail);
 
 				//}
 				//catch
 				//{
-				//	activityDetail = $"Update CompanyPayment Where tranId = '{Label1.Text}' and companyid = '{showMem}' unsuccessful (User id = '{staffID}')";
+				//	activityDetail = $"Update CompanyPayment Where tranId = '{Label1.Text}' and companyid = '{companyId}' unsuccessful (User id = '{staffID}')";
 				//	logActivity.LogStaffActivity(staffID, activityDetail);
 				//}
 				getData3(Label1.Text, Label2.Text);

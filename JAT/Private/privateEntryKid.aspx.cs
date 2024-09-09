@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.Configuration;
 using System.Globalization;
+using CrystalDecisions.Shared;
 
 namespace JAT.Private
 {
@@ -92,7 +93,7 @@ namespace JAT.Private
                 "inner join PrivateChild pc on pd.memberid = pc.memberid " +
                 "LEFT OUTER JOIN SStaff ss ON pc.updatedBy = ss.staffID " +
                 "WHERE pc.memberid = '"+ showfristMem + "' ";
-            //string sqlBrithPlace = "SELECT birthPlace FROM PrivateDetail WHERE memberid = '" + showMem +"'";
+            //string sqlBrithPlace = "SELECT birthPlace FROM PrivateDetail WHERE memberid = '" + companyId +"'";
             try
             {
                 conn.Open();
@@ -166,9 +167,22 @@ namespace JAT.Private
         {
             DataTable td;
 
-            td = SelectSqlTable("SELECT t1.childid, t1.prefixKid, t1.nameKidJ, t1.nameKidE, FORMAT(t1.birthdate, 'dd/MM/yyyy') AS birthDate " +
-                                "FROM PrivateChild t1 " +
-                                "INNER JOIN PrivateDetail t2 ON t1.memberid = t2.memberid WHERE t2.firstmemberid =" + "'" + showfristMem + "'");
+            // *** 2024-09-09 10.04am : Toon Jiradej.K have revise code
+            #region 'The old query dosn't soft delete support'
+            //td = SelectSqlTable("SELECT t1.childid, t1.prefixKid, t1.nameKidJ, t1.nameKidE, FORMAT(t1.birthdate, 'dd/MM/yyyy') AS birthDate " +
+            //                    "FROM PrivateChild t1 " +
+            //                    "INNER JOIN PrivateDetail t2 ON t1.memberid = t2.memberid WHERE t2.firstmemberid =" + "'" + showfristMem + "'");
+            #endregion
+
+            #region 'The old query has soft delete supported'
+            td = SelectSqlTable($"SELECT t1.childid, t1.prefixKid, t1.nameKidJ, t1.nameKidE, " +
+                                $"FORMAT(t1.birthdate, 'dd/MM/yyyy') AS birthDate " +
+                                $"FROM PrivateChild t1 " +
+                                $"INNER JOIN PrivateDetail t2 ON t1.memberid = t2.memberid " +
+                                $"WHERE t2.firstmemberid = '{showfristMem}' AND t1.Deleted_at IS NULL");
+            #endregion
+
+            // *** End Of Revised
             //GridView1.Columns[0].Visible = false;
             GridView1.DataSource = td;
             //ImageButton1.Visible = true;
@@ -351,21 +365,32 @@ namespace JAT.Private
 
             try
             {
-				td = SelectSqlTable("DELETE FROM PrivateChild  " +
-						 "WHERE childid = " + "'" + row.Cells[0].Text + "'");
-				string activityDetail = $"Deleted data in a table 'PrivateChild' where childid is '{row.Cells[0].Text}' successful (user id = {staffID})";
+                // *** 2024-09-06 01.49pm : Toon Jiradech.K Toon Jiradech.k have changed code from hard deleting to soft deleting
+                #region 'Hard Deleting' 
+                //         td = SelectSqlTable("DELETE FROM PrivateChild  " +
+                //              "WHERE childid = " + "'" + row.Cells[0].Text + "'");
+                #endregion
+
+                #region 'Soft Deleting'
+                td = SelectSqlTable($"UPDATE PrivateChild SET Deleted_at = GETDATE() " +
+                                    $"WHERE childid = '{row.Cells[0].Text}'");
+                #endregion
+                // *** End of Revised
+
+                string activityDetail = $"Soft deleted data in a table 'PrivateChild' where childid is '{row.Cells[0].Text}' successful (user id = {staffID})";
 				logActivity.LogStaffActivity(staffID, activityDetail);
 			}
             catch (SqlException ex)
             {
-				string activityDetail = $"Deleted data in a table 'PrivateChild' where childid is '{row.Cells[0].Text}' unsuccessful [{ex.Message}] (user id = {staffID})";
-				logActivity.LogStaffActivity(staffID, activityDetail);
-			}
+                //string activityDetail = $"Soft deleted data in a table 'PrivateChild' where childid is '{row.Cells[0].Text}' unsuccessful [{ex.Message}] (user id = {staffID})";
+                logActivity.LogStaffActivity(staffID, $"ERROR at {ex.LineNumber} {ex.StackTrace} " +
+                    $"{ex.Message}");
+            }
 			catch (Exception ex)
 			{
-				string activityDetail = $"Deleted data in a table 'PrivateChild' where childid is '{row.Cells[0].Text}' unsuccessful [{ex.Message}] (user id = {staffID})";
-				logActivity.LogStaffActivity(staffID, activityDetail);
-			}
+                //string activityDetail = $"Soft deleted data in a table 'PrivateChild' where childid is '{row.Cells[0].Text}' unsuccessful [{ex.Message}] (user id = {staffID})";
+                logActivity.LogStaffActivity(staffID, $"ERROR at {ex.StackTrace} {ex.Message}");
+            }
 
 			Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfristMem);
 

@@ -312,7 +312,7 @@ namespace JAT.Private
             string sql = "SELECT nameJ, CONCAT(prefixNm, nameE) " +
                             "FROM PrivateDetail " +
                             "WHERE firstmemberid = '" + showfristMem + "'" + "AND memberid = firstmemberid";
-            //string sqlBrithPlace = "SELECT birthPlace FROM PrivateDetail WHERE memberid = '" + showMem +"'";
+            //string sqlBrithPlace = "SELECT birthPlace FROM PrivateDetail WHERE memberid = '" + companyId +"'";
             try
             {
                 conn.Open();
@@ -623,25 +623,43 @@ namespace JAT.Private
 			int staffID = uid != null ? Convert.ToInt32(uid) : 0;
 			try
             {
-				td = SelectSqlTable("DELETE FROM PrivateDetail " +
-								"WHERE memberid = " + "'" + row.Cells[0].Text + "'" +
-								"DELETE FROM Private " +
-								"WHERE memberid = " + "'" + row.Cells[0].Text + "'" +
-								"DELETE FROM privateAddress " +
-								"WHERE memberid = " + "'" + row.Cells[0].Text + "'");
-				string activityDetail = $"Deleted data in 3 tables ('PrivateDetail, Private, privateAddress') where memberid is '{row.Cells[0].Text}' successful (user id = {staffID})";
+                // *** 2024-09-06 11.15am : Toon Jiradech.K Toon Jiradech.k have changed code from hard deleting to soft deleting
+                #region 'Hard Deleting'
+                //td = SelectSqlTable("DELETE FROM PrivateDetail " +
+                //                    "WHERE memberid = " + "'" + row.Cells[0].Text + "'" +
+                //                    "DELETE FROM Private " +
+                //                    "WHERE memberid = " + "'" + row.Cells[0].Text + "'" +
+                //                    "DELETE FROM privateAddress " +
+                //                    "WHERE memberid = " + "'" + row.Cells[0].Text + "'");
+                #endregion
+
+                #region 'Soft Deleting'
+                td = SelectSqlTable($"UPDATE PrivateDetail SET Deleted_at = GETDATE() " +
+                                    $"WHERE memberid = '{row.Cells[0].Text}'" +
+
+                                    $"UPDATE Private SET Deleted_at = GETDATE() " +
+                                    $"WHERE memberid = '{row.Cells[0].Text}'" +
+
+                                    $"UPDATE privateAddress SET Deleted_at = GETDATE() " +
+                                    $"WHERE memberid = '{row.Cells[0].Text}'");
+                #endregion
+                // *** End of Revised
+
+                string activityDetail = $"Soft deleted data in 3 tables ('PrivateDetail, Private, privateAddress') where memberid is '{row.Cells[0].Text}' successful (user id = {staffID})";
 				logActivity.LogStaffActivity(staffID, activityDetail);
 			}
             catch (SqlException ex)
             {
-				string activityDetail = $"Deleted data in 3 tables ('PrivateDetail, Private, privateAddress') where memberid is '{row.Cells[0].Text}' unsuccessful [{ex.Message}] (user id = {staffID})";
-				logActivity.LogStaffActivity(staffID, activityDetail);
-			}
+                //string activityDetail = $"Soft deleted data in 3 tables ('PrivateDetail, Private, privateAddress') where memberid is '{row.Cells[0].Text}' unsuccessful [{ex.Message}] (user id = {staffID})";
+                logActivity.LogStaffActivity(staffID, $"ERROR at {ex.LineNumber} {ex.StackTrace} " +
+                    $"{ex.Message}");
+            }
 			catch (Exception ex)
 			{
-				string activityDetail = $"Deleted data in 3 tables ('PrivateDetail, Private, privateAddress') where memberid is '{row.Cells[0].Text}' unsuccessful [{ex.Message}] (user id = {staffID})";
-				logActivity.LogStaffActivity(staffID, activityDetail);
-			}
+                //string activityDetail = $"Soft deleted data in 3 tables ('PrivateDetail, Private, privateAddress') where memberid is '{row.Cells[0].Text}' unsuccessful [{ex.Message}] (user id = {staffID})";
+                logActivity.LogStaffActivity(staffID, $"ERROR at {ex.StackTrace} " +
+                    $"{ex.Message}");
+            }
 
 
 			Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfristMem);
@@ -660,7 +678,7 @@ namespace JAT.Private
             //string sql = "SELECT t1.memberid, t1.nameJ, t1.prefixNm, t1.nameE, FORMAT(t1.birthDate, 'yyyy-MMM-dd') AS birthDate, FORMAT(t1.appliedDate, 'yyyy-MMM-dd') AS appliedDate, t1.memberType, t1.memberStatus, t2.phone, t2.mobile, t3.golf, t3.board, t3.lady, t3.children, t3.zukuzuku, t1.spouse, t4.checkFamilyName,email, " +
             //             "ev_1,ev_2,ev_3,ev_4,ev_tmp1,ev_tmp2,ev_tmp3,sub_board_list,sub_secretary,sub_volunteer,sub_social,sub_member,sub_tmp1,sub_tmp2,ov_member " +
             //                "FROM PrivateDetail t1 " +
-            //                "INNER JOIN privateAddress t2 on t1.memberid = t2.memberid INNER JOIN PrivateClub t3 on t1.memberid = t3.memberid INNER JOIN Private t4 on t1.memberid = t4.memberid WHERE t1.memberid = " + "'" + showMem + "'" + "AND t1.firstmemberid != t1.memberid AND t2.addressType = '1' ";
+            //                "INNER JOIN privateAddress t2 on t1.memberid = t2.memberid INNER JOIN PrivateClub t3 on t1.memberid = t3.memberid INNER JOIN Private t4 on t1.memberid = t4.memberid WHERE t1.memberid = " + "'" + companyId + "'" + "AND t1.firstmemberid != t1.memberid AND t2.addressType = '1' ";
             string sql = "select d.firstmemberid, d.memberid, d.prefixNm, d.nameJ, d.nameE,FORMAT(d.birthDate, 'dd/MM/yyyy') AS birthDate,FORMAT(d.appliedDate, 'dd/MM/yyyy') AS appliedDate, " +
                 "d.updatedDate, FORMAT(d.cancelledDate, 'dd/MM/yyyy') AS cancelledDate, d.memberStatus, d.memberType, d.updatedBy, d.locked, d.lockedBy, " +
                 "c.memberid, c.golf, c.board, c.lady, c.children, c.zukuzuku, " +

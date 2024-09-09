@@ -49,7 +49,7 @@ namespace JAT.Maintenance
             //connection();
             //SqlCommand sc;
             //SqlDataReader rd;
-            //string sql = "SELECT * FROM SStaff WHERE staffID = '" + showMem + "'";
+            //string sql = "SELECT * FROM SStaff WHERE staffID = '" + companyId + "'";
             //try
             //{
             //    conn.Open();
@@ -67,8 +67,8 @@ namespace JAT.Maintenance
 
             //if (staffPass.Value != "" && staffPass.Value == password.Value)
             //{
-            //    //cmd = new SqlCommand("UPDATE SStaff SET staffPass = '" + staffPass.Value + "'  WHERE staffID = '" + showMem + "' AND staffPass = '" + staffPass.Value + "' ", conn);
-            //    cmd = new SqlCommand("UPDATE SStaff SET staffPass = '" + staffPass.Value + "'  WHERE staffID = '" + showMem + "' AND staffPass = '" + passOld.Value + "'", conn);
+            //    //cmd = new SqlCommand("UPDATE SStaff SET staffPass = '" + staffPass.Value + "'  WHERE staffID = '" + companyId + "' AND staffPass = '" + staffPass.Value + "' ", conn);
+            //    cmd = new SqlCommand("UPDATE SStaff SET staffPass = '" + staffPass.Value + "'  WHERE staffID = '" + companyId + "' AND staffPass = '" + passOld.Value + "'", conn);
             //    conn.Open();
             //    int k = cmd.ExecuteNonQuery();
             //    if (k != 0)

@@ -801,6 +801,9 @@
   <data name="overseas_resident_members" xml:space="preserve">
     <value>海外会員</value>
   </data>
+  <data name="password" xml:space="preserve">
+    <value>合言葉</value>
+  </data>
   <data name="payment_date" xml:space="preserve">
     <value>支払日</value>
   </data>

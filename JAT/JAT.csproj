@@ -61,6 +61,10 @@
     <Reference Include="CrystalDecisions.VSDesigner, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Web, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="JATMEMBER, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\JATMEMBER-NewPayment-master-OTP\JATMEMBER\bin\JATMEMBER.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1427.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
@@ -241,14 +245,6 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Account\Web.config" />
-    <Content Include="Company\companyPayment.aspx.cs~RF8566d64.TMP" />
-    <Content Include="Company\companyPayment.aspx~RF40c99fe.TMP" />
-    <Content Include="Company\companyPayment.aspx~RF4129b2a.TMP" />
-    <Content Include="Company\companyPayment.aspx~RF5b480a.TMP" />
-    <Content Include="Company\companyPayment.aspx~RF70a5f3.TMP" />
-    <Content Include="Company\companyPayment.aspx~RF75dae.TMP" />
-    <Content Include="Company\companyEntry.aspx.cs~RF39a14ac.TMP" />
-    <Content Include="Company\companyEntry.aspx~RF3549829.TMP" />
     <Content Include="Company\e31uu1bm.2wd~" />
     <Content Include="images\addnew.png" />
     <Content Include="images\arrow.gif" />

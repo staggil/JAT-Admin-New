@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Publish\WEB\JAT ADMIN</_PublishTargetUrl>
-    <History>True|2024-03-13T10:59:00.8814378Z;True|2024-03-13T17:41:58.4424304+07:00;</History>
+    <History>True|2024-08-29T02:13:39.9066505Z||;True|2024-08-27T15:30:01.3429505+07:00||;True|2024-03-13T17:59:00.8814378+07:00||;True|2024-03-13T17:41:58.4424304+07:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -67,13 +67,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="Admin/RegisterMember/regApprove.aspx">
-      <publishTime>02/15/2024 11:58:03</publishTime>
+      <publishTime>03/26/2024 16:13:53</publishTime>
     </File>
     <File Include="Admin/RegisterMember/regCheck.aspx">
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="Admin/RegisterMember/regEntryCheck.aspx">
-      <publishTime>02/15/2024 11:58:03</publishTime>
+      <publishTime>04/05/2024 15:47:09</publishTime>
     </File>
     <File Include="Admin/RegisterMember/regFamilyCheck.aspx">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -94,16 +94,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>03/15/2024 11:07:58</publishTime>
+      <publishTime>08/29/2024 09:13:16</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>03/15/2024 11:07:58</publishTime>
+      <publishTime>08/29/2024 09:13:16</publishTime>
     </File>
     <File Include="bin/App_GlobalResources.compiled">
-      <publishTime>03/15/2024 11:07:58</publishTime>
+      <publishTime>08/29/2024 09:13:15</publishTime>
     </File>
     <File Include="bin/App_GlobalResources.dll">
-      <publishTime>03/15/2024 11:07:57</publishTime>
+      <publishTime>08/29/2024 09:13:15</publishTime>
     </File>
     <File Include="bin/AspNet.ScriptManager.bootstrap.dll">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -160,10 +160,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="bin/EnvDTE.dll">
-      <publishTime>01/11/2024 11:02:28</publishTime>
+      <publishTime>05/06/2021 15:41:24</publishTime>
     </File>
     <File Include="bin/EnvDTE80.dll">
-      <publishTime>01/11/2024 11:02:28</publishTime>
+      <publishTime>05/06/2021 15:41:24</publishTime>
     </File>
     <File Include="bin/es/Microsoft.ReportViewer.Common.resources.dll">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -220,7 +220,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="bin/ja-JP/App_GlobalResources.resources.dll">
-      <publishTime>03/15/2024 11:07:56</publishTime>
+      <publishTime>08/29/2024 09:13:13</publishTime>
     </File>
     <File Include="bin/ja/Microsoft.ReportViewer.Common.resources.dll">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -241,10 +241,19 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="bin/JAT.dll">
-      <publishTime>03/15/2024 11:07:44</publishTime>
+      <publishTime>08/29/2024 09:12:51</publishTime>
     </File>
     <File Include="bin/JAT.pdb">
-      <publishTime>03/15/2024 11:07:44</publishTime>
+      <publishTime>08/29/2024 09:12:51</publishTime>
+    </File>
+    <File Include="bin/JATMEMBER.dll">
+      <publishTime>08/23/2024 15:00:02</publishTime>
+    </File>
+    <File Include="bin/JATMEMBER.dll.config">
+      <publishTime>08/21/2024 13:17:55</publishTime>
+    </File>
+    <File Include="bin/JATMEMBER.pdb">
+      <publishTime>08/23/2024 15:00:02</publishTime>
     </File>
     <File Include="bin/ko/Microsoft.ReportViewer.Common.resources.dll">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -544,13 +553,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="bin/stdole.dll">
-      <publishTime>02/01/2002 19:02:02</publishTime>
+      <publishTime>05/06/2021 15:41:24</publishTime>
     </File>
     <File Include="bin/System.Web.Optimization.dll">
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
+    <File Include="bin/VSLangProj.dll">
+      <publishTime>05/06/2021 15:41:24</publishTime>
+    </File>
     <File Include="bin/VsWebSite.Interop.dll">
-      <publishTime>03/02/2015 02:55:24</publishTime>
+      <publishTime>03/02/2015 10:55:24</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -595,7 +607,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="Company/companyEntry.aspx">
-      <publishTime>02/15/2024 11:58:03</publishTime>
+      <publishTime>08/23/2024 13:01:37</publishTime>
     </File>
     <File Include="Company/companyEntry.aspx.cs~RF39a14ac.TMP">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -928,7 +940,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>03/15/2024 11:07:47</publishTime>
+      <publishTime>08/29/2024 09:12:54</publishTime>
     </File>
     <File Include="Private/privateCancel.aspx">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -937,7 +949,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="Private/privateEntry.aspx">
-      <publishTime>02/15/2024 11:58:03</publishTime>
+      <publishTime>08/21/2024 10:06:59</publishTime>
     </File>
     <File Include="Private/privateEntryKid.aspx">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -1054,7 +1066,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="PrivateReport/reportPayment.aspx">
-      <publishTime>02/15/2024 11:58:03</publishTime>
+      <publishTime>07/26/2024 10:47:59</publishTime>
     </File>
     <File Include="PrivateReport/reportPrivateAge.aspx">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -1198,7 +1210,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>03/13/2024 17:58:20</publishTime>
+      <publishTime>08/29/2024 09:12:53</publishTime>
     </File>
   </ItemGroup>
 </Project>
