@@ -21,7 +21,7 @@ namespace JAT.CompanyReport
     {
 		private LogActivity logActivity = new LogActivity();
 
-		string v;
+		string _staff;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -57,7 +57,7 @@ namespace JAT.CompanyReport
 
             if (Session["User"] != null)
             {
-                v = Session["UID"].ToString().Trim();
+                _staff = Session["UID"].ToString().Trim();
             }
             if (!Page.IsPostBack)
             {
@@ -111,23 +111,23 @@ namespace JAT.CompanyReport
             {
                 con.Open();
                 String strSqlSelect = " DELETE FROM companyReport " +
-                                      " WHERE staffid = '" + v + "'";
+                                      " WHERE staffid = '" + _staff + "'";
                 SqlCommand sqlCmd = new SqlCommand(strSqlSelect, con);
                 try
                 {
 					sqlCmd.ExecuteNonQuery();
-					string activityDetail = $"Deleted data in a table companyReport where staffid is '{v}' successful (user name = '{staffID}')";
+					string activityDetail = $"Deleted data in a table companyReport where staffid is '{_staff}' successful (user name = '{staffID}')";
 					logActivity.LogStaffActivity(staffID, activityDetail);
 				}
                 catch (SqlException ex)
                 {
-                    //string activityDetail = $"Deleted data in a table companyReport where staffid is '{v}' unsuccessful [{sqlex.Message}] (user name = '{staffID}')";
+                    //string activityDetail = $"Deleted data in a table companyReport where staffid is '{_staff}' unsuccessful [{sqlex.Message}] (user name = '{staffID}')";
                     logActivity.LogStaffActivity(staffID, $"ERROR at {ex.LineNumber} {ex.StackTrace} " +
                                                           $"{ex.Message}");
                 }
 				catch (Exception ex)
 				{
-                    //string activityDetail = $"Deleted data in a table companyReport where staffid is '{v}' unsuccessful [{ex.Message}] (user name = '{staffID}')";
+                    //string activityDetail = $"Deleted data in a table companyReport where staffid is '{_staff}' unsuccessful [{ex.Message}] (user name = '{staffID}')";
                     logActivity.LogStaffActivity(staffID, $"ERROR at {ex.StackTrace} {ex.Message}");
                 }
 
@@ -299,7 +299,7 @@ namespace JAT.CompanyReport
 							try
                             {
 								
-								vlozSQL.Parameters.AddWithValue("@staffId", v);
+								vlozSQL.Parameters.AddWithValue("@staffId", _staff);
 								vlozSQL.Parameters.AddWithValue("@companyId", companyId);
 								vlozSQL.Parameters.AddWithValue("@companyNmJ", companyNmJ);
 								vlozSQL.Parameters.AddWithValue("@companyNmE", companyNmE);
@@ -416,8 +416,8 @@ namespace JAT.CompanyReport
                      "ON(companyMember.companyId = companyPayment.companyId) " +
                       //"WHERE(expiredDate between '" + DateFrom + "' and '" + DateTo + "') ";
 
-                      //"WHERE(paymentDate between '" + DateFrom + "' and '" + DateTo + "') AND CompanyPayment.Deleted_at IS NULL ";
-                      "WHERE(paymentDate between '" + DateFrom + "' and '" + DateTo + "') ";
+                      "WHERE(paymentDate between '" + DateFrom + "' and '" + DateTo + "') AND CompanyPayment.Deleted_at IS NULL ";
+                //"WHERE(paymentDate between '" + DateFrom + "' and '" + DateTo + "') ";
 
 
                 //"WHERE(companyPayment.paymentDate >= '" + DateFrom + "' OR '" + DateFrom + "' IS Null) " +
@@ -478,7 +478,7 @@ namespace JAT.CompanyReport
                 string sql = "select cr.companyNmE,cr.contNm,cr.phone,cr.startDate as Start,cr.termDate as Term,cr.noPayMonth as Months,(cr.noPayMonth)*cr.totalPerMonth as Total " +
                              "from CompanyReport cr " +
                              "inner join CompanyMember cm on cr.companyId = cm.companyId " +
-                             "where cr.staffId = '" + v + "' AND cr.noPayMonth <> 0 and cr.payMethod = '" + payMethod.SelectedValue + "' " + val +
+                             "where cr.staffId = '" + _staff + "' AND cr.noPayMonth <> 0 and cr.payMethod = '" + payMethod.SelectedValue + "' " + val +
                              "order by cr.companyNmE";
 
                 ReportType = "accrued expense";

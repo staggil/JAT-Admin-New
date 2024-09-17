@@ -691,7 +691,7 @@
                 <div class="form-group">
                     <div class="text-center">
                         <asp:Button ID="Button1" class="btn btn-primary" OnClick="Button1_Click" runat="server" Text="Save" />
-                        <asp:Button ID="update" class="btn btn-primary" OnClick="update_Click" runat="server" Text="Update" /> 
+                        <asp:Button ID="update" class="btn btn-primary" OnClientClick="ConfirmEdit()" OnClick="update_Click" runat="server" Text="Update" /> 
                         <%--<input type="button" ID="update" class="btn btn-primary" OnClick="update_Click" value="Update"  />--%> 
                         <asp:Button ID="cancel" class="btn btn-primary" OnClick="cancel_Click" runat="server" Text="Cancel" UseSubmitBehavior="false" />
                     </div>
@@ -730,6 +730,20 @@
             });
         });
     </script>
+    <script type="text/javascript">
+            function ConfirmEdit() {
+                var confirm_value = document.createElement("INPUT");
+                confirm_value.type = "hidden";
+                confirm_value.name = "confirm_value";
+                if (confirm("Do you want to save your changes?")) {
+                    confirm_value.value = "Yes";
+                } else {
+                    confirm_value.value = "No";
+                }
+                document.forms[0].appendChild(confirm_value);
+            }
+    </script>
+
     <%--@* *********** Selection Depentdent*********** *@--%>
     <script>
         $(document).ready(function () {
