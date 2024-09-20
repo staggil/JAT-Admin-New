@@ -52,7 +52,7 @@ namespace JAT.Company
             sendType.Disabled = false;
             memberStatus.Disabled = false;
             represID.Disabled = false;
-            Retrieve.Enabled = true;
+            //Retrieve.Enabled = true;
             represNm.Disabled = false;
             represNmE.Disabled = false;
             represEm.Disabled = false;
@@ -102,7 +102,7 @@ namespace JAT.Company
                 sendType.Disabled = true;
                 memberStatus.Disabled = true;
                 represID.Disabled = true;
-                Retrieve.Enabled = false;
+                //Retrieve.Enabled = false;
                 represNm.Disabled = true;
                 represNmE.Disabled = true;
                 represEm.Disabled = true;
@@ -183,121 +183,179 @@ namespace JAT.Company
             //string sql = "SELECT *,FORMAT(cancelDate, 'dd/MM/yyyy', 'en-us') FROM CompanyMember LEFT JOIN SStaff ON updatedBy=staffID LEFT JOIN PrivateDetail ON represID=memberid WHERE companyId = '" + companyId + "'";
             
             // 2024-08-21 at 04.02pm : Toon revise
-            string sql = $"SELECT cm.companyId, cm.companyNmJ, cm.companyNmE, cm.companyNmEE, cm.busType, " +
-                         $"       cm.appliedDate, cm.cancelDate, cm.cancelDate, cm.address, cm.phone, cm.fax, " +
-                         $"       cm.email, cm.establishedDate, cm.sendType, cm.memberStatus, cm.email, " +
-                         $"       cm.represID, cm.represNm, cm.represNmE, cm.represEm, cm.represTp, " +
-                         $"       cm.represPosition, cm.personinchargeNm, cm.personinchargeNmE, " +
-                         $"       cm.personinchargeEm, cm.personinchargeTp, cm.personinchargePosition, cm.AccNm, " +
-                         $"       cm.AccNmE, cm.AccEm, cm.AccTp, cm.AccPosition, cm.remark, cm.getInvoice, " +
-                         $"       cm.withHolding, cm.payMethod, cm.payPeriod, cm.payDuration, cm.updatedBy, " +
-                         $"       cm.TaxID, mu.PASSWORD, FORMAT(cancelDate, 'dd/MM/yyyy', 'en-us') " +
-                         $"FROM CompanyMember cm " +
-                         $"       LEFT JOIN SStaff ss ON cm.updatedBy = ss.staffID " +
-                         $"       LEFT JOIN PrivateDetail pd ON cm.represID = pd.memberid " +
-                         $"       LEFT JOIN m_user mu ON pd.memberid = mu.memberId " +
-                         $"WHERE companyId = '{companyId}'";
+            string sql = $"SELECT cm.companyId, cm.companyNmJ, cm.companyNmE, cm.companyNmEE, cm.busType, \n" +
+                         $"       cm.appliedDate, cm.cancelDate, cm.cancelDate, cm.address, cm.phone, cm.fax, \n" +
+                         $"       cm.email, cm.establishedDate, cm.sendType, cm.memberStatus, cm.email, \n" +
+                         $"       cm.represID, cm.represNm, cm.represNmE, cm.represEm, cm.represTp, \n" +
+                         $"       cm.represPosition, cm.personinchargeNm, cm.personinchargeNmE, \n" +
+                         $"       cm.personinchargeEm, cm.personinchargeTp, cm.personinchargePosition, cm.AccNm, \n" +
+                         $"       cm.AccNmE, cm.AccEm, cm.AccTp, cm.AccPosition, cm.remark, cm.getInvoice, \n" +
+                         $"       cm.withHolding, cm.payMethod, cm.payPeriod, cm.payDuration, cm.updatedBy, \n" +
+                         $"       cm.TaxID, mu.PASSWORD, FORMAT(cancelDate, 'dd/MM/yyyy', 'en-us'), \n" +
+                         $"       ss.staffFName \n" +
+                         $"FROM CompanyMember cm \n" +
+                         $"       LEFT JOIN SStaff ss ON cm.updatedBy = ss.staffID \n" +
+                         $"       LEFT JOIN PrivateDetail pd ON cm.represID = pd.memberid \n" +
+                         $"       LEFT JOIN m_user mu ON pd.memberid = mu.memberId \n" +
+                         $"WHERE companyId = '{companyId}' \n";
 
             try
             {
-                conn.Open();
+                // conn.Open();
+                
+                // 2024-09-18 05.49pm : 
+                var _dataTable = new DataTable();
                 sc = new SqlCommand(sql, conn);
-                rd = sc.ExecuteReader();
-                while (rd.Read())
-                {
-                    //show in member information
-                    companyNmJ.Value = rd.GetValue(1).ToString();
-                    companyNmE.Value = rd.GetValue(2).ToString();
-                    companyNmEE.Value = rd.GetValue(3).ToString();
-                    busType.Value = rd.GetValue(4).ToString();
-                    //appliedDate.Value = ((DateTime)rd.GetValue(5)).ToString("d/M/yyyy").ToString().Replace("1/1/2443", " ").Split(' ')[0];
-                    appliedDate.Value = ((DateTime)rd.GetValue(5)).ToString("dd/MM/yyyy").ToString().Replace("1/1/2443", " ").Split(' ')[0];
+                var _adapter = new SqlDataAdapter(sc);
 
-                    //appliedDate.Value = rd.GetValue(5).ToString().Replace("1/1/2443", " ").Split(' ')[0];
-                    //appliedDate.Value = rd.GetValue(5).ToString();
-                    //statusdate.Text = ((DateTime)rd.GetValue(8)).ToString("yyyy/MM/dd").ToString();
+                conn.Open();
+                _adapter.Fill(_dataTable);
+                conn.Close();
 
-                    //statusdate.Text = rd.GetValue(71).ToString();
-                    //cancelDateTmp = rd.GetValue(71).ToString();
+                //show in member information
+                companyNmJ.Value = _dataTable.Rows[0][1].ToString(); // rd.GetValue(1).ToString();
+                companyNmE.Value = _dataTable.Rows[0][2].ToString(); // rd.GetValue(2).ToString();
+                companyNmEE.Value = _dataTable.Rows[0][3].ToString();  // rd.GetValue(3).ToString();
+                busType.Value = _dataTable.Rows[0][4].ToString();  // rd.GetValue(4).ToString();
 
-                    statusdate.Text = rd.GetValue(6).ToString();
-                    cancelDateTmp = rd.GetValue(6).ToString();
-                    //address.Value = rd.GetValue(12).ToString();
-                    address.Value = rd.GetValue(8).ToString();
-                    //phone.Value = rd.GetValue(13).ToString();
-                    phone.Value = rd.GetValue(9).ToString();
-                    //fax.Value = rd.GetValue(14).ToString();
-                    fax.Value = rd.GetValue(10).ToString();
-                    //email.Value = rd.GetValue(15).ToString();
-                    email.Value = rd.GetValue(11).ToString();
-                    //establishedDate.Value = ((DateTime)rd.GetValue(6)).ToString("dd/MM/yyyy").ToString().Replace("1/1/2443", " ").Split(' ')[0];
-                    establishedDate.Value = ((DateTime)rd.GetValue(12)).ToString("dd/MM/yyyy").ToString().Replace("1/1/2443", " ").Split(' ')[0];
-                    //establishedDate.Value = rd.GetValue(6).ToString().Replace("1/1/2443", " ").Split(' ')[0];
-                    //establishedDate.Value = rd.GetValue(6).ToString();
-                    //sendType.Value = rd.GetValue(10).ToString();
-                    sendType.Value = rd.GetValue(13).ToString();
-                    //memberStatus.Value = rd.GetValue(9).ToString();
-                    //memberstatus = rd.GetValue(9).ToString();//variable to check for update
-                    memberStatus.Value = rd.GetValue(14).ToString();
-                    memberstatus = rd.GetValue(14).ToString();//variable to check for update
-                                                              //represMem.Text = rd.GetValue(63).ToString();
-                                                              //represMem.Text = rd.GetValue(16).ToString();
+                appliedDate.Value = DateTime.Parse(_dataTable.Rows[0][5].ToString()).ToString("dd/MM/yyyy"); // ((DateTime)rd.GetValue(5)).ToString("dd/MM/yyyy").ToString().Replace("1/1/2443", " ").Split(' ')[0];
 
-                    //represID.Value = rd.GetValue(16).ToString();
-                    //represMem.Text = rd.GetValue(9).ToString();
-                    represMem.Text = rd.GetValue(15).ToString();
-                    represID.Value = rd.GetValue(16).ToString();
+                statusdate.Text = _dataTable.Rows[0][7].ToString(); // rd.GetValue(6).ToString();
+                cancelDateTmp = _dataTable.Rows[0][7].ToString(); // rd.GetValue(6).ToString();
+                address.Value = _dataTable.Rows[0][8].ToString(); // rd.GetValue(8).ToString();
+                phone.Value = _dataTable.Rows[0][9].ToString(); // rd.GetValue(9).ToString();
+                fax.Value = _dataTable.Rows[0][10].ToString(); // rd.GetValue(10).ToString();
+                email.Value = _dataTable.Rows[0][11].ToString(); // rd.GetValue(11).ToString();
+                establishedDate.Value = DateTime.Parse(_dataTable.Rows[0][12].ToString()).ToString("dd/MM/yyyy"); // ((DateTime)rd.GetValue(12)).ToString("dd/MM/yyyy").ToString().Replace("1/1/2443", " ").Split(' ')[0];
+                sendType.Value = _dataTable.Rows[0][13].ToString(); // rd.GetValue(13).ToString();
+                memberStatus.Value = _dataTable.Rows[0][14].ToString(); // rd.GetValue(14).ToString();
+                memberstatus = _dataTable.Rows[0][14].ToString(); // rd.GetValue(14).ToString();
+                represMem.Text = _dataTable.Rows[0][15].ToString(); // rd.GetValue(15).ToString();
+                represID.Value = _dataTable.Rows[0][16].ToString(); // rd.GetValue(16).ToString();
 
-                    represNm.Value = rd.GetValue(17).ToString();
-                    represNmE.Value = rd.GetValue(18).ToString();
-                    //represEm.Value = rd.GetValue(32).ToString();
-                    represEm.Value = rd.GetValue(19).ToString();
-                    //represTp.Value = rd.GetValue(33).ToString();
-                    represTp.Value = rd.GetValue(20).ToString();
-                    //represPosition.Value = rd.GetValue(19).ToString();
-                    represPosition.Value = rd.GetValue(21).ToString();
-                    //personinchargeNm.Value = rd.GetValue(34).ToString();
-                    //personinchargeNmE.Value = rd.GetValue(20).ToString();
-                    //personinchargeEm.Value = rd.GetValue(36).ToString();
-                    //personinchargeTp.Value = rd.GetValue(37).ToString();
-                    //personinchargePosition.Value = rd.GetValue(21).ToString();
-                    personinchargeNm.Value = rd.GetValue(22).ToString();
-                    personinchargeNmE.Value = rd.GetValue(23).ToString();
-                    personinchargeEm.Value = rd.GetValue(24).ToString();
-                    personinchargeTp.Value = rd.GetValue(25).ToString();
-                    personinchargePosition.Value = rd.GetValue(26).ToString();
-                    //AccNm.Value = rd.GetValue(39).ToString();
-                    //AccNmE.Value = rd.GetValue(40).ToString();
-                    //AccEm.Value = rd.GetValue(41).ToString();
-                    //AccTp.Value = rd.GetValue(42).ToString();
-                    //AccPosition.Value = rd.GetValue(43).ToString();
-                    AccNm.Value = rd.GetValue(27).ToString();
-                    AccNmE.Value = rd.GetValue(28).ToString();
-                    AccEm.Value = rd.GetValue(29).ToString();
-                    AccTp.Value = rd.GetValue(30).ToString();
-                    AccPosition.Value = rd.GetValue(31).ToString();
-                    //remark.Text = rd.GetValue(22).ToString();
-                    remark.Text = rd.GetValue(32).ToString();
-                    //bool ch1 = (bool)rd.GetValue(26);
-                    //getInvoice.Checked = ch1;
-                    getInvoice.Checked = (bool)rd.GetValue(33);
+                represNm.Value = _dataTable.Rows[0][17].ToString(); // rd.GetValue(17).ToString();
+                represNmE.Value = _dataTable.Rows[0][18].ToString(); // rd.GetValue(18).ToString();
+                represEm.Value =_dataTable.Rows[0][19].ToString(); //  rd.GetValue(19).ToString();
+                represTp.Value = _dataTable.Rows[0][20].ToString(); // rd.GetValue(20).ToString();
+                represPosition.Value = _dataTable.Rows[0][21].ToString(); // rd.GetValue(21).ToString();
+                personinchargeNm.Value = _dataTable.Rows[0][22].ToString(); // rd.GetValue(22).ToString();
+                personinchargeNmE.Value = _dataTable.Rows[0][23].ToString(); // rd.GetValue(23).ToString();
+                personinchargeEm.Value = _dataTable.Rows[0][24].ToString(); // rd.GetValue(24).ToString();
+                personinchargeTp.Value = _dataTable.Rows[0][25].ToString(); // rd.GetValue(25).ToString();
+                personinchargePosition.Value = _dataTable.Rows[0][26].ToString(); // rd.GetValue(26).ToString();
+                AccNm.Value = _dataTable.Rows[0][27].ToString(); // rd.GetValue(27).ToString();
+                AccNmE.Value = _dataTable.Rows[0][28].ToString(); // rd.GetValue(28).ToString();
+                AccEm.Value = _dataTable.Rows[0][29].ToString(); // rd.GetValue(29).ToString();
+                AccTp.Value = _dataTable.Rows[0][30].ToString(); // rd.GetValue(30).ToString();
+                AccPosition.Value = _dataTable.Rows[0][31].ToString(); // rd.GetValue(31).ToString();
+                remark.Text = _dataTable.Rows[0][32].ToString(); // rd.GetValue(32).ToString();
+                getInvoice.Checked = (bool)_dataTable.Rows[0][33]; // // (bool)rd.GetValue(33);
 
-                    //bool ch2 = (bool)rd.GetValue(27);
-                    //withHolding.Checked = ch2;
+                withHolding.Checked = (bool)_dataTable.Rows[0][34]; // (bool)rd.GetValue(34);
+                payMethod.Value = _dataTable.Rows[0][35].ToString(); // rd.GetValue(35).ToString();
+                payPeriod.Value = _dataTable.Rows[0][36].ToString(); // rd.GetValue(36).ToString();
+                payDuration.SelectedValue = _dataTable.Rows[0][37].ToString(); // rd.GetValue(37).ToString();
+                updateBy.Text = _dataTable.Rows[0][42].ToString(); // rd.GetValue(38).ToString();
+                taxID.Value = _dataTable.Rows[0][39].ToString(); // rd.GetValue(39).ToString();
+                this.txtPassword.Value = _dataTable.Rows[0][40].ToString(); // rd.GetValue(40).ToString();
+                // *** End of Fix ***
 
-                    withHolding.Checked = (bool)rd.GetValue(34);
-                    //payMethod.Value = rd.GetValue(23).ToString();
-                    //payPeriod.Value = rd.GetValue(24).ToString();
-                    //payDuration.SelectedValue = rd.GetValue(25).ToString();
-                    //updateBy.Text = rd.GetValue(46).ToString();
-                    payMethod.Value = rd.GetValue(35).ToString();
-                    payPeriod.Value = rd.GetValue(36).ToString();
-                    payDuration.SelectedValue = rd.GetValue(37).ToString();
-                    updateBy.Text = rd.GetValue(38).ToString();
-                    //taxID.Value = rd.GetValue(44).ToString();
-                    taxID.Value = rd.GetValue(39).ToString();
-                    this.txtPassword.Value = rd.GetValue(40).ToString();
-                }
+                //rd = sc.ExecuteReader();
+                //while (rd.Read())
+                //{
+                //    //show in member information
+                //    companyNmJ.Value = rd.GetValue(1).ToString();
+                //    companyNmE.Value = rd.GetValue(2).ToString();
+                //    companyNmEE.Value = rd.GetValue(3).ToString();
+                //    busType.Value = rd.GetValue(4).ToString();
+                //    //appliedDate.Value = ((DateTime)rd.GetValue(5)).ToString("d/M/yyyy").ToString().Replace("1/1/2443", " ").Split(' ')[0];
+                //    appliedDate.Value = ((DateTime)rd.GetValue(5)).ToString("dd/MM/yyyy").ToString().Replace("1/1/2443", " ").Split(' ')[0];
+
+                //    //appliedDate.Value = rd.GetValue(5).ToString().Replace("1/1/2443", " ").Split(' ')[0];
+                //    //appliedDate.Value = rd.GetValue(5).ToString();
+                //    //statusdate.Text = ((DateTime)rd.GetValue(8)).ToString("yyyy/MM/dd").ToString();
+
+                //    //statusdate.Text = rd.GetValue(71).ToString();
+                //    //cancelDateTmp = rd.GetValue(71).ToString();
+
+                //    statusdate.Text = rd.GetValue(6).ToString();
+                //    cancelDateTmp = rd.GetValue(6).ToString();
+                //    //address.Value = rd.GetValue(12).ToString();
+                //    address.Value = rd.GetValue(8).ToString();
+                //    //phone.Value = rd.GetValue(13).ToString();
+                //    phone.Value = rd.GetValue(9).ToString();
+                //    //fax.Value = rd.GetValue(14).ToString();
+                //    fax.Value = rd.GetValue(10).ToString();
+                //    //email.Value = rd.GetValue(15).ToString();
+                //    email.Value = rd.GetValue(11).ToString();
+                //    //establishedDate.Value = ((DateTime)rd.GetValue(6)).ToString("dd/MM/yyyy").ToString().Replace("1/1/2443", " ").Split(' ')[0];
+                //    establishedDate.Value = ((DateTime)rd.GetValue(12)).ToString("dd/MM/yyyy").ToString().Replace("1/1/2443", " ").Split(' ')[0];
+                //    //establishedDate.Value = rd.GetValue(6).ToString().Replace("1/1/2443", " ").Split(' ')[0];
+                //    //establishedDate.Value = rd.GetValue(6).ToString();
+                //    //sendType.Value = rd.GetValue(10).ToString();
+                //    sendType.Value = rd.GetValue(13).ToString();
+                //    //memberStatus.Value = rd.GetValue(9).ToString();
+                //    //memberstatus = rd.GetValue(9).ToString();//variable to check for update
+                //    memberStatus.Value = rd.GetValue(14).ToString();
+                //    memberstatus = rd.GetValue(14).ToString();//variable to check for update
+                //                                              //represMem.Text = rd.GetValue(63).ToString();
+                //                                              //represMem.Text = rd.GetValue(16).ToString();
+
+                //    //represID.Value = rd.GetValue(16).ToString();
+                //    //represMem.Text = rd.GetValue(9).ToString();
+                //    represMem.Text = rd.GetValue(15).ToString();
+                //    represID.Value = rd.GetValue(16).ToString();
+
+                //    represNm.Value = rd.GetValue(17).ToString();
+                //    represNmE.Value = rd.GetValue(18).ToString();
+                //    //represEm.Value = rd.GetValue(32).ToString();
+                //    represEm.Value = rd.GetValue(19).ToString();
+                //    //represTp.Value = rd.GetValue(33).ToString();
+                //    represTp.Value = rd.GetValue(20).ToString();
+                //    //represPosition.Value = rd.GetValue(19).ToString();
+                //    represPosition.Value = rd.GetValue(21).ToString();
+                //    //personinchargeNm.Value = rd.GetValue(34).ToString();
+                //    //personinchargeNmE.Value = rd.GetValue(20).ToString();
+                //    //personinchargeEm.Value = rd.GetValue(36).ToString();
+                //    //personinchargeTp.Value = rd.GetValue(37).ToString();
+                //    //personinchargePosition.Value = rd.GetValue(21).ToString();
+                //    personinchargeNm.Value = rd.GetValue(22).ToString();
+                //    personinchargeNmE.Value = rd.GetValue(23).ToString();
+                //    personinchargeEm.Value = rd.GetValue(24).ToString();
+                //    personinchargeTp.Value = rd.GetValue(25).ToString();
+                //    personinchargePosition.Value = rd.GetValue(26).ToString();
+                //    //AccNm.Value = rd.GetValue(39).ToString();
+                //    //AccNmE.Value = rd.GetValue(40).ToString();
+                //    //AccEm.Value = rd.GetValue(41).ToString();
+                //    //AccTp.Value = rd.GetValue(42).ToString();
+                //    //AccPosition.Value = rd.GetValue(43).ToString();
+                //    AccNm.Value = rd.GetValue(27).ToString();
+                //    AccNmE.Value = rd.GetValue(28).ToString();
+                //    AccEm.Value = rd.GetValue(29).ToString();
+                //    AccTp.Value = rd.GetValue(30).ToString();
+                //    AccPosition.Value = rd.GetValue(31).ToString();
+                //    //remark.Text = rd.GetValue(22).ToString();
+                //    remark.Text = rd.GetValue(32).ToString();
+                //    //bool ch1 = (bool)rd.GetValue(26);
+                //    //getInvoice.Checked = ch1;
+                //    getInvoice.Checked = (bool)rd.GetValue(33);
+
+                //    //bool ch2 = (bool)rd.GetValue(27);
+                //    //withHolding.Checked = ch2;
+
+                //    withHolding.Checked = (bool)rd.GetValue(34);
+                //    //payMethod.Value = rd.GetValue(23).ToString();
+                //    //payPeriod.Value = rd.GetValue(24).ToString();
+                //    //payDuration.SelectedValue = rd.GetValue(25).ToString();
+                //    //updateBy.Text = rd.GetValue(46).ToString();
+                //    payMethod.Value = rd.GetValue(35).ToString();
+                //    payPeriod.Value = rd.GetValue(36).ToString();
+                //    payDuration.SelectedValue = rd.GetValue(37).ToString();
+                //    updateBy.Text = rd.GetValue(38).ToString();
+                //    //taxID.Value = rd.GetValue(44).ToString();
+                //    taxID.Value = rd.GetValue(39).ToString();
+                //    this.txtPassword.Value = rd.GetValue(40).ToString();
+                //}
             }
             catch(Exception err) { Debug.WriteLine($"ERROR : {err.Message}"); }
 
@@ -358,13 +416,13 @@ namespace JAT.Company
             string cancelDate = null;
             if (memberStatus.Value == "NA")
             {
-                cancelDate = toDayDateTime.ToString("dd/MM/yyyy", new CultureInfo("en-US"));
+                cancelDate = toDayDateTime.ToString("dd/MM/yyyy");
             }
             var uid = Session["UID"];
 			int staffID = uid != null ? Convert.ToInt32(uid) : 0;
 
 
-			cmd = new SqlCommand("SET dateformat dmy INSERT INTO dbo.CompanyMember VALUES('" + comid + "' , N'" + comNmJ + "', '" + comNmE + "', '" + comNmEE + "', N'" + busType.Value + "', '" + appliedDate.Value + "', '" + establishedDate.Value + "', '" + " " + "', '" + cancelDate + "', '"
+			cmd = new SqlCommand("SET dateformat dmy INSERT INTO dbo.CompanyMember VALUES('" + comid + "' , N'" + comNmJ + "', '" + comNmE + "', '" + comNmEE + "', N'" + busType.Value + "', '" + Date_MsSqlStandard.CastQuery(appliedDate.Value) + "', '" + Date_MsSqlStandard.CastQuery(establishedDate.Value) + "', '" + " " + "', '" + cancelDate + "', '"
                                                                           + memberStatus.Value + "', '" + sendType.Value + "', '" + " " + "', '" + address.Value + "', '" + phone.Value + "', '" + fax.Value + "', '" + email.Value + "', '" + represID.Value + "', N'" + represNm.Value + "', '"
                                                                           + represNmE.Value + "', '" + represPosition.Value + "', '" + personinchargeNmE.Value + "', '" + personinchargePosition.Value + "', '" + remarkInput + "', '" + payMethod.Value + "', '" + payPeriod.Value + "', '" + payDuration.SelectedValue + "', '"
                                                                           + getInvoice.Checked + "', '" + withHolding.Checked + "', '" + uid + "', '" + " " + "', '" + " " + "', '" + " " + "', '" + represEm.Value + "', '" + represTp.Value + "', N'" + personinchargeNm.Value + "', '"
@@ -470,7 +528,7 @@ namespace JAT.Company
             sendType.Disabled = false;
             memberStatus.Disabled = false;
             represID.Disabled = false;
-            Retrieve.Enabled = true;
+            //Retrieve.Enabled = true;
             represNm.Disabled = false;
             represNmE.Disabled = false;
             represEm.Disabled = false;
@@ -519,7 +577,7 @@ namespace JAT.Company
             sendType.Disabled = false;
             memberStatus.Disabled = false;
             represID.Disabled = false;
-            Retrieve.Enabled = true;
+            //Retrieve.Enabled = true;
             represNm.Disabled = false;
             represNmE.Disabled = false;
             represEm.Disabled = false;
@@ -601,7 +659,7 @@ namespace JAT.Company
 
                 if (memberstatus == "A" && memberStatus.Value == "NA")
                 {
-                    cancelDate = "'" + toDayDateTime.ToString("dd/MM/yyyy", new CultureInfo("en-US")) + "'";
+                    cancelDate = "'" + toDayDateTime.ToString("dd/MM/yyyy") + "'";
                 }
                 else if (memberstatus == "NA" && memberStatus.Value == "A")
                 {
@@ -624,16 +682,39 @@ namespace JAT.Company
                 {
                     epictmp = "'" + personinchargeEm.Value + "'";
                 }
-                //cmd = new SqlCommand("UPDATE CompanyMember SET appliedDate = '" + appliedDate.Value + "'  WHERE companyId = '" + companyId + "'", conn);
-                cmd = new SqlCommand("SET dateformat dmy UPDATE CompanyMember SET companyNmJ = N'" + comNameJ + "'," +
-                                    "companyNmE = '" + comNameE + "',companyNmEE = '" + comNameEE + "',busType =  N'" + busType.Value + "'," +
-                                    "appliedDate = '" + appliedDate.Value + "',establishedDate = '" + establishedDate.Value + "', cancelDate= " + cancelDate + ", memberStatus= '" + memberStatus.Value + "',sendType ='" + sendType.Value + "',address ='" + address.Value + "'," +
-                                    "phone = '" + ph + "', fax = '" + fax.Value + "', email= '" + email.Value + "',represID ='" + represID.Value + "',represNm = N'" + represNm.Value + "'," +
-                                    "represNmE = '" + represNmE.Value + "', represPosition = '" + represPosition.Value + "', remark= '" + remarkInput + "',payMethod ='" + payMethod.Value + "',payPeriod ='" + payPeriod.Value + "'," +
-                                    "payDuration = '" + payDuration.SelectedValue + "', getInvoice = '" + getInvoice.Checked + "', withHolding= '" + withHolding.Checked + "',represEm =" + ereptmp + ",represTp ='" + represTp.Value + "'," +
-                                    "personinchargeNm = N'" + personinchargeNm.Value + "', contNm = '" + personinchargeNmE.Value + "', personinchargeEm= " + epictmp + ",personinchargeTp ='" + personinchargeTp.Value + "',contPosition ='" + personinchargePosition.Value + "'," +
-                                    "AccNm = N'" + AccNm.Value + "', AccNmE = '" + AccNmE.Value + "', AccEm= " + eacctmp + ",AccTp ='" + AccTp.Value + "',AccPosition ='" + AccPosition.Value + "',TaxID ='" + taxID.Value.ToString().Trim() + "', updatedDate =CURRENT_TIMESTAMP,updatedBy ='" + uid + "' " +
-                                    "WHERE companyId = '" + companyId + "'", conn);
+
+                // 2024-09-19 11.17am : Toon fixed bug.
+
+                #region 'Bug cause in below code'
+                // The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.
+                //cmd = new SqlCommand("SET dateformat dmy UPDATE CompanyMember SET companyNmJ = N'" + comNameJ + "'," +
+                //                    "companyNmE = '" + comNameE + "',companyNmEE = '" + comNameEE + "',busType =  N'" + busType.Value + "'," +
+                //                    "appliedDate = '" + appliedDate.Value + "',establishedDate = '" + establishedDate.Value + "', cancelDate= " + cancelDate + ", memberStatus= '" + memberStatus.Value + "',sendType ='" + sendType.Value + "',address ='" + address.Value + "'," +
+                //                    "phone = '" + ph + "', fax = '" + fax.Value + "', email= '" + email.Value + "',represID ='" + represID.Value + "',represNm = N'" + represNm.Value + "'," +
+                //                    "represNmE = '" + represNmE.Value + "', represPosition = '" + represPosition.Value + "', remark= '" + remarkInput + "',payMethod ='" + payMethod.Value + "',payPeriod ='" + payPeriod.Value + "'," +
+                //                    "payDuration = '" + payDuration.SelectedValue + "', getInvoice = '" + getInvoice.Checked + "', withHolding= '" + withHolding.Checked + "',represEm =" + ereptmp + ",represTp ='" + represTp.Value + "'," +
+                //                    "personinchargeNm = N'" + personinchargeNm.Value + "', contNm = '" + personinchargeNmE.Value + "', personinchargeEm= " + epictmp + ",personinchargeTp ='" + personinchargeTp.Value + "',contPosition ='" + personinchargePosition.Value + "'," +
+                //                    "AccNm = N'" + AccNm.Value + "', AccNmE = '" + AccNmE.Value + "', AccEm= " + eacctmp + ",AccTp ='" + AccTp.Value + "',AccPosition ='" + AccPosition.Value + "',TaxID ='" + taxID.Value.ToString().Trim() + "', updatedDate =CURRENT_TIMESTAMP,updatedBy ='" + uid + "' " +
+                //                    "WHERE companyId = '" + companyId + "'", conn);
+                #endregion
+
+                cmd = new SqlCommand($"SET dateformat dmy \n" +
+                                     $"UPDATE CompanyMember \n" +
+                                     $"SET companyNmJ = N'{comNameJ}', \n" +
+                                     $"companyNmE = '{comNameE} ', \n" +
+                                     $"companyNmEE = '{comNameEE}', \n" +
+                                     $"busType =  N'{busType.Value}', \n" +
+                                     $"appliedDate = {Date_MsSqlStandard.CastQuery(appliedDate.Value)}, \n" +
+                                     $"establishedDate = {Date_MsSqlStandard.CastQuery(establishedDate.Value)}, \n" +
+                                     $"cancelDate = (SELECT CONVERT(DATETIME, {cancelDate}, 20)), \n" +
+                                     $"memberStatus = '{memberStatus.Value}', \n" +
+                                     $"sendType ='" + sendType.Value + "',address ='" + address.Value + "'," +
+                                    $"phone = '" + ph + "', fax = '" + fax.Value + "', email= '" + email.Value + "',represID ='" + represID.Value + "',represNm = N'" + represNm.Value + "'," +
+                                    $"represNmE = '" + represNmE.Value + "', represPosition = '" + represPosition.Value + "', remark= '" + remarkInput + "',payMethod ='" + payMethod.Value + "',payPeriod ='" + payPeriod.Value + "'," +
+                                    $"payDuration = '" + payDuration.SelectedValue + "', getInvoice = '" + getInvoice.Checked + "', withHolding= '" + withHolding.Checked + "',represEm =" + ereptmp + ",represTp ='" + represTp.Value + "'," +
+                                    $"personinchargeNm = N'" + personinchargeNm.Value + "', contNm = '" + personinchargeNmE.Value + "', personinchargeEm= " + epictmp + ",personinchargeTp ='" + personinchargeTp.Value + "',contPosition ='" + personinchargePosition.Value + "'," +
+                                    $"AccNm = N'" + AccNm.Value + "', AccNmE = '" + AccNmE.Value + "', AccEm= " + eacctmp + ",AccTp ='" + AccTp.Value + "',AccPosition ='" + AccPosition.Value + "',TaxID ='" + taxID.Value.ToString().Trim() + "', updatedDate =CURRENT_TIMESTAMP,updatedBy ='" + uid + "' " +
+                                    $"WHERE companyId = '" + companyId + "'", conn);
 
                 conn.Open();
                 try
@@ -674,8 +755,17 @@ namespace JAT.Company
 
                 // 2024-08-21 at 04.22pm : Toon add
 
-                var _userFname = represNmE.Value.Split(' ')[1];
-                var _userLname = represNmE.Value.Split(' ')[0];
+                // 2024-09-20 at 12.33pm : Toon Fix
+                var _userFname = ""; // represNmE.Value.Split(' ')[1];
+                var _userLname = ""; // represNmE.Value.Split(' ')[0];
+
+                try { _userFname = this.represNmE.Value.Split(' ')[1]; }
+                catch { _userFname = this.represNmE.Value; }
+
+                try { _userLname = this.represNmE.Value.Split(' ')[0]; }
+                catch { _userLname = this.represNmE.Value; }
+                // *** End Of Fixed ***
+
                 var _password = PublicFunction.getHashed(this.txtPassword.Value);
                 var _regYearMonth_Day = $"{DateTime.Now.Year}-{DateTime.Now.Month.ToString("0#")}" +
                                         $"-{DateTime.Now.Day.ToString("0#")}";

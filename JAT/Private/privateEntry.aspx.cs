@@ -966,9 +966,7 @@ namespace JAT.Private
 				var memIDInput = Box2.Value.ToString();
 
                 // 2024-09-18 11.38am : Toon Fix
-                var AppliedInput = Box3.Value.ToString();
-                var _date = DateTime.ParseExact(AppliedInput, "dd/MM/yyyy", null);
-                AppliedInput = _date.ToString("yyyy/MM/dd");
+                var AppliedInput = Date_MsSqlStandard.CastQuery(Box3.Value.ToString());
                 // *** End Fix ****
 
                 var nameJinput = Box5.Value.ToString();
@@ -976,9 +974,7 @@ namespace JAT.Private
                 var birthPlaceinput = Box8.Value.ToString();
 
                 // 2024-09-18 11.38am : Toon Fix
-                var birthDateinput = Box9.Value.ToString();
-                _date = DateTime.ParseExact(birthDateinput, "dd/MM/yyyy", null);
-                birthDateinput = _date.ToString("yyyy/MM/dd");
+                var birthDateinput = Date_MsSqlStandard.CastQuery(Box9.Value.ToString());
                 // *** End Fix ***
 
                 var preFixCho = preFixSel.SelectedValue.ToString();
@@ -1208,6 +1204,8 @@ namespace JAT.Private
 
                             // *** This is the part of code revised ****
                             #region "This is the part of code revised on 2024-08-27"
+
+
                             var _sqlTrans = $"--SET dateformat dmy \n\n" +
                                             $"UPDATE Private \n" +
                                             $"  SET changeAddressDate = GETDATE() \n" +
@@ -1241,22 +1239,31 @@ namespace JAT.Private
                                             $"      zip_code = '{zipcode}', \n" +
                                             $"      email = '{emailVal}', " +
                                             $"      sendType = '{sendMethodCho}'  \n" +
-                                            $"WHERE memberid = '{showfristMem}' \n\n" +
+                                            $"WHERE memberid = '{showfristMem}' \n\n";
 
-                                            $"UPDATE PrivateDetail \n" +
-                                            $"  SET nameJ = N'{nameJinput}', \n" +
-                                            $"      nameE = '{nameEinput}', \n" +
-                                            $"      prefixNm = '{preFixCho}', \n" +
-                                            $"      cancelledDate = {cancelDate}, \n" +
-                                            $"      memberStatus = '{memStaCho}', \n" +
-                                            $"      birthDate = (SELECT CONVERT(DATETIME, '{birthDateinput}', 20)), \n" +
-                                            $"      memberType = '{memTypeCho}', \n" +
-                                            $"      appliedDate = (SELECT CONVERT(DATETIME, '{AppliedInput}', 20)), \n" +
-                                            $"      updatedBy = '{updateuid}' \n" +
-                                            // $", '{updateNAToA}'
-                                            $"WHERE memberid = '{showfristMem}' \n\n" +
+                                            var _privateDetail = $"UPDATE PrivateDetail \n" +
+                                                    $"  SET nameJ = N'{nameJinput}', \n" +
+                                                    $"      nameE = '{nameEinput}', \n" +
+                                                    $"      prefixNm = '{preFixCho}', \n";
 
-                                            $"UPDATE privateAddress " +
+                            if (cancelDate == "Null")
+                            {
+                                _privateDetail += $"      cancelledDate = {cancelDate}, \n";
+                            }
+                            else
+                            {
+                                _privateDetail += $"      cancelledDate = '{cancelDate}', \n";
+                            }
+
+                            _privateDetail += $"      memberStatus = '{memStaCho}', \n" +
+                                              $"      birthDate = {birthDateinput}, \n" +
+                                              $"      memberType = '{memTypeCho}', \n" +
+                                              $"      appliedDate = {AppliedInput}, \n" +
+                                              $"      updatedBy = '{updateuid}' \n" +
+                                              // $", '{updateNAToA}'
+                                              $"WHERE memberid = '{showfristMem}' \n\n";
+
+                            var _sqlTrans1 = $"UPDATE privateAddress " +
                                             $"  SET address = N'{comAddinput}', \n" +
                                             $"      phone = '{comPhoneinput}', \n" +
                                             $"      fax = '{comFaxinput}', \n" +
@@ -1308,7 +1315,8 @@ namespace JAT.Private
                                             $"      sortLady = '{sortLadyinput}', \n" +
                                             $"      boardPosition = '{positioninput}' \n" +
                                             $"WHERE memberid = '{showfristMem}'; \n";
-                                            //{insertToHistory}
+                            //{insertToHistory}
+                            _sqlTrans += _privateDetail + _sqlTrans1;
 
                             td = SelectSqlTable(_sqlTrans);
                             // *** End of revised **** 

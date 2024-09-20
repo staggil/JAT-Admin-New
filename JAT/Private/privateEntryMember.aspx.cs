@@ -920,7 +920,7 @@ namespace JAT.Private
                     //                    "INSERT INTO PrivateBoard(memberId) " +
                     //                    "VALUES('" + memIDInput + "'" + ") ");
                     td = SelectSqlTable("SET dateformat dmy INSERT INTO PrivateDetail(appliedDate, nameJ, nameE, prefixNm, memberStatus, birthDate, memberType, memberid, firstmemberid, spouse, updatedBy,updatedDate,email) " +
-                        "VALUES('" + AppliedInput + "'" + "," + "N'" + nameJinput + "'" + "," + "'" + nameEinput + "'" + "," + "'" + preFixCho + "'" + "," + "'" + memStaCho + "'" + "," + "'" + birthDateinput + "'" + "," + "'" + memTypeCho + "'" + "," + "'" + memIDInput + "'" + "," + "'" + showfristMem + "'" + "," + "'" + chkspouse + "'" + "," + Session["UID"] + "," + "'" + toDayDate + "'" + "," + "'" + email + "'" + ") " +
+                        "VALUES('" + Date_MsSqlStandard.CastQuery(AppliedInput) + "'" + "," + "N'" + nameJinput + "'" + "," + "'" + nameEinput + "'" + "," + "'" + preFixCho + "'" + "," + "'" + memStaCho + "'" + "," + "'" + Date_MsSqlStandard.CastQuery(birthDateinput) + "'" + "," + "'" + memTypeCho + "'" + "," + "'" + memIDInput + "'" + "," + "'" + showfristMem + "'" + "," + "'" + chkspouse + "'" + "," + Session["UID"] + "," + "'" + toDayDate + "'" + "," + "'" + email + "'" + ") " +
                         "INSERT INTO privateAddress(phone, mobile, addressType, memberid) " +
                         "VALUES('" + Phoneinput + "'" + "," + "'" + mobileinput + "'" + "," + "'" + "1" + "'" + "," + "'" + memIDInput + "'" + ") " +
                         "INSERT INTO PrivateClub(golf, board, lady, children, zukuzuku, memberid, ev_1,ev_2,ev_3,ev_4,ev_tmp1,ev_tmp2,ev_tmp3,sub_board_list,sub_secretary,sub_volunteer,sub_social,sub_member,sub_tmp1,sub_tmp2,ov_member) " +
@@ -1059,7 +1059,7 @@ namespace JAT.Private
                 try
                 {
                     td = SelectSqlTable("SET dateformat dmy UPDATE PrivateDetail " +
-                                    "SET appliedDate = " + "'" + AppliedInput + "'" + "," + "nameJ = " + "N'" + nameJinput + "'" + "," + "prefixNm = " + "'" + preFixCho + "'" + "," + "nameE = " + "'" + nameEinput + "'" + "," + "memberType = " + "'" + memTypeCho + "'" + "," + "birthDate = " + "'" + birthDateinput + "'" + "," + "memberStatus = " + "'" + memStaCho + "'" + "," + "spouse = " + "'" + chkspouse + "'" + "," + "updatedBy = '" + Session["UID"] + "'," + "updatedDate = " + "'" + toDayDate + "'" + "," + "cancelledDate = " + cancelDateTmp + "," + "email = " + "'" + email + "' " + updateNAToA +
+                                    "SET appliedDate = " + "'" + Date_MsSqlStandard.CastQuery(AppliedInput) + "'" + "," + "nameJ = " + "N'" + nameJinput + "'" + "," + "prefixNm = " + "'" + preFixCho + "'" + "," + "nameE = " + "'" + nameEinput + "'" + "," + "memberType = " + "'" + memTypeCho + "'" + "," + "birthDate = " + "'" + Date_MsSqlStandard.CastQuery(birthDateinput) + "'" + "," + "memberStatus = " + "'" + memStaCho + "'" + "," + "spouse = " + "'" + chkspouse + "'" + "," + "updatedBy = '" + Session["UID"] + "'," + "updatedDate = " + "'" + toDayDate + "'" + "," + "cancelledDate = " + cancelDateTmp + "," + "email = " + "'" + email + "' " + updateNAToA +
                                     "WHERE memberid =" + "'" + memIDInput + "'" +
 
                                     "SELECT * FROM privateAddress WHERE memberId = '" + memIDInput + "' " +

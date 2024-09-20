@@ -1105,9 +1105,9 @@ namespace JAT.Admin.RegisterMember
                         {
 							td = SelectSqlTable("SET dateformat dmy " +
 											"UPDATE RegisterFirstMem " +
-											"SET prefixNm = " + "'" + preFixCho + "'" + "," + "nameJp = " + "'" + nameJinput + "'" + "," + "nameEn = " + "'" + nameEinput + "'" + "," + "birthDate = " + "'" + birthDateinput + "'" + "," +
+											"SET prefixNm = " + "'" + preFixCho + "'" + "," + "nameJp = " + "'" + nameJinput + "'" + "," + "nameEn = " + "'" + nameEinput + "'" + "," + "birthDate = " + "'" + Date_MsSqlStandard.CastQuery(birthDateinput) + "'" + "," +
 											"companyName = " + "'" + comNminput + "'" + "," + "companyAdd = " + "'" + comAddinput + "'" + "," + "companyTel = " + "'" + comPhoneinput + "'" + "," + "companyFax = " + "'" + comFaxinput + "'" + "," + "homeAdd = " + "'" + Addinput + "'" + "," +
-											"homeTel = " + "'" + Phoneinput + "'" + "," + "homeMobile = " + "'" + Mobileinput + "'" + "," + "email = " + "'" + emailVal + "'" + "," + "birthPlace = " + "'" + birthPlaceinput + "'" + "," + "zipCode = " + "'" + zipcode + "'" + "," + "appliedDate = " + "'" + AppliedInput + "'" + "," +
+											"homeTel = " + "'" + Phoneinput + "'" + "," + "homeMobile = " + "'" + Mobileinput + "'" + "," + "email = " + "'" + emailVal + "'" + "," + "birthPlace = " + "'" + Date_MsSqlStandard.CastQuery(birthPlaceinput) + "'" + "," + "zipCode = " + "'" + zipcode + "'" + "," + "appliedDate = " + "'" + Date_MsSqlStandard.CastQuery(AppliedInput) + "'" + "," +
 											"ev_1 = " + "'" + chkEngtest + "'" + "," + "ev_2 = " + "'" + chkOnevent + "'" + "," + "ev_3 = " + "'" + chkSoftball + "'" + "," + "ev_4 = " + "'" + chkYoga + "'" + "," + "ev_tmp1 = " + "'" + chkValue1 + "'" + "," + "ev_tmp2 = " + "'" + chkValue2 + "'" + "," + "ev_tmp3 = " + "'" + chkValue3 + "'" + "," +
 											"board = " + "'" + chkBoard + "'" + "," + "sub_board_list = " + "'" + chkBoardlist + "'" + "," + "golf = " + "'" + chkGolf + "'" + "," + "lady = " + "'" + chkLady + "'" + "," + "sub_secretary = " + "'" + chkClubSecre + "'" + "," + "sub_volunteer = " + "'" + chkBaVolun + "'" + "," +
 											"sub_social = " + "'" + chkSocialMem + "'" + "," + "sub_member = " + "'" + chkYouthMem + "'" + "," + "sub_tmp1 = " + "'" + chkValue4 + "'" + "," + "sub_tmp2 = " + "'" + chkValue5 + "'" + "," + "zukuzuku = " + "'" + chkSukuzuku + "'" + "," +
