@@ -919,12 +919,45 @@ namespace JAT.Private
                     //                    "VALUES('" + memIDInput + "'" + "," + "'" + "#" + "'" + "," + "'" + email + "'" + ") " +
                     //                    "INSERT INTO PrivateBoard(memberId) " +
                     //                    "VALUES('" + memIDInput + "'" + ") ");
-                    td = SelectSqlTable("SET dateformat dmy INSERT INTO PrivateDetail(appliedDate, nameJ, nameE, prefixNm, memberStatus, birthDate, memberType, memberid, firstmemberid, spouse, updatedBy,updatedDate,email) " +
-                        "VALUES('" + Date_MsSqlStandard.CastQuery(AppliedInput) + "'" + "," + "N'" + nameJinput + "'" + "," + "'" + nameEinput + "'" + "," + "'" + preFixCho + "'" + "," + "'" + memStaCho + "'" + "," + "'" + Date_MsSqlStandard.CastQuery(birthDateinput) + "'" + "," + "'" + memTypeCho + "'" + "," + "'" + memIDInput + "'" + "," + "'" + showfristMem + "'" + "," + "'" + chkspouse + "'" + "," + Session["UID"] + "," + "'" + toDayDate + "'" + "," + "'" + email + "'" + ") " +
-                        "INSERT INTO privateAddress(phone, mobile, addressType, memberid) " +
-                        "VALUES('" + Phoneinput + "'" + "," + "'" + mobileinput + "'" + "," + "'" + "1" + "'" + "," + "'" + memIDInput + "'" + ") " +
-                        "INSERT INTO PrivateClub(golf, board, lady, children, zukuzuku, memberid, ev_1,ev_2,ev_3,ev_4,ev_tmp1,ev_tmp2,ev_tmp3,sub_board_list,sub_secretary,sub_volunteer,sub_social,sub_member,sub_tmp1,sub_tmp2,ov_member) " +
-                        "VALUES('" + chkGolf + "'" + "," + "'" + chkBoard + "'" + "," + "'" + chkLady + "'" + "," + "'" + chkChild + "'" + "," + "'" + chkSukuzuku + "'" + "," + "'" + memIDInput + "'" + "," + "'" + chkEngtest + "'" + "," + "'" + chkOnevent + "'" + "," + "'" + chkSoftball + "'" + "," + "'" + chkYoga + "'" + "," + "'" + chkValue1 + "'" + "," + "'" + chkValue2 + "'" + "," + "'" + chkValue3 + "'" + "," + "'" + chkBoardlist + "'" + "," + "'" + chkClubSecre + "'" + "," + "'" + chkBaVolun + "'" + "," + "'" + chkSocialMem + "'" + "," + "'" + chkYouthMem + "'" + "," + "'" + chkValue4 + "'" + "," + "'" + chkValue5 + "'" + "," + "'" + chkOverseasMem + "'" + ")");
+
+                    var _insertPriDetail = $"SET dateformat dmy \n" +
+                                           $"INSERT INTO PrivateDetail(appliedDate, nameJ, nameE, \n" +
+                                           $"               prefixNm, memberStatus, birthDate, \n" +
+                                           $"               memberType, memberid, \n" +
+                                           $"               firstmemberid, spouse, \n" +
+                                           $"               updatedBy,updatedDate,email) \n" +
+                                           $"VALUES({Date_MsSqlStandard.CastQuery(AppliedInput)}, \n" +
+                                           $"       N'{nameJinput}', '{nameEinput}', '{preFixCho}', \n" +
+                                           $"       '{memStaCho}', \n" +
+                                           $"       {Date_MsSqlStandard.CastQuery(birthDateinput)}, \n" +
+                                           $"       '{memTypeCho}', '{memIDInput}', '{showfristMem}', \n" +
+                                           $"       '{chkspouse}', '{Session["UID"]}', '{toDayDate}', \n" +
+                                           $"       '{email}') \n";
+
+                    var _insertPriAddr = $"INSERT INTO privateAddress(phone, mobile, addressType, \n" +
+                                         $"                 memberid) \n" +
+                                         $"VALUES('{Phoneinput}', '{mobileinput}', '1', \n" +
+                                         $"       '{memIDInput}') \n";
+                                           
+                    var _insertPriClucb = $"INSERT INTO PrivateClub(golf, board, lady, children, \n" +
+                                          $"                zukuzuku, memberid, ev_1, ev_2, ev_3, \n" +
+                                          $"                ev_4, ev_tmp1, ev_tmp2, ev_tmp3, \n" +
+                                          $"                sub_board_list, sub_secretary, \n" +
+                                          $"                sub_volunteer, sub_social, \n" +
+                                          $"                sub_member, sub_tmp1, sub_tmp2, \n" +
+                                          $"                ov_member) \n" +
+                                          $"VALUES('{chkGolf}', '{chkBoard}', '{chkLady}', \n" +
+                                          $"       '{chkChild}', '{chkSukuzuku}', '{memIDInput}', \n" +
+                                          $"       '{chkEngtest}', '{chkOnevent}', " +
+                                          $"       '{chkSoftball}', '{chkYoga}', '{chkValue1}', \n" +
+                                          $"       '{chkValue2}', '{chkValue3}', '{chkBoardlist}', \n" +
+                                          $"       '{chkClubSecre}', '{chkBaVolun}', \n" +
+                                          $"       '{chkSocialMem}', '{chkYouthMem}', \n" +
+                                          $"       '{chkValue4}', '{chkValue5}', '{chkOverseasMem}')";
+
+                    var _insertAll = $"{_insertPriDetail} {_insertPriAddr} {_insertPriClucb}";
+
+                    td = SelectSqlTable(_insertAll);
 
 					string activityDetail = $"Added new data into 3 tables ('PrivateDetail, privateAddress, PrivateClub') successful (user id = {staffID})";
 					logActivity.LogStaffActivity(staffID, activityDetail);
@@ -1058,23 +1091,82 @@ namespace JAT.Private
 
                 try
                 {
-                    td = SelectSqlTable("SET dateformat dmy UPDATE PrivateDetail " +
-                                    "SET appliedDate = " + "'" + Date_MsSqlStandard.CastQuery(AppliedInput) + "'" + "," + "nameJ = " + "N'" + nameJinput + "'" + "," + "prefixNm = " + "'" + preFixCho + "'" + "," + "nameE = " + "'" + nameEinput + "'" + "," + "memberType = " + "'" + memTypeCho + "'" + "," + "birthDate = " + "'" + Date_MsSqlStandard.CastQuery(birthDateinput) + "'" + "," + "memberStatus = " + "'" + memStaCho + "'" + "," + "spouse = " + "'" + chkspouse + "'" + "," + "updatedBy = '" + Session["UID"] + "'," + "updatedDate = " + "'" + toDayDate + "'" + "," + "cancelledDate = " + cancelDateTmp + "," + "email = " + "'" + email + "' " + updateNAToA +
-                                    "WHERE memberid =" + "'" + memIDInput + "'" +
+                    var _query = $@"
+                                    SET dateformat dmy 
+                                    UPDATE PrivateDetail 
+                                    SET appliedDate = {Date_MsSqlStandard.CastQuery(AppliedInput)},
+                                        nameJ = N'{nameJinput}',
+                                        prefixNm = '{preFixCho}',
+                                        nameE = '{nameEinput}',
+                                        memberType = '{memTypeCho}',
+                                        birthDate = {Date_MsSqlStandard.CastQuery(birthDateinput)},
+                                        memberStatus = '{memStaCho}',
+                                        spouse = '{chkspouse}',
+                                        updatedBy = '{Session["UID"]}',
+                                        updatedDate = '{toDayDate}',
+                                        cancelledDate = {cancelDateTmp},
+                                        email = '{email}' {updateNAToA}
+                                    WHERE memberid = '{memIDInput}';
+                                
+                                    SELECT * FROM privateAddress WHERE memberId = '{memIDInput}';
+                                    IF @@ROWCOUNT > 0 
+                                    BEGIN
+                                        UPDATE privateAddress 
+                                        SET phone = '{Phoneinput}',
+                                            mobile = '{mobileinput}'
+                                        WHERE memberid = '{memIDInput}' AND addressType = '1';
+                                    END
+                                    ELSE 
+                                    BEGIN
+                                        INSERT INTO privateAddress(memberId, phone, mobile, addressType) 
+                                        VALUES('{memIDInput}', '{Phoneinput}', '{mobileinput}', 1);
+                                    END;
+                                
+                                    UPDATE PrivateClub 
+                                    SET golf = '{chkGolf}',
+                                        children = '{chkChild}',
+                                        board = '{chkBoard}',
+                                        zukuzuku = '{chkSukuzuku}',
+                                        lady = '{chkLady}',
+                                        ev_1 = '{chkEngtest}',
+                                        ev_2 = '{chkOnevent}',
+                                        ev_3 = '{chkSoftball}',
+                                        ev_4 = '{chkYoga}',
+                                        ev_tmp1 = '{chkValue1}',
+                                        ev_tmp2 = '{chkValue2}',
+                                        ev_tmp3 = '{chkValue3}',
+                                        sub_board_list = '{chkBoardlist}',
+                                        sub_secretary = '{chkClubSecre}',
+                                        sub_volunteer = '{chkBaVolun}',
+                                        sub_social = '{chkSocialMem}',
+                                        sub_member = '{chkYouthMem}',
+                                        sub_tmp1 = '{chkValue4}',
+                                        sub_tmp2 = '{chkValue5}',
+                                        ov_member = '{chkOverseasMem}'
+                                    WHERE memberid = '{memIDInput}';
+                                ";
 
-                                    "SELECT * FROM privateAddress WHERE memberId = '" + memIDInput + "' " +
-                                    "if @@rowcount > 0 " +
-                                    "UPDATE privateAddress " +
-                                    "SET phone = " + "'" + Phoneinput + "'" + "," + "mobile = " + "'" + mobileinput + "'" +
-                                    "WHERE memberid =" + "'" + memIDInput + "'" + "AND addressType = '1' " +
-                                    "else " +
-                                    "INSERT privateAddress(memberId, phone, mobile, addressType) " +
-                                    "VALUES('" + memIDInput + "','" + Phoneinput + "','" + mobileinput + "', 1) " +
 
-                                    "UPDATE PrivateClub " +
-                                    //"SET golf = " + "'" + chkGolf + "'" + "," + "board = " + "'" + chkBoard + "'" + "," + "lady = " + "'" + chkLady + "'" + "," + "children = " + "'" + chkChild + "'" + "," + "zukuzuku = " + "'" + chkSukuzuku + "'" + "," + "meijinkai = " + "'" + chkMeijinkai + "'" +
-                                    "SET golf = " + "'" + chkGolf + "'" + "," + "children = " + "'" + chkChild + "'" + "," + "board = " + "'" + chkBoard + "'" + "," + "zukuzuku = " + "'" + chkSukuzuku + "'" + "," + "lady = " + "'" + chkLady + "'" + "," + "ev_1 = " + "'" + chkEngtest + "'" + "," + "ev_2 = " + "'" + chkOnevent + "'" + "," + "ev_3 = " + "'" + chkSoftball + "'" + "," + "ev_4 = " + "'" + chkYoga + "'" + "," + "ev_tmp1 = " + "'" + chkValue1 + "'" + "," + "ev_tmp2 = " + "'" + chkValue2 + "'" + "," + "ev_tmp3 = " + "'" + chkValue3 + "'" + "," + "sub_board_list = " + "'" + chkBoardlist + "'" + "," + "sub_secretary = " + "'" + chkClubSecre + "'" + "," + "sub_volunteer = " + "'" + chkBaVolun + "'" + "," + "sub_social = " + "'" + chkSocialMem + "'" + "," + "sub_member = " + "'" + chkYouthMem + "'" + "," + "sub_tmp1 = " + "'" + chkValue4 + "'" + "," + "sub_tmp2 = " + "'" + chkValue5 + "'" + "," + "ov_member = " + "'" + chkOverseasMem + "'" +
-                                    "WHERE memberid = " + "'" + memIDInput + "'");
+                    //td = SelectSqlTable("SET dateformat dmy UPDATE PrivateDetail " +
+                    //                "SET appliedDate = " + "'" + Date_MsSqlStandard.CastQuery(AppliedInput) + "'" + "," + "nameJ = " + "N'" + nameJinput + "'" + "," + "prefixNm = " + "'" + preFixCho + "'" + "," + "nameE = " + "'" + nameEinput + "'" + "," + "memberType = " + "'" + memTypeCho + "'" + "," + "birthDate = " + "'" + Date_MsSqlStandard.CastQuery(birthDateinput) + "'" + "," + "memberStatus = " + "'" + memStaCho + "'" + "," + "spouse = " + "'" + chkspouse + "'" + "," + "updatedBy = '" + Session["UID"] + "'," + "updatedDate = " + "'" + toDayDate + "'" + "," + "cancelledDate = " + cancelDateTmp + "," + "email = " + "'" + email + "' " + updateNAToA +
+                    //                "WHERE memberid =" + "'" + memIDInput + "'" +
+
+                    //                "SELECT * FROM privateAddress WHERE memberId = '" + memIDInput + "' " +
+                    //                "if @@rowcount > 0 " +
+                    //                "UPDATE privateAddress " +
+                    //                "SET phone = " + "'" + Phoneinput + "'" + "," + "mobile = " + "'" + mobileinput + "'" +
+                    //                "WHERE memberid =" + "'" + memIDInput + "'" + "AND addressType = '1' " +
+                    //                "else " +
+                    //                "INSERT privateAddress(memberId, phone, mobile, addressType) " +
+                    //                "VALUES('" + memIDInput + "','" + Phoneinput + "','" + mobileinput + "', 1) " +
+
+                    //                "UPDATE PrivateClub " +
+                    //                //"SET golf = " + "'" + chkGolf + "'" + "," + "board = " + "'" + chkBoard + "'" + "," + "lady = " + "'" + chkLady + "'" + "," + "children = " + "'" + chkChild + "'" + "," + "zukuzuku = " + "'" + chkSukuzuku + "'" + "," + "meijinkai = " + "'" + chkMeijinkai + "'" +
+                    //                "SET golf = " + "'" + chkGolf + "'" + "," + "children = " + "'" + chkChild + "'" + "," + "board = " + "'" + chkBoard + "'" + "," + "zukuzuku = " + "'" + chkSukuzuku + "'" + "," + "lady = " + "'" + chkLady + "'" + "," + "ev_1 = " + "'" + chkEngtest + "'" + "," + "ev_2 = " + "'" + chkOnevent + "'" + "," + "ev_3 = " + "'" + chkSoftball + "'" + "," + "ev_4 = " + "'" + chkYoga + "'" + "," + "ev_tmp1 = " + "'" + chkValue1 + "'" + "," + "ev_tmp2 = " + "'" + chkValue2 + "'" + "," + "ev_tmp3 = " + "'" + chkValue3 + "'" + "," + "sub_board_list = " + "'" + chkBoardlist + "'" + "," + "sub_secretary = " + "'" + chkClubSecre + "'" + "," + "sub_volunteer = " + "'" + chkBaVolun + "'" + "," + "sub_social = " + "'" + chkSocialMem + "'" + "," + "sub_member = " + "'" + chkYouthMem + "'" + "," + "sub_tmp1 = " + "'" + chkValue4 + "'" + "," + "sub_tmp2 = " + "'" + chkValue5 + "'" + "," + "ov_member = " + "'" + chkOverseasMem + "'" +
+                    //                "WHERE memberid = " + "'" + memIDInput + "'");
+
+                    td = SelectSqlTable(_query);
+
 					string activityDetail = $"Changed value in a table 'privateAddress' and Added new value into 2 tables ('privateAddress, PrivateClub') successful (user id = {staffID})";
 					logActivity.LogStaffActivity(staffID, activityDetail);
                     //Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfristMem + "&memberid=" + memIDInput);

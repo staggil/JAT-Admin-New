@@ -349,7 +349,7 @@
                     <div class="col-lg-6">
                         <div class="row">
                             <div class="form-group col-lg-6">
-                                <label style="color:red;">*</label>
+                                <%--<label style="color:red;">*</label>--%>
                                 <label><%=Resources.Resources.represent_person_id %></label>
                                 <span style="float:right;">:</span>
                             </div>
@@ -357,7 +357,7 @@
                                 <input type="text" id="represID" class="form-control" runat="server" maxlength="10">
                             </div>
                             <div class="form-group col-lg-2">
-                                <asp:Button ID="Retrieve" Height="25px" runat="server" CssClass="form-control btn btn-success" OnClick="Retrieve_Click" Visible="false" Text="Retrieve" formnovalidate/>
+                                <%--<asp:Button ID="Retrieve" Height="25px" runat="server" CssClass="form-control btn btn-success" OnClick="Retrieve_Click" Visible="false" Text="Retrieve" formnovalidate/>--%>
                             </div>
                         </div>
                     </div>
