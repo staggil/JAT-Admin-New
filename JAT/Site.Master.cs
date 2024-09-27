@@ -10,6 +10,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
+using System.Reflection;
 
 namespace JAT
 {
@@ -20,6 +21,8 @@ namespace JAT
         private string _antiXsrfTokenValue;
         private SqlConnection conn;
         private SqlCommand cmd;
+        internal Assembly assembly = Assembly.GetExecutingAssembly();
+        internal AssemblyFileVersionAttribute fileVersion;
 
         private void connection()
         {
@@ -90,11 +93,15 @@ namespace JAT
                 }
             }
 
+            
         }
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            this.fileVersion = this.assembly.GetCustomAttribute<AssemblyFileVersionAttribute>();
+            this.LblVersion.Text = this.fileVersion.Version;
+            
             if (GetCurrentPageName() == "Login")
             {
                 //hide sidebar

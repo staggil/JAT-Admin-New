@@ -1174,6 +1174,9 @@ namespace JAT.Admin.RegisterMember
                 catch (Exception ex)
                 {
                     // Handle the error
+
+                    //string activityDetail = $@"Error: {ex.Message}";
+                    //logActivity.LogStaffActivity(staffID, activityDetail);
                 }
 
             }

@@ -114,7 +114,8 @@
                     </asp:ContentPlaceHolder>
                     <hr />
                     <footer>
-                        <p align="center">JAT In-House System v1.5<br/>Copyright &copy; <%: DateTime.Now.Year %> Japanese Association in Thailand. All Rights Reserved.</p>
+                        <p align="center">JAT In-House System <asp:Label ID="LblVersion" runat="server" Text="" />
+                        </br>Copyright &copy;2024 Japanese Association in Thailand. All Rights Reserved.</p>
                     </footer>
                 </div>
             </div>

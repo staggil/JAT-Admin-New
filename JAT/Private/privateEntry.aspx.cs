@@ -834,12 +834,17 @@ namespace JAT.Private
                 var chkPayment = Box39.Checked;
                 var updateuid = Session["UID"];
                 var emailVal = email.Value.ToString().Replace("'", "''");
+
+                var uid = Session["UID"];
+                int staffID = uid != null ? Convert.ToInt32(uid) : 0;
+
                 try
                 {
+                    
+
                     if (addValue == "add" && sendMethodCho != "any")
                     {
-						var uid = Session["UID"];
-						int staffID = uid != null ? Convert.ToInt32(uid) : 0;
+						
 						try
                         {
 							td = SelectSqlTable("SET dateformat dmy INSERT INTO PrivateDetail(firstmemberid, memberid, nameJ, nameE, prefixNm, cancelledDate, memberStatus, birthDate, memberType, appliedDate, updatedBy)" +
@@ -870,13 +875,13 @@ namespace JAT.Private
 						}
                         catch (SqlException ex)
                         {
-							string activityDetail = $"Added new data into 10 tables ('PrivateDetail, PrivateSendHistory, PrivateRemark, PrivateRefer, PrivatePayment, PrivateBoard, privateAddress, PrivateAccount, Private, PrivateClub') unsuccessful [{ex.Message}] (user id = {staffID})";
-							logActivity.LogStaffActivity(staffID, activityDetail);
-						}
-						catch (Exception ex)
-						{
-							string activityDetail = $"Added new data into 10 tables ('PrivateDetail, PrivateSendHistory, PrivateRemark, PrivateRefer, PrivatePayment, PrivateBoard, privateAddress, PrivateAccount, Private, PrivateClub') unsuccessful [{ex.Message}] (user id = {staffID})";
-							logActivity.LogStaffActivity(staffID, activityDetail);
+                            string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                            logActivity.LogStaffActivity(staffID, activityDetail);
+                        }
+                        catch (Exception ex)
+                        {
+                            string activityDetail = $@"Error: {ex.Message}";
+                            logActivity.LogStaffActivity(staffID, activityDetail);
 						}
 
 
@@ -897,10 +902,14 @@ namespace JAT.Private
                     {
                         lbError.Text = "Database error: input may not be in the proper format.";
                     }
+                    string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                    logActivity.LogStaffActivity(staffID, activityDetail);
                 }
                 catch (Exception ex)
                 {
                     lbError.Text = ex.ToString();
+                    string activityDetail = $@"Error: {ex.Message}";
+                    logActivity.LogStaffActivity(staffID, activityDetail);
                 }
             }
             else if (confirmValue == "Yes" && checkinput != "Valid")
@@ -951,13 +960,13 @@ namespace JAT.Private
 				}
                 catch (SqlException ex)
                 {
-					string activityDetail = $"Changed data in table a 'private' where memberid is '{showfristMem}' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
-				}
-				catch (Exception ex)
-				{
-					string activityDetail = $"Changed data in table a 'private' where memberid is '{showfristMem}' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
+                    string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                    logActivity.LogStaffActivity(staffID, activityDetail);
+                }
+                catch (Exception ex)
+                {
+                    string activityDetail = $@"Error: {ex.Message}";
+                    logActivity.LogStaffActivity(staffID, activityDetail);
 				}
 
 
@@ -1133,15 +1142,13 @@ namespace JAT.Private
 						}
                         catch (SqlException ex)
                         {
-							string activityDetail = $"Changed value in 6 tables ('Private, PrivateDetail, privateAddress, PrivateClub, PrivateRemark, PrivateBoard') where memberid is '{showfristMem}' " +
-                                $"and Added new data into 2 tables ('PrivateBoard, PrivateSendHistory') unsuccessful [{ex.Message}] (user id = {staffID})";
-							logActivity.LogStaffActivity(staffID, activityDetail);
-						}
-						catch (Exception ex)
-						{
-							string activityDetail = $"Changed value in 6 tables ('Private, PrivateDetail, privateAddress, PrivateClub, PrivateRemark, PrivateBoard') where memberid is '{showfristMem}' " +
-								$"and Added new data into 2 tables ('PrivateBoard, PrivateSendHistory') unsuccessful [{ex.Message}] (user id = {staffID})";
-							logActivity.LogStaffActivity(staffID, activityDetail);
+                            string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                            logActivity.LogStaffActivity(staffID, activityDetail);
+                        }
+                        catch (Exception ex)
+                        {
+                            string activityDetail = $@"Error: {ex.Message}";
+                            logActivity.LogStaffActivity(staffID, activityDetail);
 						}
 
 						Response.Redirect("privateEntry.aspx?firstmemberid=" + Box2.Value + "&memberid=" + Box2.Value);
@@ -1328,15 +1335,13 @@ namespace JAT.Private
 						}
                         catch (SqlException ex)
                         {
-							string activityDetail = $"Changed data in 6 tables ('Private, PrivateDetail, " +
-								$"privateAddress, PrivateClub, PrivateRemark, PrivateBoard') where memberid is '{showfristMem}' unsuccessful [{ex.Message}] (user id = {staffID})";
+                            string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
 							logActivity.LogStaffActivity(staffID, activityDetail);
 						}
 						catch (Exception ex)
 						{
-							string activityDetail = $"Changed data in 6 tables ('Private, PrivateDetail, " +
-								$"privateAddress, PrivateClub, PrivateRemark, PrivateBoard') where memberid is '{showfristMem}' unsuccessful [{ex.Message}] (user id = {staffID})";
-							logActivity.LogStaffActivity(staffID, activityDetail);
+							string activityDetail = $@"Error: {ex.Message}";
+                            logActivity.LogStaffActivity(staffID, activityDetail);
 						}
 
 						Response.Redirect("privateEntry.aspx?firstmemberid=" + Box2.Value + "&memberid=" + Box2.Value);

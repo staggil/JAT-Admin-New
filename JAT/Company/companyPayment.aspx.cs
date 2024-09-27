@@ -449,15 +449,15 @@ namespace JAT.Company
                             activityDetail = $"Added new data into a table 'CompanyPayment' successful (user id = '{staffID}')";
                             logActivity.LogStaffActivity(staffID, activityDetail);
 						}
-                        catch (SqlException sqlex)
+                        catch (SqlException ex)
                         {
-							activityDetail = $"Added new data into a table 'CompanyPayment' unsuccessful [{sqlex.Message}] (user id = '{staffID}')";
-							logActivity.LogStaffActivity(staffID, activityDetail);
+                            activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                            logActivity.LogStaffActivity(staffID, activityDetail);
 						}
 						catch (Exception ex)
 						{
-							activityDetail = $"Added new data into a table 'CompanyPayment' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-							logActivity.LogStaffActivity(staffID, activityDetail);
+                            activityDetail = $@"Error: {ex.Message}";
+                            logActivity.LogStaffActivity(staffID, activityDetail);
 						}
                         
                         conn.Close();
@@ -475,15 +475,15 @@ namespace JAT.Company
 							activityDetail = $"Added new data into a table 'CompanyAccount' successful (user id = '{staffID}')";
 							logActivity.LogStaffActivity(staffID, activityDetail);
 						}
-                        catch (SqlException sqlex)
+                        catch (SqlException ex)
 						{
-							activityDetail = $"Added new data into a table 'CompanyAccount' unsuccessful [{sqlex.Message}] (user id = '{staffID}')";
-							logActivity.LogStaffActivity(staffID, activityDetail);
+                            activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                            logActivity.LogStaffActivity(staffID, activityDetail);
 						}
 						catch (Exception ex)
 						{
-							activityDetail = $"Added new data into a table 'CompanyAccount' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-							logActivity.LogStaffActivity(staffID, activityDetail);
+                            activityDetail = $@"Error: {ex.Message}";
+                            logActivity.LogStaffActivity(staffID, activityDetail);
 						}
 
 
@@ -511,13 +511,13 @@ namespace JAT.Company
 							}
                             catch (SqlException ex)
                             {
-								activityDetail = $"Added new data into a table 'CompanyPayment' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-								logActivity.LogStaffActivity(staffID, activityDetail);
+                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                                logActivity.LogStaffActivity(staffID, activityDetail);
 							}
 							catch (Exception ex)
 							{
-								activityDetail = $"Added new data into a table 'CompanyPayment' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-								logActivity.LogStaffActivity(staffID, activityDetail);
+                                activityDetail = $@"Error: {ex.Message}";
+                                logActivity.LogStaffActivity(staffID, activityDetail);
 							}
 
 							conn.Close();
@@ -550,13 +550,13 @@ namespace JAT.Company
 							}
 							catch (SqlException ex)
 							{
-								activityDetail = $"Added new data into a table 'CompanyPayment' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-								logActivity.LogStaffActivity(staffID, activityDetail);
+                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                                logActivity.LogStaffActivity(staffID, activityDetail);
 							}
 							catch (Exception ex)
 							{
-								activityDetail = $"Added new data into a table 'CompanyPayment' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-								logActivity.LogStaffActivity(staffID, activityDetail);
+                                activityDetail = $@"Error: {ex.Message}";
+                                logActivity.LogStaffActivity(staffID, activityDetail);
 							}
 							conn.Close();
 
@@ -575,13 +575,13 @@ namespace JAT.Company
 							}
 							catch (SqlException ex)
 							{
-								activityDetail = $"Added new data into a table 'CompanyAccount' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-								logActivity.LogStaffActivity(staffID, activityDetail);
+                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                                logActivity.LogStaffActivity(staffID, activityDetail);
 							}
 							catch (Exception ex)
 							{
-								activityDetail = $"Added new data into a table 'CompanyAccount' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-								logActivity.LogStaffActivity(staffID, activityDetail);
+                                activityDetail = $@"Error: {ex.Message}";
+                                logActivity.LogStaffActivity(staffID, activityDetail);
 							}
 							vlozSQL.Parameters.Clear();
                             conn.Close();
@@ -603,13 +603,13 @@ namespace JAT.Company
 					}
 					catch (SqlException ex)
 					{
-						activityDetail = $"Added new data into a table 'CompanyPayment' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-						logActivity.LogStaffActivity(staffID, activityDetail);
+                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                        logActivity.LogStaffActivity(staffID, activityDetail);
 					}
 					catch (Exception ex)
 					{
-						activityDetail = $"Added new data into a table 'CompanyPayment' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-						logActivity.LogStaffActivity(staffID, activityDetail);
+                        activityDetail = $@"Error: {ex.Message}";
+                        logActivity.LogStaffActivity(staffID, activityDetail);
 					}
 					conn.Close();
                     Page.Response.Redirect(Page.Request.Url.ToString(), false);
@@ -635,13 +635,13 @@ namespace JAT.Company
 						}
 						catch (SqlException ex)
 						{
-							activityDetail = $"Added new data into a table 'CompanyPayment' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-							logActivity.LogStaffActivity(staffID, activityDetail);
+                            activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                            logActivity.LogStaffActivity(staffID, activityDetail);
 						}
 						catch (Exception ex)
 						{
-							activityDetail = $"Added new data into a table 'CompanyPayment' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-							logActivity.LogStaffActivity(staffID, activityDetail);
+                            activityDetail = $@"Error: {ex.Message}";
+                            logActivity.LogStaffActivity(staffID, activityDetail);
 						}
 						conn.Close();
 
@@ -660,13 +660,13 @@ namespace JAT.Company
 						}
 						catch (SqlException ex)
 						{
-							activityDetail = $"Added new data into a table 'CompanyAccount' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-							logActivity.LogStaffActivity(staffID, activityDetail);
+                            activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                            logActivity.LogStaffActivity(staffID, activityDetail);
 						}
 						catch (Exception ex)
 						{
-							activityDetail = $"Added new data into a table 'CompanyAccount' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-							logActivity.LogStaffActivity(staffID, activityDetail);
+                            activityDetail = $@"Error: {ex.Message}";
+                            logActivity.LogStaffActivity(staffID, activityDetail);
 						}
 						vlozSQL.Parameters.Clear();
                         conn.Close();
@@ -690,13 +690,13 @@ namespace JAT.Company
 							}
 							catch (SqlException ex)
 							{
-								activityDetail = $"Added new data into a table 'CompanyPayment' unsuccessful [{ex.Message}] (user id = {staffID})";
-								logActivity.LogStaffActivity(staffID, activityDetail);
+                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                                logActivity.LogStaffActivity(staffID, activityDetail);
 							}
 							catch (Exception ex)
 							{
-								activityDetail = $"Added new data into a table 'CompanyPayment' unsuccessful [{ex.Message}] (user id = {staffID})";
-								logActivity.LogStaffActivity(staffID, activityDetail);
+                                activityDetail = $@"Error: {ex.Message}";
+                                logActivity.LogStaffActivity(staffID, activityDetail);
 							}
 							conn.Close();
 
@@ -729,13 +729,13 @@ namespace JAT.Company
 							}
 							catch (SqlException ex)
 							{
-								activityDetail = $"Added new data into a table 'CompanyPayment' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-								logActivity.LogStaffActivity(staffID, activityDetail);
+                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                                logActivity.LogStaffActivity(staffID, activityDetail);
 							}
 							catch (Exception ex)
 							{
-								activityDetail = $"Added new data into a table 'CompanyPayment' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-								logActivity.LogStaffActivity(staffID, activityDetail);
+                                activityDetail = $@"Error: {ex.Message}";
+                                logActivity.LogStaffActivity(staffID, activityDetail);
 							}
 							conn.Close();
 
@@ -754,13 +754,13 @@ namespace JAT.Company
 							}
 							catch (SqlException ex)
 							{
-								activityDetail = $"Added new data into a table 'CompanyAccount' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-								logActivity.LogStaffActivity(staffID, activityDetail);
+                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                                logActivity.LogStaffActivity(staffID, activityDetail);
 							}
 							catch (Exception ex)
 							{
-								activityDetail = $"Added new data into a table 'CompanyAccount' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-								logActivity.LogStaffActivity(staffID, activityDetail);
+                                activityDetail = $@"Error: {ex.Message}";
+                                logActivity.LogStaffActivity(staffID, activityDetail);
 							}
 							vlozSQL.Parameters.Clear();
                             conn.Close();
@@ -786,13 +786,13 @@ namespace JAT.Company
 					}
 					catch (SqlException ex)
 					{
-						activityDetail = $"Added new data into a table 'CompanyPayment' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-						logActivity.LogStaffActivity(staffID, activityDetail);
+                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                        logActivity.LogStaffActivity(staffID, activityDetail);
 					}
 					catch (Exception ex)
 					{
-						activityDetail = $"Added new data into a table 'CompanyPayment' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-						logActivity.LogStaffActivity(staffID, activityDetail);
+                        activityDetail = $@"Error: {ex.Message}";
+                        logActivity.LogStaffActivity(staffID, activityDetail);
 					}
 					conn.Close();
                     Page.Response.Redirect(Page.Request.Url.ToString(), true);
@@ -938,14 +938,15 @@ namespace JAT.Company
 					}
 					catch (SqlException ex)
 					{
+                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
                         //activityDetail = $"Changed data in a table 'CompanyPayment' where tranId is '{tranId}' and companyid is '{showMem}' unsuccessful [{sqlex.Message}] (User id = '{staffID}')";
-                        logActivity.LogStaffActivity(staffID, $"ERROR at {ex.LineNumber} {ex.StackTrace} " +
-                                                              $"{ex.Message}");
+                        logActivity.LogStaffActivity(staffID, $"Sql Error : {ex.ErrorCode} {ex.Message}");
                     }
 					catch (Exception ex)
 					{
+                        activityDetail = $@"Error: {ex.Message}";
                         //activityDetail = $"Changed data in a table 'CompanyPayment' where tranId is '{tranId}' and companyid is '{showMem}' unsuccessful [{ex.Message}] (User id = '{staffID}')";
-                        logActivity.LogStaffActivity(staffID, $"ERROR at {ex.StackTrace} {ex.Message}");
+                        logActivity.LogStaffActivity(staffID, $"Error : {ex.Message}");
                     }
 
 					conn.Close();
@@ -1111,13 +1112,13 @@ namespace JAT.Company
 					}
 					catch (SqlException ex)
 					{
-						activityDetail = $"Changed data in a table 'CompanyPayment' Where tranId is '{Label1.Text}' and companyid is '{showMem}' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-						logActivity.LogStaffActivity(staffID, activityDetail);
+                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                        logActivity.LogStaffActivity(staffID, activityDetail);
 					}
 					catch (Exception ex)
 					{
-						activityDetail = $"Changed data in a table 'CompanyPayment' Where tranId is '{Label1.Text}' and companyid is '{showMem}' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-						logActivity.LogStaffActivity(staffID, activityDetail);
+                        activityDetail = $@"Error: {ex.Message}";
+                        logActivity.LogStaffActivity(staffID, activityDetail);
 					}
 
 					conn.Close();
@@ -1143,13 +1144,13 @@ namespace JAT.Company
 					}
 					catch (SqlException ex)
 					{
-						activityDetail = $"Changed data in a table 'CompanyPayment' Where tranId is '{Label1.Text}' and companyid is '{showMem}' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-						logActivity.LogStaffActivity(staffID, activityDetail);
+                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                        logActivity.LogStaffActivity(staffID, activityDetail);
 					}
 					catch (Exception ex)
 					{
-						activityDetail = $"Changed data in a table 'CompanyPayment' Where tranId is '{Label1.Text}' and companyid is '{showMem}' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-						logActivity.LogStaffActivity(staffID, activityDetail);
+                        activityDetail = $@"Error: {ex.Message}";
+                        logActivity.LogStaffActivity(staffID, activityDetail);
 					}
 					conn.Close();
 
@@ -1172,13 +1173,13 @@ namespace JAT.Company
 					}
 					catch (SqlException ex)
 					{
-						activityDetail = $"Added new data into a table 'CompanyAccount' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-						logActivity.LogStaffActivity(staffID, activityDetail);
+                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                        logActivity.LogStaffActivity(staffID, activityDetail);
 					}
 					catch (Exception ex)
 					{
-						activityDetail = $"Added new data into a table 'CompanyAccount' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-						logActivity.LogStaffActivity(staffID, activityDetail);
+                        activityDetail = $@"Error: {ex.Message}";
+                        logActivity.LogStaffActivity(staffID, activityDetail);
 					}
 					vlozSQL.Parameters.Clear();
                     conn.Close();
@@ -1233,13 +1234,13 @@ namespace JAT.Company
 				}
                 catch (SqlException ex)
                 {
-					activityDetail = $"Changed data in a table 'CompanyPayment' Where tranId is '{Label1.Text}' and companyid is '{showMem}' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
+                    activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                    logActivity.LogStaffActivity(staffID, activityDetail);
 				}
 				catch (Exception ex)
 				{
-					activityDetail = $"Changed data in a table 'CompanyPayment' Where tranId is '{Label1.Text}' and companyid is '{showMem}' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
+                    activityDetail = $@"Error: {ex.Message}";
+                    logActivity.LogStaffActivity(staffID, activityDetail);
 				}
 
 				//try
@@ -1278,13 +1279,13 @@ namespace JAT.Company
 			}
             catch (SqlException ex)
             {
-				activityDetail = $"Changed data in a table 'CompanyPayment' Where companyid = '{showMem}' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-				logActivity.LogStaffActivity(staffID, activityDetail);
+                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                logActivity.LogStaffActivity(staffID, activityDetail);
 			}
 			catch (Exception ex)
 			{
-				activityDetail = $"Changed data in a table 'CompanyPayment' Where companyid = '{showMem}' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-				logActivity.LogStaffActivity(staffID, activityDetail);
+                activityDetail = $@"Error: {ex.Message}";
+                logActivity.LogStaffActivity(staffID, activityDetail);
 			}
 			conn.Close();
         }

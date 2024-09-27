@@ -168,15 +168,15 @@ namespace JAT.Admin.CancelMember
                 string activityDetail = $"Updated data in table 'PrivateDetail' where firstmemberid = '{showfristMem}' and cancelledDate is NULL successful (User id = '{staffID}')";
                 logActivity.LogStaffActivity(staffID, activityDetail);
 			}
-			catch (SqlException sqlException)
+			catch (SqlException ex)
 			{
-				string activityDetail = $"Updated data in table 'PrivateDetail' where firstmemberid = '{showfristMem}' and cancelledDate is NULL unsuccessful [{sqlException.Message}] (User id = '{staffID}')";
-				logActivity.LogStaffActivity(staffID, activityDetail);
+                string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                logActivity.LogStaffActivity(staffID, activityDetail);
 			}
-			catch (Exception exception)
+			catch (Exception ex)
             {
-				string activityDetail = $"Updated data in table 'PrivateDetail' where firstmemberid = '{showfristMem}' and cancelledDate is NULL unsuccessful [{exception.Message}] (User id = '{staffID}')";
-				logActivity.LogStaffActivity(staffID, activityDetail);
+                string activityDetail = $@"Error: {ex.Message}";
+                logActivity.LogStaffActivity(staffID, activityDetail);
 			}
 
         }
@@ -195,15 +195,15 @@ namespace JAT.Admin.CancelMember
 				string activityDetail = $"Updated data in table 'PrivateDetail' where firstmemberid = '{showfristMem}' and firstmemberid != memberid and cancelledDate is NULL successful (User id = '{staffID}')";
 				logActivity.LogStaffActivity(staffID, activityDetail);
 			}
-			catch (SqlException sqlException)
+			catch (SqlException ex)
 			{
-				string activityDetail = $"Updated data in table 'PrivateDetail' where firstmemberid = '{showfristMem}' and firstmemberid != memberid and cancelledDate is NULL unsuccessful [{sqlException.Message}] (User id = '{staffID}')";
-				logActivity.LogStaffActivity(staffID, activityDetail);
+                string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                logActivity.LogStaffActivity(staffID, activityDetail);
 			}
-			catch (Exception exception)
+			catch (Exception ex)
 			{
-				string activityDetail = $"Updated data in table 'PrivateDetail' where firstmemberid = '{showfristMem}' and firstmemberid != memberid and cancelledDate is NULL unsuccessful [{exception.Message}] (User id = '{staffID}')";
-				logActivity.LogStaffActivity(staffID, activityDetail);
+                string activityDetail = $@"Error: {ex.Message}";
+                logActivity.LogStaffActivity(staffID, activityDetail);
 			}
 		}
 
@@ -347,15 +347,15 @@ namespace JAT.Admin.CancelMember
 					string activityDetail = $"Changed value in table 'CancelPrivate' where cancel_id is '{cancelid}' success (User id = '{staffID}')";
 					logActivity.LogStaffActivity(staffID, activityDetail);
 				}
-				catch (SqlException sqlex)
+				catch (SqlException ex)
 				{
-					string activityDetail = $"Changed value in table 'CancelPrivate' where cancel_id is '{cancelid}' unsuccessful [{sqlex.Message}] (User id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
+                    string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                    logActivity.LogStaffActivity(staffID, activityDetail);
 				}
 				catch (Exception ex)
 				{
-					string activityDetail = $"Changed value in table 'CancelPrivate' where cancel_id is '{cancelid}' unsuccessful [{ex.Message}] (User id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
+                    string activityDetail = $@"Error: {ex.Message}";
+                    logActivity.LogStaffActivity(staffID, activityDetail);
 				}
 			}
 			else if (btnValue == "reject")
@@ -366,15 +366,15 @@ namespace JAT.Admin.CancelMember
 					string activityDetail = $"Changed value in table 'CancelPrivate' where cancel_id is '{cancelid}' successful (User id = '{staffID}')";
 					logActivity.LogStaffActivity(staffID, activityDetail);
 				}
-				catch (SqlException sqlex)
+				catch (SqlException ex)
 				{
-					string activityDetail = $"Changed value in table 'CancelPrivate' where cancel_id is '{cancelid}' unsuccessful [{sqlex.Message}] (User id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
+                    string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                    logActivity.LogStaffActivity(staffID, activityDetail);
 				}
 				catch (Exception ex)
 				{
-					string activityDetail = $"Changed value in table 'CancelPrivate' where cancel_id is '{cancelid}' unsuccessful [{ex.Message}] (User id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
+                    string activityDetail = $@"Error: {ex.Message}";
+                    logActivity.LogStaffActivity(staffID, activityDetail);
 				}
 			}
             
@@ -398,14 +398,14 @@ namespace JAT.Admin.CancelMember
 						activityDetail = $"Changed value in table 'PrivateDetail' where firstmemberid is '{showfristMem}' and memberid is '{GridView1.Rows[i].Cells[0].Text}' successful (User id = '{staffID}')";
 					
 					}
-					catch (SqlException sqlEx)
+					catch (SqlException ex)
 					{
-						activityDetail = $"Changed value in table 'PrivateDetail' where firstmemberid is '{showfristMem}' and memberid is '{GridView1.Rows[i].Cells[0].Text}' unsuccessful [{sqlEx.Message}] (User id = '{staffID}')";
+						activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
 						break;
 					}
 					catch (Exception ex)
 					{
-						activityDetail = $"Changed value in table 'PrivateDetail' where firstmemberid is '{showfristMem}' and memberid is '{GridView1.Rows[i].Cells[0].Text}' unsuccessful [{ex.Message}] (User id = '{staffID}')";
+						activityDetail = $@"Error: {ex.Message}";
 						break;
 					}
 				}

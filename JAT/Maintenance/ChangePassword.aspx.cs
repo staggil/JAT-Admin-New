@@ -133,7 +133,7 @@ namespace JAT.Maintenance
                     }
                     catch (SqlException ex)
                     {
-                        string activityDetail = $"Changed value in a table 'Maintenance_Password' where old password is '{passOld.Value}' unsuccessful [{ex.Message}] (User id = '{staffID}')'";
+                        string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
                         logActivity.LogStaffActivity(staffID, activityDetail);
                         string script3 = "alert(\"Data Not Completed\");";
                         ScriptManager.RegisterStartupScript(this, GetType(),
@@ -142,7 +142,7 @@ namespace JAT.Maintenance
                     }
 					catch (Exception ex)
 					{
-						string activityDetail = $"Changed value in a table 'Maintenance_Password' where old password is '{passOld.Value}' unsuccessful [{ex.Message}] (User id = '{staffID}')'";
+                        string activityDetail = $@"Error: {ex.Message}";
 						logActivity.LogStaffActivity(staffID, activityDetail);
 						string script3 = "alert(\"Data Not Completed\");";
 						ScriptManager.RegisterStartupScript(this, GetType(),
