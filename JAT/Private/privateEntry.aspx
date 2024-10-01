@@ -648,6 +648,7 @@
                                     </asp:DropDownList>
                                     <asp:HiddenField ID="HiddenField1" runat="server" />
                                     <%--<asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>--%>
+                                    <asp:RequiredFieldValidator ID="RequiredBox33Validator" ControlToValidate="Box33" runat="server" ErrorMessage="RequiredFieldValidator"/>
                                 </div>
                                 <%--@*<button id="openSendHistory">Open Modal</button>*@--%>
                                 <a herf="" id="openSendHistory" style="color: black" onclick="openModal()"><u><%=Resources.Resources.send_history %></u></a>

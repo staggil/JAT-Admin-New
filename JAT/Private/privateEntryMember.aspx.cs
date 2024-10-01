@@ -429,7 +429,7 @@ namespace JAT.Private
 
         protected void GridView_EditButton_Click(object sender, EventArgs e)
         {
-            //Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfristMem +"&memberid=" + Box1.Value);
+            //Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfirstMem +"&memberid=" + Box1.Value);
 
             ShowForm();
             addBTN.Visible = false;
@@ -898,7 +898,7 @@ namespace JAT.Private
                 try
                 {
                     //td = SelectSqlTable("SET dateformat dmy INSERT INTO PrivateDetail(appliedDate, nameJ, nameE, prefixNm, memberStatus, birthDate, memberType, memberid, firstmemberid, spouse, updatedBy,updatedDate) " +
-                    //                    "VALUES('" + AppliedInput + "'" + "," + "N'" + nameJinput + "'" + "," + "'" + nameEinput + "'" + "," + "'" + preFixCho + "'" + "," + "'" + memStaCho + "'" + "," + "'" + birthDateinput + "'" + "," + "'" + memTypeCho + "'" + "," + "'" + memIDInput + "'" + "," + "'" + showfristMem + "'" + "," + "'" + chkspouse + "'" + "," + Session["UID"] + "," + "'" + toDayDate + "'" + ") " +
+                    //                    "VALUES('" + AppliedInput + "'" + "," + "N'" + nameJinput + "'" + "," + "'" + nameEinput + "'" + "," + "'" + preFixCho + "'" + "," + "'" + memStaCho + "'" + "," + "'" + birthDateinput + "'" + "," + "'" + memTypeCho + "'" + "," + "'" + memIDInput + "'" + "," + "'" + showfirstMem + "'" + "," + "'" + chkspouse + "'" + "," + Session["UID"] + "," + "'" + toDayDate + "'" + ") " +
                     //                    "INSERT INTO PrivatePayment(memberid) " +
                     //                    "VALUES('" + memIDInput + "'" + ") " +
                     //                    "INSERT INTO privateAddress(phone, mobile, addressType, memberid) " +
@@ -1169,7 +1169,7 @@ namespace JAT.Private
 
 					string activityDetail = $"Changed value in a table 'privateAddress' and Added new value into 2 tables ('privateAddress, PrivateClub') successful (user id = {staffID})";
 					logActivity.LogStaffActivity(staffID, activityDetail);
-                    //Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfristMem + "&memberid=" + memIDInput);
+                    //Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfirstMem + "&memberid=" + memIDInput);
                     
                 }
 				catch (SqlException ex)

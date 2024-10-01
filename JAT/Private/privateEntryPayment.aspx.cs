@@ -441,7 +441,7 @@ namespace JAT.Private
                 //          "left outer join privateDetail d on pp.payBy = d.memberId " +
                 //          "left outer join privatePayAccount ppa on ppa.tranId = pp.tranId " +
                 //          "left outer join privateAccount pa on pa.memberid = pp.memberid and pa.accId = ppa.accId " +
-                //          "where pp.memberid = '" + showfristMem + "' and pp.tranId = '" + tranId + "' ";
+                //          "where pp.memberid = '" + showfirstMem + "' and pp.tranId = '" + tranId + "' ";
             }
             else
             {
@@ -586,7 +586,7 @@ namespace JAT.Private
             //                    " t1.payRemark " +
             //                    "FROM PrivatePayment t1 " +
             //                    "INNER JOIN PrivateDetail t2 ON t1.memberid = t2.memberid INNER JOIN PrivateAccount t3 ON t2.memberid = t3.accId " +
-            //                    "WHERE t2.firstmemberid = " + "'" + showfristMem + "'");
+            //                    "WHERE t2.firstmemberid = " + "'" + showfirstMem + "'");
 
             // *** 2024-09-06 02.55pm : Toon Jiradech.K have revised code
             td = SelectSqlTable("select t1.tranId, t1.payBy, t2.nameE, FORMAT(t1.paymentDate, 'dd/MM/yyyy') AS paymentDate, " +
@@ -905,7 +905,7 @@ namespace JAT.Private
                           "left outer join privatePayAccount ppa on ppa.tranId = pp.tranId " +
                           "left outer join privateAccount pa on pa.memberid = pp.memberid and pa.accId = ppa.accId " +
                           "left outer join PrivatePayShort pps on pp.tranId = pps.tranId " +
-                          //"where payBy = '" + showfristMem + "' and pp.tranId = '" + tranId + "' ";
+                          //"where payBy = '" + showfirstMem + "' and pp.tranId = '" + tranId + "' ";
                           "where pp.tranId = '" + tranId + "' "; //update
                     //sql = "select pp.memberId,(prefixNm + ' '+ nameE) as nameEng, pp.memberType,payNoMember,payDuration,paymentDate, " +
                     //      "effectiveDate,expireDate,payMethod,payRemark,receiptNo,checkReceipt,entranceFee, " +
@@ -914,7 +914,7 @@ namespace JAT.Private
                     //      "left outer join privateDetail d on pp.payBy = d.memberId " +
                     //      "left outer join privatePayAccount ppa on ppa.tranId = pp.tranId " +
                     //      "left outer join privateAccount pa on pa.memberid = pp.memberid and pa.accId = ppa.accId " +
-                    //      "where pp.memberid = '" + showfristMem + "' and pp.tranId = '" + tranId + "' ";
+                    //      "where pp.memberid = '" + showfirstMem + "' and pp.tranId = '" + tranId + "' ";
                 }
                 else
                 {
@@ -924,13 +924,13 @@ namespace JAT.Private
                          "from PrivatePayment pp " +
                          "inner join PrivateDetail pd on pp.memberid = pd.memberid " +
                          "left outer join PrivatePayShort pps on pp.tranId = pps.tranId " +
-                         //"where payBy = '" + showfristMem + "' and pp.tranId = '" + tranId + "' ";
+                         //"where payBy = '" + showfirstMem + "' and pp.tranId = '" + tranId + "' ";
                          "where pp.tranId = '" + tranId + "' ";
                     //sql = "select pp.memberId,(prefixNm + ' '+ nameE) as nameEng, pp.memberType,payNoMember,payDuration,paymentDate, " +
                     //     "effectiveDate,expireDate,payMethod,payRemark,receiptNo,checkReceipt,entranceFee,newsletterFee,pp.tranId ,checkShort " +
                     //     "from PrivatePayment pp " +
                     //     "inner join PrivateDetail pd on pp.memberid = pd.memberid " +
-                    //     "where firstmemberid = '" + showfristMem + "' and pp.tranId = '" + tranId + "' ";
+                    //     "where firstmemberid = '" + showfirstMem + "' and pp.tranId = '" + tranId + "' ";
                 }
 
 
@@ -1455,7 +1455,7 @@ namespace JAT.Private
 					vlozSQL3.Parameters.Clear();
                     conn.Close();
 
-                    //cmd = new SqlCommand("INSERT INTO PrivatePayment VALUES('" + showfristMem + "','" + DropDownList1.SelectedValue + "','" + DropDownList2.SelectedValue + "' )", conn);
+                    //cmd = new SqlCommand("INSERT INTO PrivatePayment VALUES('" + showfirstMem + "','" + DropDownList1.SelectedValue + "','" + DropDownList2.SelectedValue + "' )", conn);
 
                     //conn.Open();
                     //cmd.ExecuteNonQuery();
@@ -1771,7 +1771,7 @@ namespace JAT.Private
                                         "checkReceipt='" + GetReceiptChk.Checked + "', entranceFee='" + entranceVal.Text + "', newsletterFee='" + annualVal.Text + "', checkShort='" + CheckShort.Checked + "',updatedDate = '" + toDayDate + "',updatedBy = " + Session["UID"] + ", payat = '" + ddpayat.SelectedValue.ToString() + "'" + " " +
                                         "where tranId = '" + Label4.Text + "' ", conn);
                     //cmd = new SqlCommand("update PrivatePayment set payRemark = '" + remarkBox.Value + "' " +
-                    //                    "where memberid = '" + showfristMem + "' and tranId = '" + Label4.Text + "' ", conn);
+                    //                    "where memberid = '" + showfirstMem + "' and tranId = '" + Label4.Text + "' ", conn);
                     conn.Open();
 					try
 					{

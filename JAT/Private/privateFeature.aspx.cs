@@ -223,7 +223,7 @@ namespace JAT.Private
                 tmp = "Activate Member Executed";
                 Response.Redirect("privateEntry.aspx?firstmemberid=" + showfristMem);
             }
-            else
+            else if (radVal == "Change First Member")
             {
                 showInGridCanMem();
                 GridView1.Columns[0].Visible = false;
@@ -300,7 +300,7 @@ namespace JAT.Private
 
 			//td = SelectSqlTable("UPDATE PrivateDetail " +
 			//    "SET firstMemberID = '" + row.Cells[2].Text + "'" +
-			//    "WHERE firstMemberID = '" + showfristMem + "'");
+			//    "WHERE firstMemberID = '" + showfirstMem + "'");
 
 			try
 			{

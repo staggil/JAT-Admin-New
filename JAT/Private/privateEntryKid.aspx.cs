@@ -171,7 +171,7 @@ namespace JAT.Private
             #region 'The old query dosn't soft delete support'
             //td = SelectSqlTable("SELECT t1.childid, t1.prefixKid, t1.nameKidJ, t1.nameKidE, FORMAT(t1.birthdate, 'dd/MM/yyyy') AS birthDate " +
             //                    "FROM PrivateChild t1 " +
-            //                    "INNER JOIN PrivateDetail t2 ON t1.memberid = t2.memberid WHERE t2.firstmemberid =" + "'" + showfristMem + "'");
+            //                    "INNER JOIN PrivateDetail t2 ON t1.memberid = t2.memberid WHERE t2.firstmemberid =" + "'" + showfirstMem + "'");
             #endregion
 
             #region 'The old query has soft delete supported'
@@ -236,7 +236,7 @@ namespace JAT.Private
             saveBtn.Visible = true;
 
             //Response.Redirect("privateEntryKid.aspx?mode=add");
-            //Response.Redirect("privateEntryKid.aspx?mode=add&firstmemberid=" + showfristMem);
+            //Response.Redirect("privateEntryKid.aspx?mode=add&firstmemberid=" + showfirstMem);
         }
 
         protected void cancelBtn_Click(object sender, EventArgs e)

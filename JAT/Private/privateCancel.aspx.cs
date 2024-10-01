@@ -252,7 +252,7 @@ namespace JAT.Private
             {
 				td = SelectSqlTable("UPDATE PrivateDetail " +
 								"SET date_do_status_na_to_a = NULL, cancelledDate = CURRENT_TIMESTAMP, memberStatus = " + "'NA'" + "," + "updatedBy = " + Session["UID"] + " " +
-								 //"WHERE firstmemberid = '" + showfristMem + "' AND cancelledDate IS NULL");
+								 //"WHERE firstmemberid = '" + showfirstMem + "' AND cancelledDate IS NULL");
 								 "WHERE firstmemberid = '" + showfristMem + "' AND memberStatus = 'A'");
 				string activityDetail = $"Changed value in a table 'PrivateDetail' Where firstmemberid is '{showfristMem}' AND memberStatus is 'A' successful (user id = {staffID})";
 				logActivity.LogStaffActivity(staffID, activityDetail);
@@ -268,7 +268,7 @@ namespace JAT.Private
 				logActivity.LogStaffActivity(staffID, activityDetail);
 			}
 
-			//Response.Redirect("privateCancel.aspx?firstmemberid=" + showfristMem);
+			//Response.Redirect("privateCancel.aspx?firstmemberid=" + showfirstMem);
 		}
 
         protected void cancelAllFamily()
@@ -283,7 +283,7 @@ namespace JAT.Private
 			{
 				td = SelectSqlTable("UPDATE PrivateDetail " +
 								"SET date_do_status_na_to_a = NULL, cancelledDate = CURRENT_TIMESTAMP, memberStatus = " + "'NA'" + "," + "updatedBy = " + Session["UID"] + " " +
-								 //"WHERE firstmemberid = '" + showfristMem + "'" + "AND firstmemberid != memberid AND cancelledDate IS NULL");
+								 //"WHERE firstmemberid = '" + showfirstMem + "'" + "AND firstmemberid != memberid AND cancelledDate IS NULL");
 								 "WHERE firstmemberid = '" + showfristMem + "'" + "AND firstmemberid != memberid AND memberStatus = 'A' ");
 				string activityDetail = $"Changed value in a table 'PrivateDetail' Where firstmemberid is '{showfristMem}' AND firstmemberid in not memberid AND memberStatus is 'A' successful (user id = {staffID})";
 				logActivity.LogStaffActivity(staffID, activityDetail);
@@ -298,7 +298,7 @@ namespace JAT.Private
 				string activityDetail = $"Changed value in a table 'PrivateDetail' Where firstmemberid is '{showfristMem}' AND firstmemberid is not memberid AND memberStatus is 'A' unsuccessful [{ex.Message}] (user id = {staffID})";
 				logActivity.LogStaffActivity(staffID, activityDetail);
 			}
-			//Response.Redirect("privateCancel.aspx?firstmemberid=" + showfristMem);
+			//Response.Redirect("privateCancel.aspx?firstmemberid=" + showfirstMem);
 		}
 
         protected void GridView_Button_ChnageFrist(object sender, EventArgs e)
@@ -317,7 +317,7 @@ namespace JAT.Private
             //if (ref_count.Rows.Count > 0)
             //{
             //    td_Del = SelectSqlTable("DELETE FROM PrivateDetail WHERE memberid = " + "'" + row.Cells[2].Text + "'");
-            //    td = SelectSqlTable("exec psChangeFirstMember '" + showfristMem + "','" + row.Cells[2].Text + "','1'");
+            //    td = SelectSqlTable("exec psChangeFirstMember '" + showfirstMem + "','" + row.Cells[2].Text + "','1'");
 
             //}
 
@@ -325,13 +325,13 @@ namespace JAT.Private
 
             //td = SelectSqlTable("UPDATE PrivateDetail " +
             //                    "SET firstmemberid = '" + row.Cells[2].Text + "'" + "," + "updatedDate = " + "'" + toDayDate + "'" + "," + "updatedBy = " + Session["UID"] + " " +
-            //                     "WHERE firstmemberid = '" + showfristMem + "'" + "AND memberid = '" + row.Cells[2].Text + "'" +
+            //                     "WHERE firstmemberid = '" + showfirstMem + "'" + "AND memberid = '" + row.Cells[2].Text + "'" +
             //                     "UPDATE PrivateDetail " +
             //                     "SET firstmemberid = '" + row.Cells[2].Text + "'" + "," + "updatedBy = " + Session["UID"] + " " +
-            //                     "WHERE firstmemberid = '" + showfristMem + "'" +
+            //                     "WHERE firstmemberid = '" + showfirstMem + "'" +
             //                     "UPDATE PrivateDetail " +
             //                     "SET firstmemberid = '" + row.Cells[2].Text + "'" + "," + "cancelledDate = '" + toDayDate + "'" + "," + "memberStatus = 'NA'" + "," + "updatedBy = " + Session["UID"] + " " +
-            //                     "WHERE firstmemberid = '" + row.Cells[2].Text + "'" + "AND memberid = '" + showfristMem + "'");
+            //                     "WHERE firstmemberid = '" + row.Cells[2].Text + "'" + "AND memberid = '" + showfirstMem + "'");
             
             try
             {
