@@ -254,8 +254,11 @@
                                         <span style="float: right;">:</span>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input id="Box5" runat="server" type="text" style="width: 220px" maxlength="50" autocomplete="off" />
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Name can't be empty." ControlToValidate="Box5" ForeColor="Red" Enabled="True"></asp:RequiredFieldValidator>
+                                        <input id="Box5" runat="server" type="text" style="width: 220px" maxlength="50" 
+                                            autocomplete="off" />
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
+                                            ErrorMessage="Name can't be empty." ControlToValidate="Box5" ForeColor="Red" 
+                                            Enabled="True"></asp:RequiredFieldValidator>
                                     </div>
 
                                 </div>
@@ -645,6 +648,7 @@
                                     </asp:DropDownList>
                                     <asp:HiddenField ID="HiddenField1" runat="server" />
                                     <%--<asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>--%>
+                                    <asp:RequiredFieldValidator ID="RequiredBox33Validator" ControlToValidate="Box33" runat="server" ErrorMessage="RequiredFieldValidator"/>
                                 </div>
                                 <%--@*<button id="openSendHistory">Open Modal</button>*@--%>
                                 <a herf="" id="openSendHistory" style="color: black" onclick="openModal()"><u><%=Resources.Resources.send_history %></u></a>
@@ -655,7 +659,7 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="form-group col-md-5">
-                                    <label style="color: red; visibility: hidden;">*</label>
+                                    <label style="color: red;">*</label>
                                     <label lang="eng"><%=Resources.Resources.member_type %></label>
                                     <%--@*<label lang="jpn">メンバータイプ</label>*@--%>
                                     <span style="float: right;">:</span>
@@ -671,6 +675,9 @@
                                         <asp:ListItem Value="6B">6B</asp:ListItem>
                                         <asp:ListItem Value="7">7</asp:ListItem>--%>
                                     </asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
+                                        ErrorMessage="Please select member type" ControlToValidate="Box34" 
+                                        ForeColor="Red" Enabled="True"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                         </div>
@@ -846,8 +853,19 @@
     </script>
     <%--@* *********** /Calculation Date*********** *@--%>
     <script type="text/javascript">
+        ////const _dropDown_MemberType = document.getElementById('Box34')
+        //var hideSaveBTN = document.querySelectorAll("[id='saveBtn']");
+        //$(hideSaveBTN).removeAttr("style").hide();
+
+        //document.getElementById("Box34").addEventListener('change', () => {
+        //    if($('#Box34').val != "--Any--") {
+        //        $(hideSaveBTN).removeAttr("enabled")
+        //    }
+        //})
+
         function ConfirmSave() {
             var confirm_value = document.createElement("INPUT");
+
             confirm_value.type = "hidden";
             confirm_value.name = "confirm_value";
             if (confirm("Do you want to save data?")) {

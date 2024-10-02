@@ -11,6 +11,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using System.Reflection;
+using System.Globalization;
+using System.Threading;
 
 namespace JAT
 {
@@ -101,7 +103,13 @@ namespace JAT
         {
             this.fileVersion = this.assembly.GetCustomAttribute<AssemblyFileVersionAttribute>();
             this.LblVersion.Text = this.fileVersion.Version;
+
+            CultureInfo cultureInfo = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = cultureInfo;
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
+
             
+
             if (GetCurrentPageName() == "Login")
             {
                 //hide sidebar
