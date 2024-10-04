@@ -724,7 +724,7 @@ namespace JAT.Private
 
         protected void addBTN_Click(object sender, EventArgs e)
         {
-            Response.Redirect("privateEntry.aspx?mode=add");
+            // Response.Redirect("privateEntry.aspx?mode=add");
         }
 
         protected void cancelBtn_Click(object sender, EventArgs e)

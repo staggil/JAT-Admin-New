@@ -146,7 +146,7 @@
         <div style="float: right;">
             <label>Last Editor: </label>
             <asp:Label ID="updateBy" Text="" runat="server" />
-            <asp:Button ID="addBTN" runat="server" Text="Add" OnClick="addBTN_Click" />
+            <asp:Button ID="addBTN" ClientIDMode="Static" runat="server" Text="Add" OnClick="addBTN_Click" />
             <asp:Button ID="editBTN" runat="server" Text="Edit" OnClick="editBTN_Click" />
 
             <%--<button lang="eng" id="hideAddBtn" class="tablinks" onclick="addData()">ADD</button>--%>
@@ -835,6 +835,12 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <%--@* *********** Calculation Date*********** *@--%>
     <script>
+
+        //
+        $("#addBTN").click((e) => {
+            window.location = "privateEntry.aspx?mode=add"
+        })
+
         function setExpireDate() {
 
             var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
