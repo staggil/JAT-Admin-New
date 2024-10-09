@@ -422,7 +422,7 @@ namespace JAT.Company
 			int staffID = uid != null ? Convert.ToInt32(uid) : 0;
 
 
-			cmd = new SqlCommand("SET dateformat dmy INSERT INTO dbo.CompanyMember VALUES('" + comid + "' , N'" + comNmJ + "', '" + comNmE + "', '" + comNmEE + "', N'" + busType.Value + "', '" + Date_MsSqlStandard.CastQuery(appliedDate.Value) + "', '" + Date_MsSqlStandard.CastQuery(establishedDate.Value) + "', '" + " " + "', '" + cancelDate + "', '"
+			cmd = new SqlCommand("SET dateformat dmy INSERT INTO dbo.CompanyMember VALUES('" + comid + "' , N'" + comNmJ + "', '" + comNmE + "', '" + comNmEE + "', N'" + busType.Value + "', " + Date_MsSqlStandard.CastQuery(appliedDate.Value) + ", " + Date_MsSqlStandard.CastQuery(establishedDate.Value) + ", '" + " " + "', '" + cancelDate + "', '"
                                                                           + memberStatus.Value + "', '" + sendType.Value + "', '" + " " + "', '" + address.Value + "', '" + phone.Value + "', '" + fax.Value + "', '" + email.Value + "', '" + represID.Value + "', N'" + represNm.Value + "', '"
                                                                           + represNmE.Value + "', '" + represPosition.Value + "', '" + personinchargeNmE.Value + "', '" + personinchargePosition.Value + "', '" + remarkInput + "', '" + payMethod.Value + "', '" + payPeriod.Value + "', '" + payDuration.SelectedValue + "', '"
                                                                           + getInvoice.Checked + "', '" + withHolding.Checked + "', '" + uid + "', '" + " " + "', '" + " " + "', '" + " " + "', '" + represEm.Value + "', '" + represTp.Value + "', N'" + personinchargeNm.Value + "', '"

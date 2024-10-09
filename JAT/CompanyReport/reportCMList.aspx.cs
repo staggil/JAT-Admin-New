@@ -13,6 +13,7 @@ using System.Data.SqlClient;
 using System.Web.Configuration;
 using Microsoft.Reporting.WebForms;
 using System.Globalization;
+using System.Linq;
 
 namespace JAT.CompanyReport
 {
@@ -70,10 +71,28 @@ namespace JAT.CompanyReport
             }
             else if (cbViewType.Text == "Quit")
             {
-                string sql = "SET dateformat dmy select companyNmJ,companyNmE,address,busType,represNm,represPosition,phone,fax,updatedDate " +
-                             "from CompanyMember " +
-                             "where cancelDate between '" + DateFrom + "' and '" + DateTo + "' " +
-                             "order by updatedDate ";
+                //DateFrom = Date_MsSqlStandard.CastQuery(DateFrom);
+                //DateTo = Date_MsSqlStandard.CastQuery(DateTo);
+
+                var _dateFrom = DateTime.ParseExact(DateFrom, "dd/MM/yyyy", null);
+                var _dateTo = DateTime.ParseExact(DateTo, "dd/MM/yyyy", null);
+
+                var _dateFrom_Formatted = _dateFrom.ToString("yyyy-MM-dd");
+                var _dateTo_Formatted = _dateTo.ToString("yyyy-MM-dd");
+
+                _dateFrom_Formatted += " 00:00:00.000";
+                _dateTo_Formatted += " 23:59:59.999";
+
+                //_dateFrom += " 00:00:00.000";
+                //_dateTo += " 23:59:59.999";
+                string sql = $@"SET dateformat dmy 
+                                SELECT companyNmJ,companyNmE,address,busType,represNm, 
+                                        represPosition,phone,fax,updatedDate 
+                                FROM CompanyMember 
+                                WHERE updatedDate BETWEEN CONVERT(DATETIME, '{_dateFrom_Formatted}', 20) 
+                                        AND CONVERT(DATETIME, '{_dateTo_Formatted}', 20) 
+                                        AND (memberStatus = 'NA')
+                                ORDER BY updatedDate ASC";
                 ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/CompanyReport/ReportPage/CompanyListQuit.rdlc");
                 SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
                 DataTable dt = new DataTable();
