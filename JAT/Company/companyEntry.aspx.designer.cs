@@ -60,6 +60,15 @@ namespace JAT.Company
         protected global::System.Web.UI.WebControls.Button addBTN;
 
         /// <summary>
+        /// addBTN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputButton btnAutoGenPwd;
+
+        /// <summary>
         /// id control.
         /// </summary>
         /// <remarks>
@@ -183,7 +192,7 @@ namespace JAT.Company
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtPassword;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtPassword;
 
         /// <summary>
         /// establishedDate control.

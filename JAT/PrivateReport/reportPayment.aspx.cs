@@ -24,6 +24,7 @@ namespace JAT.PrivateReport
         {
 
         }
+
         private void connection()
         {
             var connectionStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"];
@@ -59,7 +60,7 @@ namespace JAT.PrivateReport
                         "from privateDetail d left join privateAddress a on d.memberId = a.memberId and addressType = 2 " +
                         "inner join privatePayment pp on d.memberId = pp.payBy " +
                         "where pp.paymethod in ('J', 'K', 'P') and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat not in ('Rec.', 'Annex', 'Transfer') " +
-                        "order by pp.paymentDate, d.nameE ";
+                        "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -84,7 +85,7 @@ namespace JAT.PrivateReport
                              "from privateDetail d left join privateAddress a on d.memberId = a.memberId and addressType = 2 " +
                              "inner join privatePayment pp on d.memberId = pp.payBy " +
                              "where pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat not in ('Rec.', 'Annex', 'Transfer') " +
-                             "order by pp.paymentDate, d.nameE ";
+                             "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -111,7 +112,7 @@ namespace JAT.PrivateReport
                                  "left join privatePayShort ps on pp.tranId = ps.tranId " +
                                  //"where pp.paymethod = 'T' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat not in ('Rec.', 'Annex', 'Transfer') and ps.shortfrom is null " +
                                  "where pp.paymethod = 'T' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat not in ('Rec.', 'Annex', 'Transfer') and pp.checkShort = '0' " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -138,7 +139,7 @@ namespace JAT.PrivateReport
                                  "inner join privatePayShort ps on pp.tranId = ps.tranId " +
                                  //"where pp.paymethod = 'T' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat not in ('Rec.', 'Annex', 'Transfer') " +
                                  "where pp.paymethod = 'T' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat not in ('Rec.', 'Annex', 'Transfer') and pp.checkShort = '1' " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -165,7 +166,7 @@ namespace JAT.PrivateReport
                                  "left join privatePayShort ps on pp.tranId = ps.tranId " +
                                  //"where pp.paymethod = 'S' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat not in ('Rec.', 'Annex', 'Transfer') and ps.shortfrom is null " +
                                  "where pp.paymethod = 'S' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat not in ('Rec.', 'Annex', 'Transfer') and pp.checkShort = '0' " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -192,7 +193,7 @@ namespace JAT.PrivateReport
                         "inner join privatePayShort ps on pp.tranId = ps.tranId " +
                         //"where pp.paymethod = 'S' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat not in ('Rec.', 'Annex', 'Transfer') " +
                         "where pp.paymethod = 'S' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat not in ('Rec.', 'Annex', 'Transfer') and pp.checkShort = '1' " +
-                        "order by pp.paymentDate, d.nameE ";
+                        "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -221,7 +222,7 @@ namespace JAT.PrivateReport
                                  "from privateDetail d left join privateAddress a on d.memberId = a.memberId and addressType = 2 " +
                                  "inner join privatePayment pp on d.memberId = pp.payBy " +
                                  "where pp.paymethod in ('J', 'K', 'P') and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Annex' " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -246,7 +247,7 @@ namespace JAT.PrivateReport
                         "from privateDetail d left join privateAddress a on d.memberId = a.memberId and addressType = 2 " +
                         "inner join privatePayment pp on d.memberId = pp.payBy " +
                         "where pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Annex' " +
-                        "order by pp.paymentDate, d.nameE ";
+                        "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -272,7 +273,7 @@ namespace JAT.PrivateReport
                         "inner join privatePayment pp on d.memberId = pp.payBy " +
                         "left join privatePayShort ps on pp.tranId = ps.tranId " +
                         "where pp.paymethod = 'T' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Annex' and ps.shortfrom is null " +
-                        "order by pp.paymentDate, d.nameE ";
+                        "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -298,7 +299,7 @@ namespace JAT.PrivateReport
                         "inner join privatePayment pp on d.memberId = pp.payBy " +
                         "inner join privatePayShort ps on pp.tranId = ps.tranId " +
                         "where pp.paymethod = 'T' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Annex' " +
-                        "order by pp.paymentDate, d.nameE ";
+                        "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -324,7 +325,7 @@ namespace JAT.PrivateReport
                         "inner join privatePayment pp on d.memberId = pp.payBy " +
                         "left join privatePayShort ps on pp.tranId = ps.tranId " +
                         "where pp.paymethod = 'S' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Annex' and ps.shortfrom is null " +
-                        "order by pp.paymentDate, d.nameE ";
+                        "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -350,7 +351,7 @@ namespace JAT.PrivateReport
                                  "inner join privatePayment pp on d.memberId = pp.payBy " +
                                  "inner join privatePayShort ps on pp.tranId = ps.tranId " +
                                  "where pp.paymethod = 'S' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Annex' " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -378,7 +379,7 @@ namespace JAT.PrivateReport
                                  "from privateDetail d left join privateAddress a on d.memberId = a.memberId and addressType = 2 " +
                                  "inner join privatePayment pp on d.memberId = pp.payBy " +
                                  "where pp.paymethod in ('J', 'K', 'P') and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Rec.' " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -403,7 +404,7 @@ namespace JAT.PrivateReport
                                  "from privateDetail d left join privateAddress a on d.memberId = a.memberId and addressType = 2 " +
                                  "inner join privatePayment pp on d.memberId = pp.payBy " +
                                  "where pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Rec.' " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -429,7 +430,7 @@ namespace JAT.PrivateReport
                                  "inner join privatePayment pp on d.memberId = pp.payBy " +
                                  "left join privatePayShort ps on pp.tranId = ps.tranId " +
                                  "where pp.paymethod = 'T' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Rec.' and ps.shortfrom is null " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -455,7 +456,7 @@ namespace JAT.PrivateReport
                                  "inner join privatePayment pp on d.memberId = pp.payBy " +
                                  "inner join privatePayShort ps on pp.tranId = ps.tranId " +
                                  "where pp.paymethod = 'T' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Rec.' " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL rder by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -481,7 +482,7 @@ namespace JAT.PrivateReport
                                  "inner join privatePayment pp on d.memberId = pp.payBy " +
                                  "left join privatePayShort ps on pp.tranId = ps.tranId " +
                                  "where pp.paymethod = 'S' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Rec.' and ps.shortfrom is null " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -507,7 +508,7 @@ namespace JAT.PrivateReport
                         "inner join privatePayment pp on d.memberId = pp.payBy " +
                         "inner join privatePayShort ps on pp.tranId = ps.tranId " +
                         "where pp.paymethod = 'S' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Rec.' " +
-                        "order by pp.paymentDate, d.nameE ";
+                        "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -535,7 +536,7 @@ namespace JAT.PrivateReport
                                  "from privateDetail d left join privateAddress a on d.memberId = a.memberId and addressType = 2 " +
                                  "inner join privatePayment pp on d.memberId = pp.payBy " +
                                  "where pp.paymethod in ('J', 'K', 'P') and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Transfer' " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -560,7 +561,7 @@ namespace JAT.PrivateReport
                                  "from privateDetail d left join privateAddress a on d.memberId = a.memberId and addressType = 2 " +
                                  "inner join privatePayment pp on d.memberId = pp.payBy " +
                                  "where pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Transfer' " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -586,7 +587,7 @@ namespace JAT.PrivateReport
                                  "inner join privatePayment pp on d.memberId = pp.payBy " +
                                  "left join privatePayShort ps on pp.tranId = ps.tranId " +
                                  "where pp.paymethod = 'T' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Transfer' and ps.shortfrom is null " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -612,7 +613,7 @@ namespace JAT.PrivateReport
                         "inner join privatePayment pp on d.memberId = pp.payBy " +
                         "inner join privatePayShort ps on pp.tranId = ps.tranId " +
                         "where pp.paymethod = 'T' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Transfer' " +
-                        "order by pp.paymentDate, d.nameE ";
+                        "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -638,7 +639,7 @@ namespace JAT.PrivateReport
                         "inner join privatePayment pp on d.memberId = pp.payBy " +
                         "left join privatePayShort ps on pp.tranId = ps.tranId " +
                         "where pp.paymethod = 'S' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Transfer' and ps.shortfrom is null " +
-                        "order by pp.paymentDate, d.nameE ";
+                        "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -664,7 +665,7 @@ namespace JAT.PrivateReport
                                  "inner join privatePayment pp on d.memberId = pp.payBy " +
                                  "inner join privatePayShort ps on pp.tranId = ps.tranId " +
                                  "where pp.paymethod = 'S' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Transfer' " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -692,7 +693,7 @@ namespace JAT.PrivateReport
                                  "from privateDetail d left join privateAddress a on d.memberId = a.memberId and addressType = 2 " +
                                  "inner join privatePayment pp on d.memberId = pp.payBy " +
                                  "where pp.paymethod in ('J', 'K', 'P') and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Credit card' " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -717,7 +718,7 @@ namespace JAT.PrivateReport
                                  "from privateDetail d left join privateAddress a on d.memberId = a.memberId and addressType = 2 " +
                                  "inner join privatePayment pp on d.memberId = pp.payBy " +
                                  "where pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Credit card' " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -743,7 +744,7 @@ namespace JAT.PrivateReport
                                  "inner join privatePayment pp on d.memberId = pp.payBy " +
                                  "left join privatePayShort ps on pp.tranId = ps.tranId " +
                                  "where pp.paymethod = 'T' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Credit' and ps.shortfrom is null " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -769,7 +770,7 @@ namespace JAT.PrivateReport
                         "inner join privatePayment pp on d.memberId = pp.payBy " +
                         "inner join privatePayShort ps on pp.tranId = ps.tranId " +
                         "where pp.paymethod = 'T' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Credit card' " +
-                        "order by pp.paymentDate, d.nameE ";
+                        "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -795,7 +796,7 @@ namespace JAT.PrivateReport
                         "inner join privatePayment pp on d.memberId = pp.payBy " +
                         "left join privatePayShort ps on pp.tranId = ps.tranId " +
                         "where pp.paymethod = 'S' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Credit card' and ps.shortfrom is null " +
-                        "order by pp.paymentDate, d.nameE ";
+                        "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
@@ -821,7 +822,7 @@ namespace JAT.PrivateReport
                                  "inner join privatePayment pp on d.memberId = pp.payBy " +
                                  "inner join privatePayShort ps on pp.tranId = ps.tranId " +
                                  "where pp.paymethod = 'S' and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat = 'Credit Card' " +
-                                 "order by pp.paymentDate, d.nameE ";
+                                 "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);

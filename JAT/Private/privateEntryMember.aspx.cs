@@ -9,6 +9,8 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.Configuration;
 using System.Globalization;
+using Microsoft.Ajax.Utilities;
+using static CrystalDecisions.Data.AdoDotNetInterop.InternalXmlSchemaDependencyTree;
 
 namespace JAT.Private
 {
@@ -37,7 +39,22 @@ namespace JAT.Private
             {
                 if (!Page.IsPostBack)
                 {
-                    Box6.Value = toDayDateSh;
+                    try
+                    {
+                        SqlCommand _sqlCmd = new SqlCommand($"SELECT pd.appliedDate FROM PrivateDetail pd WHERE memberid = '{showMem}'");
+                        this.conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ToString());
+                        SqlDataAdapter _sqlAdapter = new SqlDataAdapter(_sqlCmd.CommandText, this.conn);
+                        DataSet _ds = new DataSet();
+
+                        this.conn.Open();
+                        _sqlAdapter.Fill(_ds);
+                        this.conn.Close();
+                        this.Box6.Value = DateTime.Parse(_ds.Tables[0].Rows[0]["appliedDate"].ToString()).ToString("dd/MM/yyyy");
+                    } 
+                    catch
+                    {
+                        Box6.Value = toDayDateSh;
+                    }
                     HideForm();
                     lastEditor();
                     BindData();
@@ -1167,25 +1184,28 @@ namespace JAT.Private
 
                     td = SelectSqlTable(_query);
 
-					string activityDetail = $"Changed value in a table 'privateAddress' and Added new value into 2 tables ('privateAddress, PrivateClub') successful (user id = {staffID})";
+					string activityDetail = $"Changed new value into 3 tables ('PrivateDetail, PrivateAddress, PrivateClub') successful where memberId is {memIDInput} successful (user id = {staffID})";
 					logActivity.LogStaffActivity(staffID, activityDetail);
                     //Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfirstMem + "&memberid=" + memIDInput);
                     
                 }
 				catch (SqlException ex)
 				{
-					string activityDetail = $"Changed value in a table 'privateAddress' and Added new value into 2 tables ('privateAddress, PrivateClub') unsuccessful [{ex.Message}] (user id = {staffID})";
+					string activityDetail = $"Error: [{ex.Message}], Changed new value into 3 tables ('PrivateDetail, PrivateAddress, PrivateClub') unsuccessful where memberId is {memIDInput}, (user id = {staffID})";
 					logActivity.LogStaffActivity(staffID, activityDetail);
 					lbError.Text = ex.ToString();
 				}
 				catch (Exception ex)
                 {
 					string activityDetail = $"Changed value in a table 'privateAddress' and Added new value into 2 tables ('privateAddress, PrivateClub') unsuccessful [{ex.Message}] (user id = {staffID})";
-					logActivity.LogStaffActivity(staffID, activityDetail);
+                    logActivity.LogStaffActivity(staffID, activityDetail);
 					lbError.Text = ex.ToString();
                 }
-				Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfristMem);
-			}
+
+
+                //Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfristMem);
+                Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfristMem + "&memberid=" + memIDInput);
+            }
         }
         protected void BindMemberTypeList()
         {

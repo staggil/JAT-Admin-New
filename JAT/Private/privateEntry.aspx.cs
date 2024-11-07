@@ -970,9 +970,6 @@ namespace JAT.Private
                     logActivity.LogStaffActivity(staffID, activityDetail);
 				}
 
-
-
-
 				var memIDInput = Box2.Value.ToString();
 
                 // 2024-09-18 11.38am : Toon Fix

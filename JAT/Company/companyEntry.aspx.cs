@@ -84,6 +84,7 @@ namespace JAT.Company
                 addBTN.Visible = true;
                 Button1.Visible = false;
                 cancel.Visible = false;
+                this.btnAutoGenPwd.Disabled = false;
                 companyNmJ.Disabled = true;
                 companyNmE.Disabled = true;
                 companyNmEE.Disabled = true;
@@ -659,15 +660,18 @@ namespace JAT.Company
 
                 if (memberstatus == "A" && memberStatus.Value == "NA")
                 {
-                    cancelDate = "'" + toDayDateTime.ToString("dd/MM/yyyy") + "'";
+                    cancelDate = toDayDateTime.ToString("yyyy/MM/dd");
                 }
                 else if (memberstatus == "NA" && memberStatus.Value == "A")
-                {
+                {   // In case member status change from 'NA' to 'A'
                     cancelDate = "Null";
                 }
                 else
-                {
-                    cancelDate = "'" + cancelDateTmp + "'";
+                {   // In case member status change from 'A' to 'NA'
+                    cancelDate = cancelDateTmp;
+
+                    var _cancelDate_Reform = DateTime.Parse(cancelDate).ToString("dd/MM/yyyy");
+                    cancelDate = Date_MsSqlStandard.CastQuery(_cancelDate_Reform);
                 }
 
                 if (represEm.Value.Trim() != "")
@@ -706,7 +710,8 @@ namespace JAT.Company
                                      $"busType =  N'{busType.Value}', \n" +
                                      $"appliedDate = {Date_MsSqlStandard.CastQuery(appliedDate.Value)}, \n" +
                                      $"establishedDate = {Date_MsSqlStandard.CastQuery(establishedDate.Value)}, \n" +
-                                     $"cancelDate = (SELECT CONVERT(DATETIME, {cancelDate}, 20)), \n" +
+                                     //$"cancelDate = (SELECT CONVERT(DATETIME, {cancelDate}, 20)), \n" +
+                                     $"cancelDate = {cancelDate}, \n" +
                                      $"memberStatus = '{memberStatus.Value}', \n" +
                                      $"sendType ='" + sendType.Value + "',address ='" + address.Value + "'," +
                                     $"phone = '" + ph + "', fax = '" + fax.Value + "', email= '" + email.Value + "',represID ='" + represID.Value + "',represNm = N'" + represNm.Value + "'," +
@@ -727,7 +732,6 @@ namespace JAT.Company
                                               "ServerControlScript", script1, true);
                         logActivity.LogStaffActivity(staffID, actDetail);
                         //Page.Response.Redirect(Page.Request.Url.ToString(), false);
-
                     }
                     else
                     {

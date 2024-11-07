@@ -85,6 +85,14 @@
             /*border: 1px solid #ccc;*/
             border-top: none;
         }
+
+        .btnSmall {
+            width: fit-content;
+            font-size: 10pt;
+            padding: 0px, 5px, 0px, 5px;
+            height: 1.5em;
+            border-radius: 5px;
+        }
     </style>
 <div class="col-sm-12">
 <%--    @*<h1>&nbsp;Private Entry</h1>*@--%>
@@ -252,7 +260,7 @@
                     <div class="col-lg-12">
                         <div class="row">
                             <div class="form-group col-lg-3">
-                                <label style="color:red">*</label>
+                                <label style="color:red; visibility: hidden">*</label>
                                 <label><%=Resources.Resources.fax %></label>
                                 <span style="float:right;">:</span>
                             </div>
@@ -271,7 +279,7 @@
                     <div class="col-lg-6">
                         <div class="row">
                             <div class="form-group col-lg-6">
-                                <label style="color:red;visibility: hidden;">*</label>
+                                <label style="color:red;">*</label>
                                 <label><%=Resources.Resources.e_mail %></label>
                                 <span style="float:right;">:</span>
                             </div>
@@ -283,12 +291,17 @@
                         <%-- 2024-08-21 at 10.20am : Toon add --%>
                         <div class="row">
                             <div class="form-group col-lg-6">
-                                <label style="color:red;visibility: hidden;">*</label>
+                                <label style="color:red;">*</label>
                                 <label><%=Resources.Resources.password %></label>
                                 <span style="float:right;">:</span>
                             </div>
-                            <div class="form-group col-lg-6">
-                                <input type="password" id="txtPassword" class="form-control" placeholder="" runat="server" maxlength="40">
+                            <div class="form-group col-lg-2">
+                                <input type="text" id="txtPassword" style="text-align:center;" class="form-control" 
+                                    placeholder="" runat="server" maxlength="8" onchange="Switch_AutoGen_Password_Btn()">
+                            </div>
+                            <div class=" col-lg-1">
+                                <input type="button" id="btnAutoGenPwd" class="btnSmall btn-success" value="Auto-Gen Password" 
+                                    runat="server" maxlength="auto" onClick="GetPassword()">
                             </div>
                         </div>
                         <%-- End add --%>
@@ -731,6 +744,26 @@
         });
     </script>
     <script type="text/javascript">
+        const Switch_AutoGen_Password_Btn = () => {
+                if ($('#MainContent_txtPassword').val().length != 8) {
+                    $('#MainContent_btnAutoGenPwd').css("visibility", "visible")
+                } else {
+                    $('#MainContent_btnAutoGenPwd').css("visibility", "hidden")
+                }
+            }
+
+            const GetPassword = () => {
+                let randDigit_Num = ""
+                for (var i = 0; i < 8; i++) {
+                    randDigit_Num += (Math.round(Math.random() * 9))
+                }
+                // return randDigit_Num
+                // $('MainContent_txtPassword').val = randDigit_Num
+                //document.getElementById('MainContent_txtPassword').value = randDigit_Num
+                $('#MainContent_txtPassword').val(randDigit_Num)
+                $('#MainContent_btnAutoGenPwd').css('visibility', 'hidden')
+            }
+
             function ConfirmEdit() {
                 var confirm_value = document.createElement("INPUT");
                 confirm_value.type = "hidden";
