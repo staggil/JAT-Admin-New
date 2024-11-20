@@ -23,57 +23,96 @@ namespace JAT.Private
 
 		//public string postBackId;
 
-		private string showfristMem;
+		private string showfirstMem;
         private string showMem;
         string addValue;
 
         string toDayDate = DateTime.Now.ToString("yyyy-MMM-dd HH:mm:ss", new CultureInfo("en-US"));
         string toDayDateSh = DateTime.Now.ToString("dd/MM/yyyy", new CultureInfo("en-US"));
         public static string cancelDateTmp;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            showfristMem = Request.QueryString["firstmemberid"];
+            showfirstMem = Request.QueryString["firstmemberid"];
             showMem = Request.QueryString["memberid"];
             addValue = Request.QueryString["mode"];
-            if (showMem != null || showfristMem != null)
+            if (showMem != null || showfirstMem != null)
             {
                 if (!Page.IsPostBack)
                 {
-                    try
-                    {
-                        SqlCommand _sqlCmd = new SqlCommand($"SELECT pd.appliedDate FROM PrivateDetail pd WHERE memberid = '{showMem}'");
-                        this.conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ToString());
-                        SqlDataAdapter _sqlAdapter = new SqlDataAdapter(_sqlCmd.CommandText, this.conn);
-                        DataSet _ds = new DataSet();
+                    this.InitialPage();
+                    //try
+                    //{
+                    //    SqlCommand _sqlCmd = new SqlCommand($"SELECT pd.appliedDate FROM PrivateDetail pd WHERE memberid = '{showMem}'");
+                    //    this.conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ToString());
+                    //    SqlDataAdapter _sqlAdapter = new SqlDataAdapter(_sqlCmd.CommandText, this.conn);
+                    //    DataSet _ds = new DataSet();
 
-                        this.conn.Open();
-                        _sqlAdapter.Fill(_ds);
-                        this.conn.Close();
-                        this.Box6.Value = DateTime.Parse(_ds.Tables[0].Rows[0]["appliedDate"].ToString()).ToString("dd/MM/yyyy");
-                    } 
-                    catch
-                    {
-                        Box6.Value = toDayDateSh;
-                    }
-                    HideForm();
-                    lastEditor();
-                    BindData();
-                    showInGrid();
-                    BindDataCheckBoxTemp();
-                    BindMemberTypeList();
-                    if (addValue == "add")
-                    {
-                        ShowForm();
-                        Box7.SelectedValue = "7";
-                    }
-                    else if (addValue == "edit")
-                    {
-                        BindEditFormEntry();
-                        saveBtn.Visible = false;
-                    }
+                    //    this.conn.Open();
+                    //    _sqlAdapter.Fill(_ds);
+                    //    this.conn.Close();
+                    //    this.Box6.Value = DateTime.Parse(_ds.Tables[0].Rows[0]["appliedDate"].ToString()).ToString("dd/MM/yyyy");
+                    //} 
+                    //catch
+                    //{
+                    //    Box6.Value = toDayDateSh;
+                    //}
+                    //HideForm();
+                    //lastEditor();
+                    //BindData();
+                    //showInGrid();
+                    //BindDataCheckBoxTemp();
+                    //BindMemberTypeList();
+                    //if (addValue == "add")
+                    //{
+                    //    ShowForm();
+                    //    Box7.SelectedValue = "7";
+                    //}
+                    //else if (addValue == "edit")
+                    //{
+                    //    BindEditFormEntry();
+                    //    saveBtn.Visible = false;
+                    //}
                 }
             }
         }
+
+        private void InitialPage()
+        {
+            try
+            {
+                SqlCommand _sqlCmd = new SqlCommand($"SELECT pd.appliedDate FROM PrivateDetail pd WHERE memberid = '{showMem}'");
+                this.conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["DefaultConnection"].ToString());
+                SqlDataAdapter _sqlAdapter = new SqlDataAdapter(_sqlCmd.CommandText, this.conn);
+                DataSet _ds = new DataSet();
+
+                this.conn.Open();
+                _sqlAdapter.Fill(_ds);
+                this.conn.Close();
+                this.Box6.Value = DateTime.Parse(_ds.Tables[0].Rows[0]["appliedDate"].ToString()).ToString("dd/MM/yyyy");
+            }
+            catch
+            {
+                Box6.Value = toDayDateSh;
+            }
+            HideForm();
+            lastEditor();
+            BindData();
+            showInGrid();
+            BindDataCheckBoxTemp();
+            BindMemberTypeList();
+            if (addValue == "add")
+            {
+                ShowForm();
+                Box7.SelectedValue = "7";
+            }
+            else if (addValue == "edit")
+            {
+                BindEditFormEntry();
+                saveBtn.Visible = false;
+            }
+        }
+
         protected void setGridHeader()
         {
             DataTable td;
@@ -328,7 +367,7 @@ namespace JAT.Private
 
             string sql = "SELECT nameJ, CONCAT(prefixNm, nameE) " +
                             "FROM PrivateDetail " +
-                            "WHERE firstmemberid = '" + showfristMem + "'" + "AND memberid = firstmemberid";
+                            "WHERE firstmemberid = '" + showfirstMem + "'" + "AND memberid = firstmemberid";
             //string sqlBrithPlace = "SELECT birthPlace FROM PrivateDetail WHERE memberid = '" + companyId +"'";
             try
             {
@@ -359,7 +398,7 @@ namespace JAT.Private
             SqlDataReader rd;
 
             string sql = "SELECT TOP(1) t2.staffFName FROM PrivateDetail t1 " +
-                    "LEFT OUTER JOIN SStaff t2 ON updatedBy=staffID WHERE firstmemberid='" + showfristMem + "' " +
+                    "LEFT OUTER JOIN SStaff t2 ON updatedBy=staffID WHERE firstmemberid='" + showfirstMem + "' " +
                     "ORDER BY t1.updatedDate DESC";
 
             try
@@ -391,7 +430,7 @@ namespace JAT.Private
 
             td = SelectSqlTable("SELECT t1.memberid, t1.nameJ, CONCAT(t1.prefixNm, t1.nameE) AS nameE, FORMAT(t1.birthDate, 'dd/MM/yyyy') AS birthDate, FORMAT(t1.appliedDate, 'dd/MM/yyyy') AS appliedDate, FORMAT(t1.cancelledDate, 'dd/MM/yyyy') AS cancelledDate, t1.memberType, t1.memberStatus, t2.ev_1, t2.ev_2, t2.ev_3, t2.ev_4, t2.ev_tmp1, t2.ev_tmp2, t2.ev_tmp3, t2.board, t2.sub_board_list, t2.golf, t2.lady, t2.sub_secretary, t2.sub_volunteer, t2.sub_social, t2.sub_member, t2.sub_tmp1, t2.sub_tmp2, t2.zukuzuku, t2.children, t2.ov_member " +
                                 "FROM PrivateDetail t1 " +
-                                "INNER JOIN PrivateClub t2 on t1.memberid = t2.memberid WHERE firstmemberid =" + "'" + showfristMem + "'" + "AND t1.firstmemberid != t1.memberid");
+                                "INNER JOIN PrivateClub t2 on t1.memberid = t2.memberid WHERE firstmemberid =" + "'" + showfirstMem + "'" + "AND t1.firstmemberid != t1.memberid");
             GridView1.DataSource = td;
             //ImageButton1.Visible = true;
             //ImageButton2.Visible = true;
@@ -406,41 +445,41 @@ namespace JAT.Private
 
         protected void memberTab_Click(object sender, EventArgs e)
         {
-            if (showMem != null || showfristMem != null)
+            if (showMem != null || showfirstMem != null)
             {
-                Response.Redirect("privateEntry.aspx?firstmemberid=" + showfristMem);
+                Response.Redirect("privateEntry.aspx?firstmemberid=" + showfirstMem);
             }
         }
 
         protected void ChildrenTab_Click(object sender, EventArgs e)
         {
-            if (showMem != null || showfristMem != null)
+            if (showMem != null || showfirstMem != null)
             {
-                Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfristMem);
+                Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfirstMem);
             }
         }
 
         protected void paymentTab_Click(object sender, EventArgs e)
         {
-            if (showMem != null || showfristMem != null)
+            if (showMem != null || showfirstMem != null)
             {
-                Response.Redirect("privateEntryPayment.aspx?firstmemberid=" + showfristMem);
+                Response.Redirect("privateEntryPayment.aspx?firstmemberid=" + showfirstMem);
             }
         }
 
         protected void cancelTab_Click(object sender, EventArgs e)
         {
-            if (showMem != null || showfristMem != null)
+            if (showMem != null || showfirstMem != null)
             {
-                Response.Redirect("privateCancel.aspx?firstmemberid=" + showfristMem);
+                Response.Redirect("privateCancel.aspx?firstmemberid=" + showfirstMem);
             }
         }
 
         protected void specialTab_Click(object sender, EventArgs e)
         {
-            if (showMem != null || showfristMem != null)
+            if (showMem != null || showfirstMem != null)
             {
-                Response.Redirect("privateFeature.aspx?firstmemberid=" + showfristMem);
+                Response.Redirect("privateFeature.aspx?firstmemberid=" + showfirstMem);
             }
         }
 
@@ -679,7 +718,7 @@ namespace JAT.Private
             }
 
 
-			Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfristMem);
+			Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfirstMem);
 
         }
 
@@ -947,7 +986,7 @@ namespace JAT.Private
                                            $"       N'{nameJinput}', '{nameEinput}', '{preFixCho}', \n" +
                                            $"       '{memStaCho}', \n" +
                                            $"       {Date_MsSqlStandard.CastQuery(birthDateinput)}, \n" +
-                                           $"       '{memTypeCho}', '{memIDInput}', '{showfristMem}', \n" +
+                                           $"       '{memTypeCho}', '{memIDInput}', '{showfirstMem}', \n" +
                                            $"       '{chkspouse}', '{Session["UID"]}', '{toDayDate}', \n" +
                                            $"       '{email}') \n";
 
@@ -1000,7 +1039,7 @@ namespace JAT.Private
 					logActivity.LogStaffActivity(staffID, activityDetail);
 					lbError.Text = ex.ToString();
                 }
-				Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfristMem + "&memberid=" + memIDInput);
+				Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfirstMem + "&memberid=" + memIDInput);
 			}
 			else
             {
@@ -1009,13 +1048,13 @@ namespace JAT.Private
 
         protected void addBTN_Click(object sender, EventArgs e)
         {
-            Response.Redirect("privateEntryMember.aspx?mode=add&firstmemberid=" + showfristMem);
+            Response.Redirect("privateEntryMember.aspx?mode=add&firstmemberid=" + showfirstMem);
         }
 
         protected void cancelBtn_Click(object sender, EventArgs e)
         {
             HideForm();
-            Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfristMem);
+            Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfirstMem);
         }
 
         protected void updateBtn_Click(object sender, EventArgs e)
@@ -1186,8 +1225,10 @@ namespace JAT.Private
 
 					string activityDetail = $"Changed new value into 3 tables ('PrivateDetail, PrivateAddress, PrivateClub') successful where memberId is {memIDInput} successful (user id = {staffID})";
 					logActivity.LogStaffActivity(staffID, activityDetail);
-                    //Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfirstMem + "&memberid=" + memIDInput);
-                    
+                    // Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfirstMem + "&memberid=" + memIDInput);
+
+
+
                 }
 				catch (SqlException ex)
 				{
@@ -1203,8 +1244,12 @@ namespace JAT.Private
                 }
 
 
-                //Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfristMem);
-                Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfristMem + "&memberid=" + memIDInput);
+                //Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfirstMem);
+                //this.BindEditFormEntry();
+                //this.HideForm();
+                //this.ShowForm();
+                //Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfirstMem + "&memberid=" + memIDInput);
+                this.InitialPage();
             }
         }
         protected void BindMemberTypeList()
