@@ -137,6 +137,7 @@ namespace JAT.Private
             if (showMem != null || showfristMem != null)
             {
                 Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfristMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -145,6 +146,7 @@ namespace JAT.Private
             if (showMem != null || showfristMem != null)
             {
                 Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfristMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -153,6 +155,7 @@ namespace JAT.Private
             if (showMem != null || showfristMem != null)
             {
                 Response.Redirect("privateEntryPayment.aspx?firstmemberid=" + showfristMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
         protected void memberTab_Click(object sender, EventArgs e)
@@ -160,6 +163,7 @@ namespace JAT.Private
             if (showMem != null || showfristMem != null)
             {
                 Response.Redirect("privateEntry.aspx?firstmemberid=" + showfristMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -168,6 +172,7 @@ namespace JAT.Private
             if (showMem != null || showfristMem != null)
             {
                 Response.Redirect("privateFeature.aspx?firstmemberid=" + showfristMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -351,6 +356,7 @@ namespace JAT.Private
 			}
 
 			Response.Redirect("privateEntry.aspx?firstmemberid=" + row.Cells[2].Text);
+            Context.ApplicationInstance.CompleteRequest();
 
         }
         protected void GridView_Button_ChnageSome(object sender, EventArgs e)
@@ -386,6 +392,7 @@ namespace JAT.Private
 
 
 			Response.Redirect("privateEntry.aspx?firstmemberid=" + showfristMem);
+            Context.ApplicationInstance.CompleteRequest();
 
         }
     }

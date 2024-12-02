@@ -1080,7 +1080,7 @@ namespace JAT.Private
                 {
                     if (bankPanel.Value == accNumberTemp && bankCodeBox.Value == bankCodeTemp) //กรณีที่ bankPanel กับ bankPanel ตรงกับ db 
                     {
-                        string status = "WT";
+                        string status = "C";
                         var accid2 = "";
                         var tranId2 = "";
                         string paymethodcho = DropDownList3.SelectedValue;
@@ -1201,7 +1201,7 @@ namespace JAT.Private
                         connection();
                         var accid = "";
                         var tranId = "";
-						string status = "WT";
+						string status = "C";
                         string paymethodcho = DropDownList3.SelectedValue;
                         if (paymethodcho == "-- Any --")
                         {
@@ -1373,7 +1373,7 @@ namespace JAT.Private
                     var tranId = "";
                     connection();
                     string paymethodcho = DropDownList3.SelectedValue;
-                    string status = "WT";
+                    string status = "C";
                     if (paymethodcho == "-- Any --")
                     {
                         paymethodcho = "";

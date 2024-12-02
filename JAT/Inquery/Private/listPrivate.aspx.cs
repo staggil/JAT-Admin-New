@@ -120,7 +120,7 @@ namespace JAT.Inquery.Private
                     drplstMemberType.DataValueField = "MemberType";
                     drplstMemberType.DataBind();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Handle the error
                 }
@@ -148,7 +148,7 @@ namespace JAT.Inquery.Private
                     drplstSendType.DataValueField = "sendtype";
                     drplstSendType.DataBind();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Handle the error
                 }
@@ -177,7 +177,7 @@ namespace JAT.Inquery.Private
                     drpEvent.DataValueField = "itemNm";
                     drpEvent.DataBind();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Handle the error
                 }
@@ -210,7 +210,7 @@ namespace JAT.Inquery.Private
                     drplstClub.DataValueField = "itemNm";
                     drplstClub.DataBind();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Handle the error
                 }
@@ -238,7 +238,7 @@ namespace JAT.Inquery.Private
                 grdCompany.DataBind();
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 grdCompany.CurrentPageIndex = 0;
                 grdCompany.DataBind();
@@ -258,7 +258,7 @@ namespace JAT.Inquery.Private
             string sqlValue = "", sqlValue2 = "";
             string sqlCheck = "", sqlCheck2 = "";
             string sqlAll = "", sqlAll2 = "";
-            int total = 0;
+            //int total = 0;
             //DataTable dt = SelectSqlTable("SELECT itemNm,itemVal FROM privateClubDetail " +
             //    "where itemNm like 'sub_%' ");
             //----------------------------------------------------

@@ -42,12 +42,14 @@ namespace JAT.Account
                         break;
                     case SignInStatus.LockedOut:
                         Response.Redirect("/Account/Lockout");
+                        Context.ApplicationInstance.CompleteRequest();
                         break;
                     case SignInStatus.RequiresVerification:
                         Response.Redirect(String.Format("/Account/TwoFactorAuthenticationSignIn?ReturnUrl={0}&RememberMe={1}", 
                                                         Request.QueryString["ReturnUrl"],
                                                         RememberMe.Checked),
                                           true);
+                        Context.ApplicationInstance.CompleteRequest();
                         break;
                     case SignInStatus.Failure:
                     default:

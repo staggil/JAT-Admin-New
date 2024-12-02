@@ -49,7 +49,7 @@ namespace JAT.Inquery.Company
                 DataGrid1.DataSource = GetData().Tables["companyMember"].DefaultView;
                 DataGrid1.DataBind();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 DataGrid1.CurrentPageIndex = 0;
                 DataGrid1.DataBind();
@@ -258,6 +258,7 @@ namespace JAT.Inquery.Company
         protected void reset_Click(object sender, EventArgs e)
         {
             Page.Response.Redirect(Page.Request.Url.ToString(), true);
+            Context.ApplicationInstance.CompleteRequest();
         }
     }
 }

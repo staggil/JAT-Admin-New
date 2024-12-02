@@ -154,7 +154,7 @@ namespace JAT.CompanyReport
 
                 // ***
                 sqlCmd.CommandText = strSqlSelect;
-                SqlDataReader myRead; // = sqlCmd.ExecuteReader();
+                //SqlDataReader myRead; = sqlCmd.ExecuteReader();
                 //SqlConnection _conn = con;
                 
                 SqlDataAdapter _dataAdapter = new SqlDataAdapter(sqlCmd.CommandText, con);
@@ -672,7 +672,7 @@ namespace JAT.CompanyReport
                 }
                 #endregion
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 diff = -1;
             }

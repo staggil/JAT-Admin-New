@@ -66,5 +66,13 @@ namespace JAT
 			//string strHostName = Request.UserHostAddress;
 			//return strHostName;
 		}
+
+		public void IssueReport(Exception Detail)
+		{
+			JATMEMBER.Emailing emailing = new JATMEMBER.Emailing(
+					"JAT In-House Bug Report",
+					"it-system@japansystem.co.th",
+					Detail);
+		}
 	}
 }

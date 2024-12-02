@@ -703,7 +703,7 @@ namespace JAT.CompanyReport
                 }
                 #endregion
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 diff = -1;
             }

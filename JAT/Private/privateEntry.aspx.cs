@@ -32,7 +32,7 @@ namespace JAT.Private
 
         string dateToCancel;
 
-        string toDayDateSh = DateTime.Now.ToString("dd/MM/yyyy", new CultureInfo("en-US"));
+        
         DateTime toDayDateTime = DateTime.Now;
 
         private void connection()
@@ -731,14 +731,15 @@ namespace JAT.Private
         {
             DisabledForm();
             Response.Redirect("privateEntry.aspx");
+            Context.ApplicationInstance.CompleteRequest();
         }
-
 
         protected void familyTab_Click(object sender, EventArgs e)
         {
             if (showMem != null || showfirstMem != null)
             {
                 Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfirstMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -747,6 +748,7 @@ namespace JAT.Private
             if (showMem != null || showfirstMem != null)
             {
                 Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfirstMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -755,6 +757,7 @@ namespace JAT.Private
             if (showMem != null || showfirstMem != null)
             {
                 Response.Redirect("privateEntryPayment.aspx?firstmemberid=" + showfirstMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
         protected void cancelTab_Click(object sender, EventArgs e)
@@ -762,6 +765,7 @@ namespace JAT.Private
             if (showMem != null || showfirstMem != null)
             {
                 Response.Redirect("privateCancel.aspx?firstmemberid=" + showfirstMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -770,6 +774,7 @@ namespace JAT.Private
             if (showMem != null || showfirstMem != null)
             {
                 Response.Redirect("privateFeature.aspx?firstmemberid=" + showfirstMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -873,21 +878,24 @@ namespace JAT.Private
 
 							string activityDetail = $"Added new data into 10 tables ('PrivateDetail, PrivateSendHistory, PrivateRemark, PrivateRefer, PrivatePayment, PrivateBoard, privateAddress, PrivateAccount, Private, PrivateClub') successful (user id = {staffID})";
 							logActivity.LogStaffActivity(staffID, activityDetail);
-						}
+                        }
                         catch (SqlException ex)
                         {
-                            string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                            string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                             logActivity.LogStaffActivity(staffID, activityDetail);
+                            logActivity.IssueReport(ex);
                         }
                         catch (Exception ex)
                         {
-                            string activityDetail = $@"Error: {ex.Message}";
+                            string activityDetail = $@"Error: {ex.Message} in {this}";
                             logActivity.LogStaffActivity(staffID, activityDetail);
-						}
+                            logActivity.IssueReport(ex);
+                        }
 
 
 						Response.Redirect("privateEntry.aspx?firstmemberid=" + Box2.Value + "&memberid=" + Box2.Value);
-						}
+                        Context.ApplicationInstance.CompleteRequest();
+                    }
                     else
                     {
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('You have to select send method.')", true);
@@ -903,14 +911,16 @@ namespace JAT.Private
                     {
                         lbError.Text = "Database error: input may not be in the proper format.";
                     }
-                    string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                    string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                     logActivity.LogStaffActivity(staffID, activityDetail);
+                    logActivity.IssueReport(ex);
                 }
                 catch (Exception ex)
                 {
                     lbError.Text = ex.ToString();
-                    string activityDetail = $@"Error: {ex.Message}";
+                    string activityDetail = $@"Error: {ex.Message} in {this}";
                     logActivity.LogStaffActivity(staffID, activityDetail);
+                    logActivity.IssueReport(ex);
                 }
             }
             else if (confirmValue == "Yes" && checkinput != "Valid")
@@ -930,12 +940,14 @@ namespace JAT.Private
         {
             DisabledForm();
             Response.Redirect("privateEntry.aspx?firstmemberid=" + showfirstMem + "&memberid=" + showMem);
+            Context.ApplicationInstance.CompleteRequest();
         }
 
         protected void GridView_Button_Click(object sender, EventArgs e)
         {
             GridViewRow row = (GridViewRow)(sender as ImageButton).NamingContainer;
             Response.Redirect("privateEntryMember.aspx?mode=edit&firstmemberid=" + showfirstMem + "&memberid=" + row.Cells[0].Text);
+            Context.ApplicationInstance.CompleteRequest();
         }
 
         protected void updateBtn_Click(object sender, EventArgs e)
@@ -961,14 +973,16 @@ namespace JAT.Private
 				}
                 catch (SqlException ex)
                 {
-                    string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                    string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                     logActivity.LogStaffActivity(staffID, activityDetail);
+                    logActivity.IssueReport(ex);
                 }
                 catch (Exception ex)
                 {
-                    string activityDetail = $@"Error: {ex.Message}";
+                    string activityDetail = $@"Error: {ex.Message} in {this}";
                     logActivity.LogStaffActivity(staffID, activityDetail);
-				}
+                    logActivity.IssueReport(ex);
+                }
 
 				var memIDInput = Box2.Value.ToString();
 
@@ -1171,16 +1185,19 @@ namespace JAT.Private
 						}
                         catch (SqlException ex)
                         {
-                            string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                            string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                             logActivity.LogStaffActivity(staffID, activityDetail);
+                            logActivity.IssueReport(ex);
                         }
                         catch (Exception ex)
                         {
-                            string activityDetail = $@"Error: {ex.Message}";
+                            string activityDetail = $@"Error: {ex.Message} in {this}";
                             logActivity.LogStaffActivity(staffID, activityDetail);
-						}
+                            logActivity.IssueReport(ex);
+                        }
 
 						Response.Redirect("privateEntry.aspx?firstmemberid=" + Box2.Value + "&memberid=" + Box2.Value);
+                        Context.ApplicationInstance.CompleteRequest();
                         //}
                         //catch (SqlException ex)
                         //{
@@ -1365,16 +1382,19 @@ namespace JAT.Private
 						}
                         catch (SqlException ex)
                         {
-                            string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                            string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
 							logActivity.LogStaffActivity(staffID, activityDetail);
+                            logActivity.IssueReport(ex);
 						}
 						catch (Exception ex)
 						{
-							string activityDetail = $@"Error: {ex.Message}";
+							string activityDetail = $@"Error: {ex.Message} in {this}";
                             logActivity.LogStaffActivity(staffID, activityDetail);
-						}
+                            logActivity.IssueReport(ex);
+                        }
 
 						Response.Redirect("privateEntry.aspx?firstmemberid=" + Box2.Value + "&memberid=" + Box2.Value);
+                        Context.ApplicationInstance.CompleteRequest();
                         //}
                         //catch (SqlException ex)
                         //{

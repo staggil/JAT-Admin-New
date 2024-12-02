@@ -448,6 +448,7 @@ namespace JAT.Private
             if (showMem != null || showfirstMem != null)
             {
                 Response.Redirect("privateEntry.aspx?firstmemberid=" + showfirstMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -456,6 +457,7 @@ namespace JAT.Private
             if (showMem != null || showfirstMem != null)
             {
                 Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfirstMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -464,6 +466,7 @@ namespace JAT.Private
             if (showMem != null || showfirstMem != null)
             {
                 Response.Redirect("privateEntryPayment.aspx?firstmemberid=" + showfirstMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -472,6 +475,7 @@ namespace JAT.Private
             if (showMem != null || showfirstMem != null)
             {
                 Response.Redirect("privateCancel.aspx?firstmemberid=" + showfirstMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -480,6 +484,7 @@ namespace JAT.Private
             if (showMem != null || showfirstMem != null)
             {
                 Response.Redirect("privateFeature.aspx?firstmemberid=" + showfirstMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -709,16 +714,19 @@ namespace JAT.Private
                 //string activityDetail = $"Soft deleted data in 3 tables ('PrivateDetail, Private, privateAddress') where memberid is '{row.Cells[0].Text}' unsuccessful [{ex.Message}] (user id = {staffID})";
                 logActivity.LogStaffActivity(staffID, $"ERROR at {ex.LineNumber} {ex.StackTrace} " +
                     $"{ex.Message}");
+                logActivity.IssueReport(ex);
             }
 			catch (Exception ex)
 			{
                 //string activityDetail = $"Soft deleted data in 3 tables ('PrivateDetail, Private, privateAddress') where memberid is '{row.Cells[0].Text}' unsuccessful [{ex.Message}] (user id = {staffID})";
                 logActivity.LogStaffActivity(staffID, $"ERROR at {ex.StackTrace} " +
                     $"{ex.Message}");
+                logActivity.IssueReport(ex);
             }
 
 
 			Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfirstMem);
+            Context.ApplicationInstance.CompleteRequest();
 
         }
 
@@ -1022,7 +1030,7 @@ namespace JAT.Private
                 }
                 catch (SqlException ex)
                 {
-					string activityDetail = $"Added new data into 3 tables ('PrivateDetail, privateAddress, PrivateClub') unsuccessful [{ex.Message}] (user id = {staffID})";
+					string activityDetail = $"Sql Error:Added new data into 3 tables ('PrivateDetail, privateAddress, PrivateClub') unsuccessful [{ex.Message}] (user id = {staffID})";
 					logActivity.LogStaffActivity(staffID, activityDetail);
 					if (ex.Number == 2627)
                     {
@@ -1032,15 +1040,19 @@ namespace JAT.Private
                     {
                         lbError.Text = "Database error.";
                     }
+                    logActivity.IssueReport(ex);
                 }
                 catch (Exception ex)
                 {
-					string activityDetail = $"Insert new data into table 'PrivateDetail, privateAddress, PrivateClub' unsuccessful [{ex.Message}] (user id = {staffID})";
+					string activityDetail = $"Error : Insert new data into table 'PrivateDetail, privateAddress, PrivateClub' unsuccessful [{ex.Message}] (user id = {staffID})";
 					logActivity.LogStaffActivity(staffID, activityDetail);
-					lbError.Text = ex.ToString();
+                    logActivity.IssueReport(ex);
+                    lbError.Text = ex.ToString();
                 }
-				Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfirstMem + "&memberid=" + memIDInput);
-			}
+                this.InitialPage();
+				//Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfirstMem + "&memberid=" + memIDInput);
+    //            Context.ApplicationInstance.CompleteRequest();
+            }
 			else
             {
             }
@@ -1049,12 +1061,14 @@ namespace JAT.Private
         protected void addBTN_Click(object sender, EventArgs e)
         {
             Response.Redirect("privateEntryMember.aspx?mode=add&firstmemberid=" + showfirstMem);
+            Context.ApplicationInstance.CompleteRequest();
         }
 
         protected void cancelBtn_Click(object sender, EventArgs e)
         {
             HideForm();
             Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfirstMem);
+            Context.ApplicationInstance.CompleteRequest();
         }
 
         protected void updateBtn_Click(object sender, EventArgs e)
@@ -1234,13 +1248,15 @@ namespace JAT.Private
 				{
 					string activityDetail = $"Error: [{ex.Message}], Changed new value into 3 tables ('PrivateDetail, PrivateAddress, PrivateClub') unsuccessful where memberId is {memIDInput}, (user id = {staffID})";
 					logActivity.LogStaffActivity(staffID, activityDetail);
-					lbError.Text = ex.ToString();
+                    logActivity.IssueReport(ex);
+                    lbError.Text = ex.ToString();
 				}
 				catch (Exception ex)
                 {
 					string activityDetail = $"Changed value in a table 'privateAddress' and Added new value into 2 tables ('privateAddress, PrivateClub') unsuccessful [{ex.Message}] (user id = {staffID})";
                     logActivity.LogStaffActivity(staffID, activityDetail);
-					lbError.Text = ex.ToString();
+                    logActivity.IssueReport(ex);
+                    lbError.Text = ex.ToString();
                 }
 
 

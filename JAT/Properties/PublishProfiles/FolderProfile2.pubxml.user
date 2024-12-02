@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Publish\WEB\JAT ADMIN</_PublishTargetUrl>
-    <History>True|2024-11-19T10:16:46.2255607Z||;True|2024-11-06T17:19:44.3966067+07:00||;False|2024-11-06T17:19:03.1924317+07:00||;True|2024-11-05T13:39:13.3548142+07:00||;True|2024-11-05T13:25:12.3308503+07:00||;True|2024-10-31T09:33:53.7793199+07:00||;True|2024-10-30T17:38:22.5865468+07:00||;True|2024-10-30T16:33:19.0805084+07:00||;True|2024-10-30T14:23:55.7203786+07:00||;True|2024-10-11T15:16:39.3542484+07:00||;True|2024-10-11T15:13:33.9569343+07:00||;True|2024-10-08T10:09:30.5023536+07:00||;True|2024-10-07T20:30:45.6376521+07:00||;True|2024-10-02T17:30:24.6433328+07:00||;True|2024-10-02T17:24:05.4403952+07:00||;True|2024-10-01T16:24:18.1667796+07:00||;True|2024-09-20T18:36:28.9766285+07:00||;True|2024-09-20T18:35:44.1751835+07:00||;True|2024-09-19T19:33:05.3165330+07:00||;True|2024-09-19T17:20:14.0595795+07:00||;True|2024-09-18T13:24:55.1307135+07:00||;True|2024-09-16T11:30:03.4946798+07:00||;True|2024-09-09T13:55:08.2542020+07:00||;True|2024-08-29T09:13:39.9066505+07:00||;True|2024-08-27T15:30:01.3429505+07:00||;True|2024-03-13T17:59:00.8814378+07:00||;True|2024-03-13T17:41:58.4424304+07:00||;</History>
+    <History>True|2024-11-27T04:06:41.8188608Z||;True|2024-11-22T18:02:01.4607904+07:00||;True|2024-11-19T17:16:46.2255607+07:00||;True|2024-11-06T17:19:44.3966067+07:00||;False|2024-11-06T17:19:03.1924317+07:00||;True|2024-11-05T13:39:13.3548142+07:00||;True|2024-11-05T13:25:12.3308503+07:00||;True|2024-10-31T09:33:53.7793199+07:00||;True|2024-10-30T17:38:22.5865468+07:00||;True|2024-10-30T16:33:19.0805084+07:00||;True|2024-10-30T14:23:55.7203786+07:00||;True|2024-10-11T15:16:39.3542484+07:00||;True|2024-10-11T15:13:33.9569343+07:00||;True|2024-10-08T10:09:30.5023536+07:00||;True|2024-10-07T20:30:45.6376521+07:00||;True|2024-10-02T17:30:24.6433328+07:00||;True|2024-10-02T17:24:05.4403952+07:00||;True|2024-10-01T16:24:18.1667796+07:00||;True|2024-09-20T18:36:28.9766285+07:00||;True|2024-09-20T18:35:44.1751835+07:00||;True|2024-09-19T19:33:05.3165330+07:00||;True|2024-09-19T17:20:14.0595795+07:00||;True|2024-09-18T13:24:55.1307135+07:00||;True|2024-09-16T11:30:03.4946798+07:00||;True|2024-09-09T13:55:08.2542020+07:00||;True|2024-08-29T09:13:39.9066505+07:00||;True|2024-08-27T15:30:01.3429505+07:00||;True|2024-03-13T17:59:00.8814378+07:00||;True|2024-03-13T17:41:58.4424304+07:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -94,16 +94,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>11/19/2024 17:16:38</publishTime>
+      <publishTime>11/27/2024 11:06:30</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>11/19/2024 17:16:38</publishTime>
+      <publishTime>11/27/2024 11:06:30</publishTime>
     </File>
     <File Include="bin/App_GlobalResources.compiled">
-      <publishTime>11/19/2024 17:16:38</publishTime>
+      <publishTime>11/27/2024 11:06:30</publishTime>
     </File>
     <File Include="bin/App_GlobalResources.dll">
-      <publishTime>11/19/2024 17:16:37</publishTime>
+      <publishTime>11/27/2024 11:06:30</publishTime>
     </File>
     <File Include="bin/AspNet.ScriptManager.bootstrap.dll">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -220,7 +220,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="bin/ja-JP/App_GlobalResources.resources.dll">
-      <publishTime>11/19/2024 17:16:36</publishTime>
+      <publishTime>11/27/2024 11:06:29</publishTime>
     </File>
     <File Include="bin/ja/Microsoft.ReportViewer.Common.resources.dll">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -241,19 +241,19 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="bin/JAT.dll">
-      <publishTime>11/19/2024 17:16:28</publishTime>
+      <publishTime>11/27/2024 11:06:20</publishTime>
     </File>
     <File Include="bin/JAT.pdb">
-      <publishTime>11/19/2024 17:16:28</publishTime>
+      <publishTime>11/27/2024 11:06:20</publishTime>
     </File>
     <File Include="bin/JATMEMBER.dll">
-      <publishTime>11/15/2024 16:45:52</publishTime>
+      <publishTime>11/25/2024 11:48:47</publishTime>
     </File>
     <File Include="bin/JATMEMBER.dll.config">
-      <publishTime>11/14/2024 11:30:46</publishTime>
+      <publishTime>11/25/2024 11:10:04</publishTime>
     </File>
     <File Include="bin/JATMEMBER.pdb">
-      <publishTime>11/15/2024 16:45:52</publishTime>
+      <publishTime>11/25/2024 11:48:47</publishTime>
     </File>
     <File Include="bin/ko/Microsoft.ReportViewer.Common.resources.dll">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -940,7 +940,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>11/19/2024 17:16:30</publishTime>
+      <publishTime>11/27/2024 11:06:21</publishTime>
     </File>
     <File Include="Private/privateCancel.aspx">
       <publishTime>02/15/2024 11:58:03</publishTime>
@@ -1210,7 +1210,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/15/2024 11:58:03</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/19/2024 17:16:29</publishTime>
+      <publishTime>11/27/2024 11:06:20</publishTime>
     </File>
   </ItemGroup>
 </Project>

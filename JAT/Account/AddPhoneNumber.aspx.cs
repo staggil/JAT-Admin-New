@@ -29,6 +29,7 @@ namespace JAT.Account
             }
 
             Response.Redirect("/Account/VerifyPhoneNumber?PhoneNumber=" + HttpUtility.UrlEncode(PhoneNumber.Text));
+            Context.ApplicationInstance.CompleteRequest();
         }
     }
 }

@@ -51,6 +51,7 @@ namespace JAT.Maintenance
                 else
                 {
                     Response.Redirect("~/Login.aspx");
+                    Context.ApplicationInstance.CompleteRequest();
                 }
             }
         }
@@ -130,10 +131,11 @@ namespace JAT.Maintenance
                                               "ServerControlScript", script1, true);
                         //Response.Redirect("~/Login.aspx");
                         Page.Response.Redirect(Page.Request.Url.ToString(), false);
+                        Context.ApplicationInstance.CompleteRequest();
                     }
                     catch (SqlException ex)
                     {
-                        string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                        string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                         logActivity.LogStaffActivity(staffID, activityDetail);
                         string script3 = "alert(\"Data Not Completed\");";
                         ScriptManager.RegisterStartupScript(this, GetType(),
@@ -142,7 +144,7 @@ namespace JAT.Maintenance
                     }
 					catch (Exception ex)
 					{
-                        string activityDetail = $@"Error: {ex.Message}";
+                        string activityDetail = $@"Error: {ex.Message} in {this}";
 						logActivity.LogStaffActivity(staffID, activityDetail);
 						string script3 = "alert(\"Data Not Completed\");";
 						ScriptManager.RegisterStartupScript(this, GetType(),
@@ -155,6 +157,7 @@ namespace JAT.Maintenance
                 {
                     //Response.Redirect("viewStaffAdd.aspx");
                     Page.Response.Redirect(Page.Request.Url.ToString(), false);
+                    Context.ApplicationInstance.CompleteRequest();
                 }
 
             }
@@ -180,6 +183,7 @@ namespace JAT.Maintenance
         protected void cancel_Click(object sender, EventArgs e)
         {
             Response.Redirect("viewStaff.aspx");
+            Context.ApplicationInstance.CompleteRequest();
         }
     }
 }

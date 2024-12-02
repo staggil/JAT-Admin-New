@@ -54,7 +54,7 @@ namespace JAT.Inquery.Private
                     drplstMemberType.DataValueField = "MemberType";
                     drplstMemberType.DataBind();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Handle the error
                 }
@@ -101,7 +101,7 @@ namespace JAT.Inquery.Private
                 grdCompany.DataBind();
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 grdCompany.CurrentPageIndex = 0;
                 grdCompany.DataBind();
@@ -362,6 +362,7 @@ namespace JAT.Inquery.Private
         protected void reset_Click(object sender, EventArgs e)
         {
             Page.Response.Redirect(Page.Request.Url.ToString(), true);
+            Context.ApplicationInstance.CompleteRequest();
         }
     }
 }

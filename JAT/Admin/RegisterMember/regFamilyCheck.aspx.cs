@@ -1233,7 +1233,7 @@ namespace JAT.Admin.RegisterMember
                     Box7.DataValueField = "MemberType";
                     Box7.DataBind();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Handle the error
                 }

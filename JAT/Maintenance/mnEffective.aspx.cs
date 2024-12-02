@@ -673,6 +673,7 @@ namespace JAT.Maintenance
                     activityDetail4 = $"Added new value into a table 'tblEffective' successful (User id = '{staffID}')";
 					logActivity.LogStaffActivity(staffID, activityDetail4);
 					Page.Response.Redirect(Page.Request.Url.ToString(), false);
+                    Context.ApplicationInstance.CompleteRequest();
                 }
                 else
                 {

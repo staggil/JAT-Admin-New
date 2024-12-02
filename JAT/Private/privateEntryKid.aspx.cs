@@ -129,6 +129,7 @@ namespace JAT.Private
             if (showMem != null || showfristMem != null)
             {
                 Response.Redirect("privateEntry.aspx?firstmemberid=" + showfristMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -137,6 +138,7 @@ namespace JAT.Private
             if (showMem != null || showfristMem != null)
             {
                 Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfristMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -145,6 +147,7 @@ namespace JAT.Private
             if (showMem != null || showfristMem != null)
             {
                 Response.Redirect("privateEntryPayment.aspx?firstmemberid=" + showfristMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -153,6 +156,7 @@ namespace JAT.Private
             if (showMem != null || showfristMem != null)
             {
                 Response.Redirect("privateCancel.aspx?firstmemberid=" + showfristMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -161,6 +165,7 @@ namespace JAT.Private
             if (showMem != null || showfristMem != null)
             {
                 Response.Redirect("privateFeature.aspx?firstmemberid=" + showfristMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
         protected void showInGrid()
@@ -243,7 +248,7 @@ namespace JAT.Private
         {
             DisabledForm();
             Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfristMem);
-
+            Context.ApplicationInstance.CompleteRequest();
         }
 
         protected void GridView_Button_Click(object sender, EventArgs e)
@@ -345,10 +350,12 @@ namespace JAT.Private
 
 				//DisabledForm();
 				Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfristMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
             else
             {
                 Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfristMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -393,6 +400,7 @@ namespace JAT.Private
             }
 
 			Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfristMem);
+            Context.ApplicationInstance.CompleteRequest();
 
             conn.Close();
 
@@ -442,10 +450,12 @@ namespace JAT.Private
 
 				//DisabledForm();
 				Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfristMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
             else
             {
                 Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfristMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 

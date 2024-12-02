@@ -180,7 +180,7 @@ namespace JAT.Company
             connection();
             //IFormatProvider culture = new CultureInfo("en-US", true);
             SqlCommand sc;
-            SqlDataReader rd;
+            //SqlDataReader rd;
             //string sql = "SELECT *,FORMAT(cancelDate, 'dd/MM/yyyy', 'en-us') FROM CompanyMember LEFT JOIN SStaff ON updatedBy=staffID LEFT JOIN PrivateDetail ON represID=memberid WHERE companyId = '" + companyId + "'";
             
             // 2024-08-21 at 04.02pm : Toon revise
@@ -455,12 +455,12 @@ namespace JAT.Company
             }
             catch (SqlException ex)
             {
-                string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                 logActivity.LogStaffActivity(staffID, activityDetail);
 			}
 			catch (Exception ex)
 			{
-                string activityDetail = $@"Error: {ex.Message}";
+                string activityDetail = $@"Error: {ex.Message} in {this}";
                 logActivity.LogStaffActivity(staffID, activityDetail);
 			}
 
@@ -660,7 +660,7 @@ namespace JAT.Company
 
                 if (memberstatus == "A" && memberStatus.Value == "NA")
                 {
-                    cancelDate = toDayDateTime.ToString("yyyy/MM/dd");
+                    cancelDate = "CURRENT_TIMESTAMP";  // toDayDateTime.ToString("yyyy/MM/dd");
                 }
                 else if (memberstatus == "NA" && memberStatus.Value == "A")
                 {   // In case member status change from 'NA' to 'A'
@@ -745,12 +745,12 @@ namespace JAT.Company
                 }
                 catch (SqlException ex)
                 {
-                    string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                    string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                     logActivity.LogStaffActivity(staffID, activityDetail);
                 }
                 catch (Exception ex)
                 {
-                    string activityDetail = $@"Error: {ex.Message}";
+                    string activityDetail = $@"Error: {ex.Message} in {this}";
                     logActivity.LogStaffActivity(staffID, activityDetail);
                 }
                 //var k = cmd.ExecuteNonQuery();
@@ -815,7 +815,7 @@ namespace JAT.Company
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "script", _alert, true);
                     this.conn.Close();
                 }
-                catch (Exception err)
+                catch (Exception)
                 {
 
                 }

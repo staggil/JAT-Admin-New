@@ -1171,11 +1171,11 @@ namespace JAT.Admin.RegisterMember
                     Box34.DataValueField = "MemberType";
                     Box34.DataBind();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Handle the error
 
-                    //string activityDetail = $@"Error: {ex.Message}";
+                    //string activityDetail = $@"Error: {ex.Message} in {this}";
                     //logActivity.LogStaffActivity(staffID, activityDetail);
                 }
 
@@ -1187,8 +1187,6 @@ namespace JAT.Admin.RegisterMember
         {
             string result = "Valid";
             int tint;
-            DateTime tdatetime;
-            Int32 tint32;
             string etxt = "Please check input at ";
             while (result == "Valid")
             {

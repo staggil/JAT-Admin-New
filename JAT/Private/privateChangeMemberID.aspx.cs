@@ -123,6 +123,7 @@ namespace JAT.Private
         protected void Button1_Click1(object sender, EventArgs e)
         {
 			Page.Response.Redirect(Page.Request.Url.ToString(), false);
+            Context.ApplicationInstance.CompleteRequest();
         }
     }
 }

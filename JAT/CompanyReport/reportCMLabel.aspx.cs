@@ -19,11 +19,11 @@ namespace JAT.CompanyReport
 		private LogActivity logActivity = new LogActivity();
 
 		private SqlConnection conn;
-        private int valOfTable;
+        //private int valOfTable;
         protected void Page_Load(object sender, EventArgs e)
         {
 			//CreateData();
-			valOfTable = 0;
+			//valOfTable = 0;
 			if (!Page.IsPostBack)
             {
                 Binddata();

@@ -104,6 +104,7 @@ namespace JAT.Account
             {
                 signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
                 Response.Redirect("/Account/Manage?m=RemovePhoneNumberSuccess");
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -114,6 +115,7 @@ namespace JAT.Account
             manager.SetTwoFactorEnabled(User.Identity.GetUserId(), false);
 
             Response.Redirect("/Account/Manage");
+            Context.ApplicationInstance.CompleteRequest();
         }
 
         //EnableTwoFactorAuthentication 
@@ -123,6 +125,7 @@ namespace JAT.Account
             manager.SetTwoFactorEnabled(User.Identity.GetUserId(), true);
 
             Response.Redirect("/Account/Manage");
+            Context.ApplicationInstance.CompleteRequest();
         }
     }
 }

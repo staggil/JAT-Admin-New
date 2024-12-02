@@ -170,12 +170,12 @@ namespace JAT.Admin.CancelMember
 			}
 			catch (SqlException ex)
 			{
-                string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                 logActivity.LogStaffActivity(staffID, activityDetail);
 			}
 			catch (Exception ex)
             {
-                string activityDetail = $@"Error: {ex.Message}";
+                string activityDetail = $@"Error: {ex.Message} in {this}";
                 logActivity.LogStaffActivity(staffID, activityDetail);
 			}
 
@@ -197,12 +197,12 @@ namespace JAT.Admin.CancelMember
 			}
 			catch (SqlException ex)
 			{
-                string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                 logActivity.LogStaffActivity(staffID, activityDetail);
 			}
 			catch (Exception ex)
 			{
-                string activityDetail = $@"Error: {ex.Message}";
+                string activityDetail = $@"Error: {ex.Message} in {this}";
                 logActivity.LogStaffActivity(staffID, activityDetail);
 			}
 		}
@@ -349,12 +349,12 @@ namespace JAT.Admin.CancelMember
 				}
 				catch (SqlException ex)
 				{
-                    string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                    string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                     logActivity.LogStaffActivity(staffID, activityDetail);
 				}
 				catch (Exception ex)
 				{
-                    string activityDetail = $@"Error: {ex.Message}";
+                    string activityDetail = $@"Error: {ex.Message} in {this}";
                     logActivity.LogStaffActivity(staffID, activityDetail);
 				}
 			}
@@ -368,12 +368,12 @@ namespace JAT.Admin.CancelMember
 				}
 				catch (SqlException ex)
 				{
-                    string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                    string activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                     logActivity.LogStaffActivity(staffID, activityDetail);
 				}
 				catch (Exception ex)
 				{
-                    string activityDetail = $@"Error: {ex.Message}";
+                    string activityDetail = $@"Error: {ex.Message} in {this}";
                     logActivity.LogStaffActivity(staffID, activityDetail);
 				}
 			}
@@ -400,12 +400,12 @@ namespace JAT.Admin.CancelMember
 					}
 					catch (SqlException ex)
 					{
-						activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+						activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
 						break;
 					}
 					catch (Exception ex)
 					{
-						activityDetail = $@"Error: {ex.Message}";
+						activityDetail = $@"Error: {ex.Message} in {this}";
 						break;
 					}
 				}

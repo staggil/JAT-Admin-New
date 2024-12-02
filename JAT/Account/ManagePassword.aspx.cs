@@ -61,6 +61,7 @@ namespace JAT.Account
                     var user = manager.FindById(User.Identity.GetUserId());
                     signInManager.SignIn( user, isPersistent: false, rememberBrowser: false);
                     Response.Redirect("~/Account/Manage?m=ChangePwdSuccess");
+                    Context.ApplicationInstance.CompleteRequest();
                 }
                 else
                 {
@@ -79,6 +80,7 @@ namespace JAT.Account
                 if (result.Succeeded)
                 {
                     Response.Redirect("~/Account/Manage?m=SetPwdSuccess");
+                    Context.ApplicationInstance.CompleteRequest();
                 }
                 else
                 {

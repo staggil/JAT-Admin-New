@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("JAPAN SYSTEM (THAILAND) CO.,LTD")]
-[assembly: AssemblyProduct("JAT")]
+[assembly: AssemblyProduct("JAT In-House System")]
 [assembly: AssemblyCopyright("Copyright © 2023 Japan Association in Thailand")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.5.1.3")]
-[assembly: AssemblyFileVersion("1.5.1.3")]
+[assembly: AssemblyVersion("1.7.6")]
+[assembly: AssemblyFileVersion("1.7.6")]

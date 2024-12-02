@@ -57,6 +57,7 @@ namespace JAT.Account
                 msg = "?m=RemoveLoginSuccess";
             }
             Response.Redirect("~/Account/ManageLogins" + msg);
+            Context.ApplicationInstance.CompleteRequest();
         }
     }
 }

@@ -185,7 +185,7 @@ namespace JAT.Company
                     totalPerMonth.DataValueField = "CTotalPerMonth";
                     totalPerMonth.DataBind();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Handle the error
                 }
@@ -215,7 +215,7 @@ namespace JAT.Company
                     cboBankAcc.DataTextField = tmpMap[1];
                     cboBankAcc.DataBind();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Handle the error
                 }
@@ -366,6 +366,7 @@ namespace JAT.Company
             if (showMem != null)
             {
                 Response.Redirect("companyEntry.aspx?companyId=" + showMem);
+                Context.ApplicationInstance.CompleteRequest();
             }
         }
 
@@ -451,14 +452,16 @@ namespace JAT.Company
 						}
                         catch (SqlException ex)
                         {
-                            activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                            activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                             logActivity.LogStaffActivity(staffID, activityDetail);
+                            logActivity.IssueReport(ex);
 						}
 						catch (Exception ex)
 						{
-                            activityDetail = $@"Error: {ex.Message}";
+                            activityDetail = $@"Error: {ex.Message} in {this}";
                             logActivity.LogStaffActivity(staffID, activityDetail);
-						}
+                            logActivity.IssueReport(ex);
+                        }
                         
                         conn.Close();
 
@@ -473,25 +476,27 @@ namespace JAT.Company
                         {
 							vlozSQL.ExecuteNonQuery();
 							activityDetail = $"Added new data into a table 'CompanyAccount' successful (user id = '{staffID}')";
-							logActivity.LogStaffActivity(staffID, activityDetail);
-						}
+                            logActivity.LogStaffActivity(staffID, activityDetail);
+                        }
                         catch (SqlException ex)
 						{
-                            activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                            activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                             logActivity.LogStaffActivity(staffID, activityDetail);
-						}
+                            logActivity.IssueReport(ex);
+                        }
 						catch (Exception ex)
 						{
-                            activityDetail = $@"Error: {ex.Message}";
+                            activityDetail = $@"Error: {ex.Message} in {this}";
                             logActivity.LogStaffActivity(staffID, activityDetail);
-						}
+                            logActivity.IssueReport(ex);
+                        }
 
 
 						vlozSQL.Parameters.Clear();
                         conn.Close();
 
                         Page.Response.Redirect(Page.Request.Url.ToString(), true);
-
+                        Context.ApplicationInstance.CompleteRequest();
 
 
 
@@ -511,14 +516,16 @@ namespace JAT.Company
 							}
                             catch (SqlException ex)
                             {
-                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                                 logActivity.LogStaffActivity(staffID, activityDetail);
-							}
+                                logActivity.IssueReport(ex);
+                            }
 							catch (Exception ex)
 							{
-                                activityDetail = $@"Error: {ex.Message}";
+                                activityDetail = $@"Error: {ex.Message} in {this}";
                                 logActivity.LogStaffActivity(staffID, activityDetail);
-							}
+                                logActivity.IssueReport(ex);
+                            }
 
 							conn.Close();
 
@@ -533,6 +540,7 @@ namespace JAT.Company
                             //vlozSQL.Parameters.Clear();
                             //conn.Close();
                             Page.Response.Redirect(Page.Request.Url.ToString(), true);
+                            Context.ApplicationInstance.CompleteRequest();
                         }
                         else
                         {
@@ -550,14 +558,16 @@ namespace JAT.Company
 							}
 							catch (SqlException ex)
 							{
-                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                                 logActivity.LogStaffActivity(staffID, activityDetail);
-							}
+                                logActivity.IssueReport(ex);
+                            }
 							catch (Exception ex)
 							{
-                                activityDetail = $@"Error: {ex.Message}";
+                                activityDetail = $@"Error: {ex.Message} in {this}";
                                 logActivity.LogStaffActivity(staffID, activityDetail);
-							}
+                                logActivity.IssueReport(ex);
+                            }
 							conn.Close();
 
                             string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@companyId,@accNumber,@bankCode)";
@@ -575,17 +585,20 @@ namespace JAT.Company
 							}
 							catch (SqlException ex)
 							{
-                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                                 logActivity.LogStaffActivity(staffID, activityDetail);
-							}
+                                logActivity.IssueReport(ex);
+                            }
 							catch (Exception ex)
 							{
-                                activityDetail = $@"Error: {ex.Message}";
+                                activityDetail = $@"Error: {ex.Message} in {this}";
                                 logActivity.LogStaffActivity(staffID, activityDetail);
-							}
+                                logActivity.IssueReport(ex);
+                            }
 							vlozSQL.Parameters.Clear();
                             conn.Close();
                             Page.Response.Redirect(Page.Request.Url.ToString(), true);
+                            Context.ApplicationInstance.CompleteRequest();
                         }
                     }
                 }
@@ -603,16 +616,19 @@ namespace JAT.Company
 					}
 					catch (SqlException ex)
 					{
-                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                         logActivity.LogStaffActivity(staffID, activityDetail);
-					}
+                        logActivity.IssueReport(ex);
+                    }
 					catch (Exception ex)
 					{
-                        activityDetail = $@"Error: {ex.Message}";
+                        activityDetail = $@"Error: {ex.Message} in {this}";
                         logActivity.LogStaffActivity(staffID, activityDetail);
-					}
+                        logActivity.IssueReport(ex);
+                    }
 					conn.Close();
                     Page.Response.Redirect(Page.Request.Url.ToString(), false);
+                    Context.ApplicationInstance.CompleteRequest();
                 }
             }
             else if (lbl.Text != "" || lbl.Text != null)
@@ -635,14 +651,16 @@ namespace JAT.Company
 						}
 						catch (SqlException ex)
 						{
-                            activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                            activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                             logActivity.LogStaffActivity(staffID, activityDetail);
-						}
+                            logActivity.IssueReport(ex);
+                        }
 						catch (Exception ex)
 						{
-                            activityDetail = $@"Error: {ex.Message}";
+                            activityDetail = $@"Error: {ex.Message} in {this}";
                             logActivity.LogStaffActivity(staffID, activityDetail);
-						}
+                            logActivity.IssueReport(ex);
+                        }
 						conn.Close();
 
                         string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@companyId,@accNumber,@bankCode)";
@@ -660,18 +678,21 @@ namespace JAT.Company
 						}
 						catch (SqlException ex)
 						{
-                            activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                            activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                             logActivity.LogStaffActivity(staffID, activityDetail);
-						}
+                            logActivity.IssueReport(ex);
+                        }
 						catch (Exception ex)
 						{
-                            activityDetail = $@"Error: {ex.Message}";
+                            activityDetail = $@"Error: {ex.Message} in {this}";
                             logActivity.LogStaffActivity(staffID, activityDetail);
-						}
+                            logActivity.IssueReport(ex);
+                        }
 						vlozSQL.Parameters.Clear();
                         conn.Close();
 
                         Page.Response.Redirect(Page.Request.Url.ToString(), true);
+                        Context.ApplicationInstance.CompleteRequest();
                     }
                     else if (temp != "" || temp != null)
                     {
@@ -690,14 +711,16 @@ namespace JAT.Company
 							}
 							catch (SqlException ex)
 							{
-                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                                 logActivity.LogStaffActivity(staffID, activityDetail);
-							}
+                                logActivity.IssueReport(ex);
+                            }
 							catch (Exception ex)
 							{
-                                activityDetail = $@"Error: {ex.Message}";
+                                activityDetail = $@"Error: {ex.Message} in {this}";
                                 logActivity.LogStaffActivity(staffID, activityDetail);
-							}
+                                logActivity.IssueReport(ex);
+                            }
 							conn.Close();
 
                             //string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@companyId,@accNumber,@bankCode)";
@@ -711,6 +734,7 @@ namespace JAT.Company
                             //vlozSQL.Parameters.Clear();
                             //conn.Close();
                             Page.Response.Redirect(Page.Request.Url.ToString(), true);
+                            Context.ApplicationInstance.CompleteRequest();
                         }
                         else
                         {
@@ -729,14 +753,16 @@ namespace JAT.Company
 							}
 							catch (SqlException ex)
 							{
-                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                                 logActivity.LogStaffActivity(staffID, activityDetail);
-							}
+                                logActivity.IssueReport(ex);
+                            }
 							catch (Exception ex)
 							{
-                                activityDetail = $@"Error: {ex.Message}";
+                                activityDetail = $@"Error: {ex.Message} in {this}";
                                 logActivity.LogStaffActivity(staffID, activityDetail);
-							}
+                                logActivity.IssueReport(ex);
+                            }
 							conn.Close();
 
                             string InsertSQL = "INSERT INTO dbo.CompanyAccount (accId, companyId, accNumber,bankCode) VALUES (@temp,@companyId,@accNumber,@bankCode)";
@@ -754,20 +780,23 @@ namespace JAT.Company
 							}
 							catch (SqlException ex)
 							{
-                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                                 logActivity.LogStaffActivity(staffID, activityDetail);
-							}
+                                logActivity.IssueReport(ex);
+                            }
 							catch (Exception ex)
 							{
-                                activityDetail = $@"Error: {ex.Message}";
+                                activityDetail = $@"Error: {ex.Message} in {this}";
                                 logActivity.LogStaffActivity(staffID, activityDetail);
-							}
+                                logActivity.IssueReport(ex);
+                            }
 							vlozSQL.Parameters.Clear();
                             conn.Close();
                         }
 
 
                         Page.Response.Redirect(Page.Request.Url.ToString(), true);
+                        Context.ApplicationInstance.CompleteRequest();
                     }
 
                 }
@@ -786,16 +815,19 @@ namespace JAT.Company
 					}
 					catch (SqlException ex)
 					{
-                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                         logActivity.LogStaffActivity(staffID, activityDetail);
-					}
+                        logActivity.IssueReport(ex);
+                    }
 					catch (Exception ex)
 					{
-                        activityDetail = $@"Error: {ex.Message}";
+                        activityDetail = $@"Error: {ex.Message} in {this}";
                         logActivity.LogStaffActivity(staffID, activityDetail);
-					}
+                        logActivity.IssueReport(ex);
+                    }
 					conn.Close();
                     Page.Response.Redirect(Page.Request.Url.ToString(), true);
+                    Context.ApplicationInstance.CompleteRequest();
                 }
             }
         }
@@ -909,6 +941,7 @@ namespace JAT.Company
         protected void cancel_Click(object sender, EventArgs e)
         {
             Page.Response.Redirect(Page.Request.Url.ToString(), true);
+            Context.ApplicationInstance.CompleteRequest();
         }
 
         protected void DataGrid1_ItemCommand(object source, DataGridCommandEventArgs e)
@@ -938,15 +971,18 @@ namespace JAT.Company
 					}
 					catch (SqlException ex)
 					{
-                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                         //activityDetail = $"Changed data in a table 'CompanyPayment' where tranId is '{tranId}' and companyid is '{showMem}' unsuccessful [{sqlex.Message}] (User id = '{staffID}')";
-                        logActivity.LogStaffActivity(staffID, $"Sql Error : {ex.ErrorCode} {ex.Message}");
+                        logActivity.LogStaffActivity(staffID, $"Sql Error: {ex.ErrorCode} {ex.Message} in {this}");
+                        logActivity.IssueReport(ex);
+
                     }
 					catch (Exception ex)
 					{
-                        activityDetail = $@"Error: {ex.Message}";
+                        activityDetail = $@"Error: {ex.Message} in {this}";
                         //activityDetail = $"Changed data in a table 'CompanyPayment' where tranId is '{tranId}' and companyid is '{showMem}' unsuccessful [{ex.Message}] (User id = '{staffID}')";
-                        logActivity.LogStaffActivity(staffID, $"Error : {ex.Message}");
+                        logActivity.LogStaffActivity(staffID, $"Error : {ex.Message} in {this}");
+                        logActivity.IssueReport(ex);
                     }
 
 					conn.Close();
@@ -956,7 +992,8 @@ namespace JAT.Company
 					//cmd.ExecuteNonQuery();
 					//conn.Close();
 					Page.Response.Redirect(Page.Request.Url.ToString(), false);
-				}
+                    Context.ApplicationInstance.CompleteRequest();
+                }
 				else { }
 				
 			}
@@ -1112,14 +1149,16 @@ namespace JAT.Company
 					}
 					catch (SqlException ex)
 					{
-                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                         logActivity.LogStaffActivity(staffID, activityDetail);
-					}
+                        logActivity.IssueReport(ex);
+                    }
 					catch (Exception ex)
 					{
-                        activityDetail = $@"Error: {ex.Message}";
+                        activityDetail = $@"Error: {ex.Message} in {this}";
                         logActivity.LogStaffActivity(staffID, activityDetail);
-					}
+                        logActivity.IssueReport(ex);
+                    }
 
 					conn.Close();
                 }
@@ -1144,14 +1183,16 @@ namespace JAT.Company
 					}
 					catch (SqlException ex)
 					{
-                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                         logActivity.LogStaffActivity(staffID, activityDetail);
-					}
+                        logActivity.IssueReport(ex);
+                    }
 					catch (Exception ex)
 					{
-                        activityDetail = $@"Error: {ex.Message}";
+                        activityDetail = $@"Error: {ex.Message} in {this}";
                         logActivity.LogStaffActivity(staffID, activityDetail);
-					}
+                        logActivity.IssueReport(ex);
+                    }
 					conn.Close();
 
                     //insert
@@ -1173,14 +1214,16 @@ namespace JAT.Company
 					}
 					catch (SqlException ex)
 					{
-                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                        activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                         logActivity.LogStaffActivity(staffID, activityDetail);
-					}
+                        logActivity.IssueReport(ex);
+                    }
 					catch (Exception ex)
 					{
-                        activityDetail = $@"Error: {ex.Message}";
+                        activityDetail = $@"Error: {ex.Message} in {this}";
                         logActivity.LogStaffActivity(staffID, activityDetail);
-					}
+                        logActivity.IssueReport(ex);
+                    }
 					vlozSQL.Parameters.Clear();
                     conn.Close();
                 }
@@ -1204,6 +1247,7 @@ namespace JAT.Company
 
                 getData3(Label1.Text, Label2.Text);
                 Page.Response.Redirect(Page.Request.Url.ToString(), true);
+                Context.ApplicationInstance.CompleteRequest();
             }
             else
             {
@@ -1224,24 +1268,28 @@ namespace JAT.Company
 						activityDetail = $"Changed data in a table 'CompanyPayment' Where tranId is '{Label1.Text}' and companyid is '{showMem}' successful (user id = '{staffID}')";
 						logActivity.LogStaffActivity(staffID, activityDetail);
 						Page.Response.Redirect(Page.Request.Url.ToString(), false);
-					}
+                        Context.ApplicationInstance.CompleteRequest();
+                    }
 					else
 					{
 						activityDetail = $"Changed data in a table 'CompanyPayment' Where tranId is '{Label1.Text}' and companyid is '{showMem}' unsuccessful (user id = '{staffID}')";
 						logActivity.LogStaffActivity(staffID, activityDetail);
 						Page.Response.Redirect(Page.Request.Url.ToString(), false);
-					}
+                        Context.ApplicationInstance.CompleteRequest();
+                    }
 				}
                 catch (SqlException ex)
                 {
-                    activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                    activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                     logActivity.LogStaffActivity(staffID, activityDetail);
-				}
+                    logActivity.IssueReport(ex);
+                }
 				catch (Exception ex)
 				{
-                    activityDetail = $@"Error: {ex.Message}";
+                    activityDetail = $@"Error: {ex.Message} in {this}";
                     logActivity.LogStaffActivity(staffID, activityDetail);
-				}
+                    logActivity.IssueReport(ex);
+                }
 
 				//try
 				//{
@@ -1279,14 +1327,16 @@ namespace JAT.Company
 			}
             catch (SqlException ex)
             {
-                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message}";
+                activityDetail = $@"Sql Error: {ex.ErrorCode} {ex.Message} in {this}";
                 logActivity.LogStaffActivity(staffID, activityDetail);
-			}
+                logActivity.IssueReport(ex);
+            }
 			catch (Exception ex)
 			{
-                activityDetail = $@"Error: {ex.Message}";
+                activityDetail = $@"Error: {ex.Message} in {this}";
                 logActivity.LogStaffActivity(staffID, activityDetail);
-			}
+                logActivity.IssueReport(ex);
+            }
 			conn.Close();
         }
     }
