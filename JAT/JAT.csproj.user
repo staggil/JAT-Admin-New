@@ -8,9 +8,9 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
-    <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
+    <LastActiveSolutionConfig>Release|Any CPU</LastActiveSolutionConfig>
     <ProjectView>ProjectFiles</ProjectView>
-    <NameOfLastUsedPublishProfile>C:\Users\user\Desktop\Japan System Project\JAT\JAT_ADMIN-master-master\JAT\Properties\PublishProfiles\FolderProfile2.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>D:\JAT-Admin-Master_02-Dec-2024\JAT\Properties\PublishProfiles\FolderProfile.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup>
     <ReferencePath>C:\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\</ReferencePath>

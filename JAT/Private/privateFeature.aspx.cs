@@ -164,6 +164,114 @@ namespace JAT.Private
         protected void RadioButtonList1_SelectedIndexChanged(object sender, EventArgs e)
         {
             string radVal = RadioButtonList1.SelectedValue.ToString();
+
+            // Show/hide MergeFamilyInput based on the selected radio button
+            if (radVal == "Merge Family")
+            {
+                setMergeInputVisible(1); // Show MergeFamilyInput
+            }
+            else
+            {
+                MergeFamilyInput.Text = "";
+                setMergeInputVisible(0); // Hide MergeFamilyInput
+            }
+
+            // Update the grid view visibility based on the selected radio button
+            if (radVal == "Divide Family")
+            {
+                clrGridView(); // Clear the grid view
+                showInGridCanMem();
+
+                GridView1.Columns[0].Visible = true; // Show "divide view" column
+                GridView1.Columns[1].Visible = false; // Hide "change first member" column
+            }
+            else if (radVal == "Change First Member")
+            {
+                clrGridView(); // Clear the grid view
+                showInGridCanMem();
+
+                GridView1.Columns[0].Visible = false; // Hide "divide view" column
+                GridView1.Columns[1].Visible = true; // Show "change first member" column
+            }
+            else
+            {
+                clrGridView(); // Clear the grid view
+            }
+        }
+
+        protected void processBtn_Click(object sender, EventArgs e)
+        {
+            var uid = Session["UID"];
+            int staffID = uid != null ? Convert.ToInt32(uid) : 0;
+
+            string radVal = RadioButtonList1.SelectedValue.ToString();
+            string tmp = "";
+
+            // Check the selected radio button and perform the appropriate actions
+            if (radVal == "Merge Family")
+            {
+                clrGridView();
+                if (MergeFamilyInput.Text != "")
+                {
+                    MergeFamily();
+                    tmp = "Merge Family Completed";
+                }
+            }
+            else if (radVal == "Divide Family")
+            {
+                clrGridView();
+                showInGridCanMem();
+
+                GridView1.Columns[0].Visible = true;  // Show divide view
+                GridView1.Columns[1].Visible = false; // Hide change first member view
+            }
+            else if (radVal == "Activate Member")
+            {
+                connection();
+                string sql = "EXEC psActivateMember '" + showfristMem + "'";
+                conn.Open();
+                cmd = new SqlCommand(sql, conn);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    string activityDetail = $"Executed procedure name 'psActivateMember' successful (user id = '{staffID}')";
+                    logActivity.LogStaffActivity(staffID, activityDetail);
+                }
+                catch (SqlException ex)
+                {
+                    string activityDetail = $"Executed procedure name 'psActivateMember' unsuccessful [{ex.Message}] (user id = '{staffID}')";
+                    logActivity.LogStaffActivity(staffID, activityDetail);
+                }
+                catch (Exception ex)
+                {
+                    string activityDetail = $"Executed procedure name 'psActivateMember' unsuccessful [{ex.Message}] (user id = '{staffID}')";
+                    logActivity.LogStaffActivity(staffID, activityDetail);
+                }
+                conn.Close();
+                tmp = "Activate Member Executed";
+                Response.Redirect("privateEntry.aspx?firstmemberid=" + showfristMem);
+            }
+            else if (radVal == "Change First Member")
+            {
+                clrGridView();
+                showInGridCanMem();
+
+                GridView1.Columns[0].Visible = false; // Hide divide view
+                GridView1.Columns[1].Visible = true;  // Show change first member view
+            }
+
+            // Display the result message if there was an action
+            if (tmp != "")
+            {
+                string strJavaScript = "<script language='javascript'>alert('" + tmp + "');</script>";
+                Page.RegisterStartupScript("Msgbox", strJavaScript);
+            }
+        }
+
+        /* old code
+        protected void RadioButtonList1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string radVal = RadioButtonList1.SelectedValue.ToString();
             if (radVal == "Merge Family")
             {
                 setMergeInputVisible(1);
@@ -235,6 +343,8 @@ namespace JAT.Private
                 Page.RegisterStartupScript("Msgbox", strJavaScript);
             }
         }
+        */
+
         protected void clrGridView()
         {
             GridView1.DataSource = null;

@@ -85,10 +85,13 @@ namespace JAT
             {
                 connection();
                 conn.Open();
+
+               
                 string sql = "SELECT email,'' as 'emailrep','' as 'emailtre', '' as 'emailper' FROM PrivateDetail pd " +
                         "INNER JOIN PrivateClub pc ON pd.memberid = pc.memberid " +
                         "INNER JOIN Private p ON pd.memberid = p.memberid " +
                         "WHERE (email is not null and email <> '') ";
+              
                 string whereclause = getWhereClause();
                 sql += whereclause;
                 //sql = "SELECT 'temporary0253@gmail.com'";

@@ -67,6 +67,8 @@ a:focus {
 .wrapper-header {
     display: flex;
     width: 100%;
+    background: rgb(0,45,175);
+    background: linear-gradient(0deg, rgba(0,45,175,1) 0%, rgba(36,34,122,1) 84%);
 }
 
 #header {
@@ -76,7 +78,9 @@ a:focus {
     left: 0;
     height: 13vh;
     z-index: 999;
-    background: #24227a;
+    /*background: #24227a;*/
+    background: rgb(0,45,175);
+    background: linear-gradient(0deg, rgba(0,45,175,1) 0%, rgba(36,34,122,1) 84%);
     color: #fff;
     transition: all 0.3s;
 }

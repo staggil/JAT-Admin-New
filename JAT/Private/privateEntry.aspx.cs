@@ -1035,7 +1035,8 @@ namespace JAT.Private
                 string updateNAToA = "";
                 if (memberstatus == "A" && Box32.SelectedValue.ToString() == "NA")
                 {
-                    cancelDate = "'" + toDayDateTime.ToString("dd/MM/yyyy") + "'";
+                    //old code
+                    //cancelDate = "'" + toDayDateTime.ToString("dd/MM/yyyy") + "'";
                     updateNAToA = ", date_do_status_na_to_a = NULL ";
                 }
                 else if (memberstatus == "NA" && Box32.SelectedValue.ToString() == "A")
@@ -1078,6 +1079,7 @@ namespace JAT.Private
                 else if (memberstatus == "A" && Box32.SelectedValue.ToString() == "A")
                 {
                     cancelDate = "Null";
+                    updateNAToA = ", date_do_status_na_to_a = CURRENT_TIMESTAMP ";
                 }
                 var memStaCho = Box32.SelectedValue.ToString();
                 var sendMethodCho = Box33.SelectedValue.ToString();
@@ -1299,6 +1301,7 @@ namespace JAT.Private
                                               $"      nameE = '{nameEinput}', \n" +
                                               $"      prefixNm = '{preFixCho}', \n";
 
+                            /* old code
                             if (cancelDate == "Null")
                             {
                                 _privateDetail += $"      cancelledDate = {cancelDate}, \n";
@@ -1308,6 +1311,26 @@ namespace JAT.Private
                                 // var _cancelDate = Date_MsSqlStandard.CastQuery(cancelDate);
                                 _privateDetail += $"      cancelledDate = GETDATE(), \n";
                             }
+                            */
+
+                            //new code by gil 24/02/2025
+                            if (memberstatus == "NA" && Box32.SelectedValue.ToString() == "NA")
+                            {
+                                _privateDetail += $"      cancelledDate = CONVERT(DATETIME, '{cancelDate}', 103), \n";
+                            }
+
+                            else if (memberstatus == "NA" && Box32.SelectedValue.ToString() == "A")
+                            {
+                                _privateDetail += $"      cancelledDate = NULL, \n";
+                                updateNAToA = ", date_do_status_na_to_a = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+
+                            }
+                            else if (memberstatus == "A" && Box32.SelectedValue.ToString() == "NA")
+                            {
+                                _privateDetail += $"      cancelledDate = GETDATE(), \n";
+                            }
+
+
 
                             _privateDetail += $"      memberStatus = '{memStaCho}', \n" +
                                               $"      birthDate = {birthDateinput}, \n" +
