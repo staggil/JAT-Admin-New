@@ -668,10 +668,36 @@ namespace JAT.Company
                 }
                 else
                 {   // In case member status change from 'A' to 'NA'
+
+                    //new code 29/04/2025 11:10 by gil
+                    cancelDate = cancelDateTmp;
+
+                    DateTime parsedDate;
+                    if (DateTime.TryParse(cancelDate, out parsedDate))
+                    {
+                        var _cancelDate_Reform = parsedDate.ToString("dd/MM/yyyy");
+                        cancelDate = Date_MsSqlStandard.CastQuery(_cancelDate_Reform);
+                    }
+                    else
+                    {
+                        cancelDate = "CURRENT_TIMESTAMP"; // หรือไม่ต้องทำอะไร หรือ log แจ้งเตือน
+                    }
+                    //new code end
+
+
+                    //old code commented 29/04/2025 11:09 by gil
+                    /*
                     cancelDate = cancelDateTmp;
 
                     var _cancelDate_Reform = DateTime.Parse(cancelDate).ToString("dd/MM/yyyy");
                     cancelDate = Date_MsSqlStandard.CastQuery(_cancelDate_Reform);
+                    */
+
+
+
+
+
+
                 }
 
                 if (represEm.Value.Trim() != "")
