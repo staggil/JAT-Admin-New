@@ -58,6 +58,12 @@ namespace JAT.CompanyReport
             //IFormatProvider culture = new CultureInfo(Session["language"].ToString(), true);
             IFormatProvider culture = new CultureInfo("en-US", true);
             connection();
+
+
+            //for debug 15/05/2025 14:18
+            System.Diagnostics.Debug.WriteLine("🟡 _staffID = " + _staffID);
+            //end here
+
             ///this is sql statement which returns records
             String strSqlSelect = "SET dateformat dmy SELECT * FROM companyReport WHERE companyReport.staffId = '" + _staffID + "' " +
                 " AND companyReport.noPayMonth <> 0 ";
@@ -788,11 +794,20 @@ namespace JAT.CompanyReport
                 connection();
                 conn.Open();
 
+                //for debug 15/05/2025
+                System.Diagnostics.Debug.WriteLine("จำนวนแถวใน DataGrid1: " + DataGrid1.Rows.Count);
+                //end debug
+
+
                 string sql = "SELECT * FROM " +
                         "(SELECT companyNmE, address, contNm, contPosition, startDate, termDate, noPayMonth, total " +
                         ", ROW_NUMBER() OVER(PARTITION BY companyNmE ORDER BY companyNmE) AS ROW FROM CompanyReport) AS a " +
                         "WHERE ROW = 1 ";
                 string wherenme = "";
+
+
+                
+
                 foreach (GridViewRow row in DataGrid1.Rows)
                 {
                     if (row.RowType == DataControlRowType.DataRow)
@@ -801,7 +816,27 @@ namespace JAT.CompanyReport
                         bool chk = chkRow.Checked;
                         if (chk)
                         {
+
+                            // 🟡 จุดที่ใส่ Debug เพื่อตรวจชื่อบริษัท 15/05/2025
+                            System.Diagnostics.Debug.WriteLine("ชื่อบริษัทที่เลือก: " + row.Cells[2].Text);
+                            //end debug
+
+                            //new code 15/05/2025 15:09
+                            string companyName = HttpUtility.HtmlDecode(row.Cells[2].Text);
+                            System.Diagnostics.Debug.WriteLine("✅ ชื่อบริษัท after decode: " + companyName);
+
+
+                            // ✅ ใช้ชื่อที่ decode แล้วใน WHERE clause และ escape เครื่องหมาย single quote
+                            wherenme += "'" + companyName.Replace("'", "''") + "',";
+                            //end debug
+
+
+
+                            /*old code commented 15/05/2025 15:12
                             wherenme += "'" + row.Cells[2].Text + "',";
+                            */
+
+
                         }
                     }
                 }

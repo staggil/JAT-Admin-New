@@ -12,6 +12,7 @@ using System.Globalization;
 using System.Threading;
 using Microsoft.Reporting.WebForms;
 
+
 namespace JAT.CompanyReport
 {
     public partial class reportCMLabel : System.Web.UI.Page
@@ -89,7 +90,18 @@ namespace JAT.CompanyReport
 
             if (txtCompanyNameEng.Value.Trim() != "")
             {
+               
+                //new code fix bug "&" unicode 16:05 15/05/2568
+                string cleanText = HttpUtility.HtmlDecode(txtCompanyNameEng.Value.Trim());
+                cleanText = cleanText.Replace("'", "''");
+                strSqlSelect = strSqlSelect + " AND companyMember.companyNmE LIKE '%" + cleanText + "%' ";
+                //end code
+
+
+                /* old code 15/05/2025 16:04
                 strSqlSelect = strSqlSelect + " AND companyMember.companyNmE LIKE '%" + txtCompanyNameEng.Value.Trim().Replace("'", "''")+ "%' ";
+                */
+
             }
 
             strSqlSelect = strSqlSelect + " ORDER BY companyMember.companyNmE, companyMember.companyNmJ ";
@@ -156,7 +168,21 @@ namespace JAT.CompanyReport
                     bool chk = chkRow.Checked;
                     if (chk)
                     {
+
+                        //new code bug fix decode HTML entity 15/05/2025 15:41
+                       
+                        string companyName = HttpUtility.HtmlDecode(row.Cells[2].Text);
+                        companyName = companyName.Replace("'", "''");
+                        wherenme += "'" + companyName + "',";
+
+                        // (log debug)
+                        System.Diagnostics.Debug.WriteLine("✅ CompanyName: " + companyName);
+                        //end code
+
+                        /* old code commented by 15/05/2025
                         wherenme += "'" + row.Cells[2].Text + "',";
+                        */
+
                     }
                 }
             }
