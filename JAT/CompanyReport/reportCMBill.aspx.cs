@@ -722,8 +722,23 @@ namespace JAT.CompanyReport
                         bool chk = chkRow.Checked;
                         if (chk || !chk)
                         {
+
+
+
+                            /* old code commentted for test 13:41 20/05/2025
                             //string nameEGrid = row.Cells[2].Text.Replace("'", "''");
                             wherenme += "'" + row.Cells[2].Text + "',";
+                            */
+
+                            //new code 15/05/2025 15:09
+                            string companyName = HttpUtility.HtmlDecode(row.Cells[2].Text);
+                            System.Diagnostics.Debug.WriteLine("ชื่อบริษัท after decode: " + companyName);
+
+
+                            // ✅ ใช้ชื่อที่ decode แล้วใน WHERE clause และ escape เครื่องหมาย single quote
+                            wherenme += "'" + companyName.Replace("'", "''") + "',";
+                            //end debug
+
                         }
                     }
                 }
@@ -806,8 +821,8 @@ namespace JAT.CompanyReport
                 string wherenme = "";
 
 
-                
 
+                /* commentted for test 10:20 20/05/2025
                 foreach (GridViewRow row in DataGrid1.Rows)
                 {
                     if (row.RowType == DataControlRowType.DataRow)
@@ -834,12 +849,53 @@ namespace JAT.CompanyReport
 
                             /*old code commented 15/05/2025 15:12
                             wherenme += "'" + row.Cells[2].Text + "',";
-                            */
+                            
 
 
                         }
                     }
                 }
+                */
+
+                //new code for fix as customer want  11:32 20/05/2025
+                int dataRowCount = 0;
+                GridViewRow singleRow = null;
+
+                foreach (GridViewRow row in DataGrid1.Rows)
+                {
+                    if (row.RowType == DataControlRowType.DataRow)
+                    {
+                        dataRowCount++;
+                        CheckBox chkRow = (row.Cells[0].FindControl("chkSelect") as CheckBox);
+                        bool chk = chkRow.Checked;
+
+                        if (chk)
+                        {
+                            string companyName = HttpUtility.HtmlDecode(row.Cells[2].Text);
+                            wherenme += "'" + companyName.Replace("'", "''") + "',";
+                        }
+                        else
+                        {
+                            singleRow = row; // เก็บไว้กรณียังไม่มี checkbox ใดถูกติ๊ก
+                        }
+                    }
+                }
+                //เจอแถวเดียว
+                if (wherenme == "" && dataRowCount == 1 && singleRow != null)
+                {
+                    string companyName = HttpUtility.HtmlDecode(singleRow.Cells[2].Text);
+                    wherenme += "'" + companyName.Replace("'", "''") + "',";
+                }
+
+                if (string.IsNullOrEmpty(wherenme))
+                {
+                    // warning
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Please choose at least one bill.');", true);
+                    return;
+                }
+
+                //new code end here
+
                 try
                 {
                     wherenme = wherenme.Remove(wherenme.Length - 1, 1);

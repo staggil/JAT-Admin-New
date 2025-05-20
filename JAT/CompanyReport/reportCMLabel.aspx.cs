@@ -160,32 +160,51 @@ namespace JAT.CompanyReport
                     "WHERE companyMember.memberStatus = 'A' ";
 
             string wherenme = "";
+
+
+            //new code for fix as customer want  15:40 20/05/2025
+            int dataRowCount = 0;
+            GridViewRow singleRow = null;
+
             foreach (GridViewRow row in DataGrid1.Rows)
             {
                 if (row.RowType == DataControlRowType.DataRow)
                 {
+                    dataRowCount++;
                     CheckBox chkRow = (row.Cells[0].FindControl("chkSelect") as CheckBox);
                     bool chk = chkRow.Checked;
+
                     if (chk)
                     {
-
-                        //new code bug fix decode HTML entity 15/05/2025 15:41
-                       
                         string companyName = HttpUtility.HtmlDecode(row.Cells[2].Text);
-                        companyName = companyName.Replace("'", "''");
-                        wherenme += "'" + companyName + "',";
-
-                        // (log debug)
-                        System.Diagnostics.Debug.WriteLine("✅ CompanyName: " + companyName);
-                        //end code
-
-                        /* old code commented by 15/05/2025
-                        wherenme += "'" + row.Cells[2].Text + "',";
-                        */
-
+                        wherenme += "'" + companyName.Replace("'", "''") + "',";
+                    }
+                    else
+                    {
+                        singleRow = row; // เก็บไว้กรณียังไม่มี checkbox ใดถูกติ๊ก
                     }
                 }
             }
+            //เจอแถวเดียว
+            if (wherenme == "" && dataRowCount == 1 && singleRow != null)
+            {
+                string companyName = HttpUtility.HtmlDecode(singleRow.Cells[2].Text);
+                wherenme += "'" + companyName.Replace("'", "''") + "',";
+            }
+
+            if (string.IsNullOrEmpty(wherenme))
+            {
+                // warning
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Please choose at least one bill.');", true);
+                return;
+            }
+
+            //new code end here
+
+
+
+
+
             System.Diagnostics.Debug.Print(wherenme.Length.ToString());
             try
             {
@@ -297,7 +316,18 @@ namespace JAT.CompanyReport
                     bool chk = chkRow.Checked;
                     if (chk||!chk)
                     {
+
+                        /* old code   commentted for test  20/05/2025 14:19 
                         wherenme += "'" + row.Cells[2].Text + "',";
+                        */
+
+                        //new code 15/05/2025 15:09
+                        string companyName = HttpUtility.HtmlDecode(row.Cells[2].Text);
+                        System.Diagnostics.Debug.WriteLine("ชื่อบริษัท after decode: " + companyName);
+
+                        wherenme += "'" + companyName.Replace("'", "''") + "',";
+                        //end debug
+
                     }
                 }
             }
