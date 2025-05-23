@@ -176,7 +176,7 @@
                                   <Value>=Switch(RowNumber(Nothing) = 1,"理事",
         RowNumber(Nothing) = 25,"監事",
 		RowNumber(Nothing) = 27,"オブザーバー",
-		RowNumber(Nothing) = 36,"事務局")</Value>
+		RowNumber(Nothing) = 38,"事務局")</Value>
                                   <Style>
                                     <FontFamily>MS Gothic</FontFamily>
                                     <FontWeight>Bold</FontWeight>
