@@ -485,4 +485,17 @@
             });
         });
     </script>
+
+
+    <script>
+        // สมมติ dropdown มี id="drplstMemberType"
+        var drp = document.getElementById('<%= drplstMemberType.ClientID %>');
+
+        drp.addEventListener('change', function () {
+            console.log("Selected Member Type (frontend) = " + this.value);
+        });
+    </script>
+
+
+
 </asp:Content>

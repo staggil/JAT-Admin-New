@@ -115,8 +115,17 @@ namespace JAT.Inquery.Private
 
         private DataSet GetMemberTypeData()
         {
+
+
             IFormatProvider culture = new CultureInfo("en-US", true);
             connection();
+
+
+            // debug print to Output window
+            System.Diagnostics.Debug.WriteLine("Selected Member Type = " + drplstMemberType.SelectedItem?.Value);
+
+            // หรือถ้าจะ Response.Write
+            Response.Write("Selected Member Type = [" + drplstMemberType.SelectedItem?.Value + "]<br/>");
 
             ///this is sql statement which returns records
             string SQLStatement = " SELECT 'Member Id' = PrivateDetail_01.memberid,PrivateDetail_01.firstMemberid, " +
@@ -167,8 +176,14 @@ namespace JAT.Inquery.Private
                 " LEFT OUTER JOIN PrivateAccount " +
                 " ON ( PrivatePayAccount.accId = PrivateAccount.accId " +
                 " AND PrivateDetail_01.memberid = PrivateAccount.memberId ) " +
-                " WHERE PrivateDetail_01.firstMemberid = PrivateDetail_01.memberid " +
-                " AND PrivatePayment.tranid = ( SELECT MAX(PrivatePayment_2.tranid) " +
+                " WHERE " +
+
+                //comment for debugging 10:57 11/06/2025 uncommentted when you want to flitering membertype 7
+                // "PrivateDetail_01.firstMemberid = PrivateDetail_01.memberid " +
+                //end line
+
+                //" AND " +
+                "PrivatePayment.tranid = ( SELECT MAX(PrivatePayment_2.tranid) " +
                 "                               FROM PrivatePayment PrivatePayment_2 " +
                 "                               WHERE PrivatePayment.memberId = PrivatePayment_2.memberId ) ";
 
@@ -278,11 +293,36 @@ namespace JAT.Inquery.Private
 
             SQLStatement = SQLStatement + " ORDER BY PrivateAddressC.companyNm, PrivateDetail_01.nameE ";
 
+
+
+            // แสดง SQL สุดท้ายที่ใช้จริง (สำหรับ debug)
+            //Response.Write("<pre>SQL Statement: " + Server.HtmlEncode(SQLStatement) + "</pre>");
+            //end line
+
+            //เขียนแล้ว ออก
+            // หรือถ้าจะ Response.Write
+            //Response.Write("Selected Member Type = [" + drplstMemberType.SelectedItem?.Value + "]<br/>");
+            //
+
+
             SqlDataAdapter dataAdapter = new SqlDataAdapter(SQLStatement, conn);
             DataSet myDataSet;
             dataAdapter.SelectCommand.CommandType = CommandType.Text;
             myDataSet = new DataSet();
             dataAdapter.Fill(myDataSet, "PrivateDetail");
+
+            /*
+            // ✅ แทรกจุด debug ตรงนี้
+            foreach (DataRow row in myDataSet.Tables["PrivateDetail"].Rows)
+            {
+                Response.Write("<br>memberid: " + row["memberid"]);
+                Response.Write(" | membertype: " + row["membertype"]);
+            }
+            //for debugging end line
+            */
+
+
+
             return myDataSet;
         }
 

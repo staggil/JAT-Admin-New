@@ -313,6 +313,14 @@
                         <a runat="server" href="~/Login"><i class="fas fa-info-circle faspace"></i><%=Resources.Resources.log_off %></a>
                     </li>
                 </ul>
+
+                    
+
+
+
+
+
+
             </nav>
         </div>
        
