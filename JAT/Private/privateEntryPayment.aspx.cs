@@ -600,8 +600,19 @@ namespace JAT.Private
                                 "left outer join privateAccount t3 on t3.memberid = t1.memberid and t3.accId = ppa.accId " +
                                 "WHERE t2.firstmemberid = " + "'" + showfristMem + "' " +
                                 "AND t1.Deleted_at IS NULL " +
+                                "AND t1.checkpay = 'C'"+
                                 //"ORDER BY t1.paymentDate DESC, t1.expireDate DESC, t1.receiptNo");
+
+
+                                //old code commentted for debugging
                                 "ORDER BY t1.expireDate DESC, t1.receiptNo");
+
+                                //new code for test 17/06/2025
+                                //"ORDER BY t1.tranId DESC");
+            
+
+
+
             // *** End Of Ryvised
             //GridView1.Columns[0].Visible = false;
             GridView1.DataSource = td;
