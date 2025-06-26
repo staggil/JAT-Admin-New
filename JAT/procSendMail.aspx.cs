@@ -87,10 +87,10 @@ namespace JAT
                 conn.Open();
 
                
-                string sql = "SELECT email,'' as 'emailrep','' as 'emailtre', '' as 'emailper' FROM PrivateDetail pd " +
+                string sql = "SELECT pd.email,'' as 'emailrep','' as 'emailtre', '' as 'emailper' FROM PrivateDetail pd " +
                         "INNER JOIN PrivateClub pc ON pd.memberid = pc.memberid " +
                         "INNER JOIN Private p ON pd.memberid = p.memberid " +
-                        "WHERE (email is not null and email <> '') ";
+                        "WHERE (pd.email is not null and pd.email <> '') ";
               
                 string whereclause = getWhereClause();
                 sql += whereclause;
@@ -815,6 +815,9 @@ namespace JAT
             }
             RadioButtonList1.Items[0].Text = "&nbsp;"+strEmail;
             RadioButtonList1.Items[0].Value = strEmail;
+
+            RadioButtonList1.Items.Add(new ListItem("&nbsp;" + "hachimanhiggy@gmail.com", "hachimanhiggy@gmail.com"));
+
             strMailServer = WebConfigurationManager.AppSettings.Get("mailServer");
             strMailUser = WebConfigurationManager.AppSettings["mailUser"];
             strMailPassword = WebConfigurationManager.AppSettings["mailPassword"];

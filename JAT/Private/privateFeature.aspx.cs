@@ -268,7 +268,7 @@ namespace JAT.Private
             }
         }
 
-        /* old code
+        /* bug การแสดงผลของหน้า private feature
         protected void RadioButtonList1_SelectedIndexChanged(object sender, EventArgs e)
         {
             string radVal = RadioButtonList1.SelectedValue.ToString();
@@ -409,12 +409,61 @@ namespace JAT.Private
 			//Label3.Text = row.Cells[1].Text;
 
 			//td = SelectSqlTable("UPDATE PrivateDetail " +
-			//    "SET firstMemberID = '" + row.Cells[2].Text + "'" +
+			 //   "SET firstMemberID = '" + row.Cells[2].Text + "'" +
 			//    "WHERE firstMemberID = '" + showfirstMem + "'");
 
 			try
 			{
-				td = SelectSqlTable("exec psChangeFirstMember '" + showfristMem + "','" + row.Cells[2].Text + "','3'");
+                
+                //new code for debugging 22/06/2025
+
+                // เรียก stored procedure เปลี่ยนหัวหน้าครอบครัว
+                td = SelectSqlTable("exec psChangeFirstMember '" + showfristMem + "','" + row.Cells[2].Text + "','3'");
+
+                string memberId = row.Cells[2].Text.Trim();
+
+                // ✅ delay เล็กน้อย (optional) เพื่อรอ DB update
+                System.Threading.Thread.Sleep(100); // 100ms
+
+                // ✅ ตรวจสอบว่า memberid นี้มีอยู่แล้ว
+                connection();
+                string checkSql = "SELECT COUNT(*) FROM [NEW_JATDB].[dbo].[Private] WHERE memberid = @memberid";
+                cmd = new SqlCommand(checkSql, conn);
+                cmd.Parameters.AddWithValue("@memberid", memberId);
+                conn.Open();
+                int exists = Convert.ToInt32(cmd.ExecuteScalar());
+                conn.Close();
+
+                if (exists > 0)
+                {
+                    // ✅ อัปเดต memberType
+                    connection();
+                    string updateMemberType = "UPDATE [NEW_JATDB].[dbo].[PrivateDetail] SET memberType = 1 WHERE memberid = @memberid";
+                    cmd = new SqlCommand(updateMemberType, conn);
+                    cmd.Parameters.AddWithValue("@memberid", memberId);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+
+                    // ✅ อัปเดต sendType
+                    connection();
+                    string updateSendType = "UPDATE [NEW_JATDB].[dbo].[Private] SET sendType = '#' WHERE memberid = @memberid";
+                    cmd = new SqlCommand(updateSendType, conn);
+                    cmd.Parameters.AddWithValue("@memberid", memberId);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+                else
+                {
+                    // logging กรณีไม่พบ row
+                    logActivity.LogStaffActivity(staffID, $"[Warning] Cannot update sendType: memberid {memberId} not found in Private table.");
+                }
+
+                //end line
+
+
+                td = SelectSqlTable("exec psChangeFirstMember '" + showfristMem + "','" + row.Cells[2].Text + "','3'");
 				string activityDetail = $"Executed procedure name 'psChangeFirstMember' successful (user id = '{staffID}')";
 				logActivity.LogStaffActivity(staffID, activityDetail);
 			}

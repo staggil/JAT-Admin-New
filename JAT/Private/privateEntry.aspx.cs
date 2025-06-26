@@ -124,6 +124,8 @@ namespace JAT.Private
                     BindDataRemark();
                     BindDataCheckBoxTemp();
                     BindMemberTypeList();
+
+                    //comment for test
                     BindData();
                 }
 
@@ -133,6 +135,10 @@ namespace JAT.Private
                 editBTN.Visible = false;
                 updateBtn.Visible = false;
                 cancelBtnMem.Visible = false;
+
+                // ✅ เพิ่ม BindData() ตรงนี้ เพื่อโหลดค่าใหม่ทุกครั้ง
+               // BindData();
+                //endline
             }
 
             //if (!Page.IsPostBack)
@@ -1095,7 +1101,13 @@ namespace JAT.Private
                 string insertToHistory;
                 if (sendMethodCho != HiddenField1.Value)
                 {
-                    updateSendMethod = "," + " sendType = " + "'" + sendMethodCho + "'";
+                    //commentted for debugging 23/06/2025
+                     // updateSendMethod = "," + " sendType = " + "'" + sendMethodCho + "'";
+
+                    //new code for debugging
+                    updateSendMethod = $", sendType = '{sendMethodCho}'";
+                    //end line
+
                     //Already logging below
                     insertToHistory = "INSERT INTO PrivateSendHistory(memberId, sendType, endDate)" + "VALUES('" + memIDInput + "'" + "," + "'" + sendMethodCho + "'" + "," + "'" + dateToCancel + "'" + ")";
                 }
@@ -1135,7 +1147,14 @@ namespace JAT.Private
                                             $"checkCompanyFax = ' ', checkHomeAddress = ' ', " +
                                             $"checkHomePhone = ' ', checkHomeMobile = ' ', " +
                                             $"getSplitPayment = '{chkPayment}', zip_code = '{zipcode}', " +
-                                            $"email = '{emailVal}', sendType = '{updateSendMethod}' " +
+
+                                            //commentted for debugging
+                                            //$"email = '{emailVal}', sendType = '{updateSendMethod}' "
+
+                                            //new code for debugging 26/06/2025
+                                            $"email = '{emailVal}'{updateSendMethod}"
+                                            //end line
+                                            +
                                             $"WHERE memberid = '{showfirstMem}' \n\n" +
 
                                             $"UPDATE PrivateDetail " +
