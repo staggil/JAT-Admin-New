@@ -1101,10 +1101,10 @@ namespace JAT.Private
                 string insertToHistory;
                 if (sendMethodCho != HiddenField1.Value)
                 {
-                    //commentted for debugging 23/06/2025
+                    //commentted for bug 23/06/2025
                      // updateSendMethod = "," + " sendType = " + "'" + sendMethodCho + "'";
 
-                    //new code for debugging
+                    //new code 23/06/2025
                     updateSendMethod = $", sendType = '{sendMethodCho}'";
                     //end line
 
@@ -1148,10 +1148,10 @@ namespace JAT.Private
                                             $"checkHomePhone = ' ', checkHomeMobile = ' ', " +
                                             $"getSplitPayment = '{chkPayment}', zip_code = '{zipcode}', " +
 
-                                            //commentted for debugging
+                                            //commentted for bugs 23/06/2025
                                             //$"email = '{emailVal}', sendType = '{updateSendMethod}' "
 
-                                            //new code for debugging 26/06/2025
+                                            //new code  26/06/2025
                                             $"email = '{emailVal}'{updateSendMethod}"
                                             //end line
                                             +

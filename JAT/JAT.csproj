@@ -1033,6 +1033,7 @@
     <Content Include="App_GlobalResources\Resources.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="App_GlobalResources\Resources.ja-JP.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
