@@ -10,6 +10,11 @@ using System.Configuration;
 using System.Web.Configuration;
 using System.Globalization;
 using System.Threading;
+using CrystalDecisions.CrystalReports.Engine;
+using System.Security.Cryptography;
+using Microsoft.Ajax.Utilities;
+using System.Text.RegularExpressions;
+using JATMEMBER.View.Private;
 
 namespace JAT.Inquery.Private
 {
@@ -358,17 +363,58 @@ namespace JAT.Inquery.Private
                 " ON ( PrivateDetail.memberid = PrivateClub.memberid ) " +
                 " LEFT OUTER JOIN PrivateBoard " +
                 " ON ( PrivateDetail.memberid = PrivateBoard.memberid ) " +
-                " INNER JOIN PrivatePayment " +
-                " ON ( PrivateDetail.memberid = PrivatePayment.memberid ) " +
+
+
+                //old code comment for test 02/07/2025 14:16
+                //" INNER JOIN PrivatePayment " +
+
+                //new code comment for test 02/07/2025 14:16
+                //" LEFT JOIN PrivatePayment " +
+
+                //old code comment for test 02/07/2025 14:16
+                //" ON ( PrivateDetail.memberid = PrivatePayment.memberid ) " +
+                //end line
+
+
+                //comment for test new code (over data) 14:33 02/07/2025
+              
+                //new code for test 14:18 02/07/2025 move where clause here
+                 " LEFT JOIN ( " +
+                 " SELECT * FROM PrivatePayment p1 " +
+                 " WHERE p1.tranid = (SELECT MAX(p2.tranid) FROM PrivatePayment p2 WHERE p2.memberid = p1.memberid) " +
+                 " ) AS PrivatePayment ON PrivateDetail.memberid = PrivatePayment.memberid " +
+                //end line
+             
+
+
+
                 " LEFT OUTER JOIN PrivatePayAccount " +
                 " ON ( PrivatePayment.tranid = PrivatePayAccount.tranid ) " +
                 " LEFT OUTER JOIN PrivateAccount " +
                 " ON ( PrivatePayAccount.accId = PrivateAccount.accId " +
-                " AND PrivateDetail.memberid = PrivateAccount.memberId ) " +
-                " WHERE PrivatePayment.tranid = ( SELECT MAX(PrivatePayment_2.tranid) " +
-                "                               FROM PrivatePayment PrivatePayment_2 " +
-                "                               WHERE PrivatePayment.memberId = PrivatePayment_2.memberId ) " +
-                " AND PrivateDetail.firstMemberid = PrivateDetail.memberid ";
+                " AND PrivateDetail.memberid = PrivateAccount.memberId ) " 
+
+
+               /*
+                //comment for test 02/07/2025 14:15
+             +  " WHERE PrivatePayment.tranid = ( SELECT MAX(PrivatePayment_2.tranid) " +
+                " FROM PrivatePayment PrivatePayment_2 " +
+                " WHERE PrivatePayment.memberId = PrivatePayment_2.memberId ) " 
+                */
+
+
+                
+                //unused for show 5B and 7 02/07/2025 13:12
+                
+               //+ " AND PrivateDetail.firstMemberid = PrivateDetail.memberid "
+                //end line
+                
+
+
+                ;
+
+
+
             //if (drplstSendType.SelectedValue != "0")
             //{
             //    SQLStatement = SQLStatement + " AND  ";
