@@ -377,14 +377,28 @@ namespace JAT.Inquery.Private
 
 
                 //comment for test new code (over data) 14:33 02/07/2025
-              
+
+
+                /*
                 //new code for test 14:18 02/07/2025 move where clause here
                  " LEFT JOIN ( " +
                  " SELECT * FROM PrivatePayment p1 " +
                  " WHERE p1.tranid = (SELECT MAX(p2.tranid) FROM PrivatePayment p2 WHERE p2.memberid = p1.memberid) " +
                  " ) AS PrivatePayment ON PrivateDetail.memberid = PrivatePayment.memberid " +
                 //end line
-             
+                */
+
+                //new code for test
+                "OUTER APPLY ( " +
+                "SELECT TOP 1 * " +
+                "FROM [NEW_JATDB].[dbo].[PrivatePayment] p " +
+                "WHERE p.memberid = PrivateDetail.memberid " +
+                "ORDER BY p.tranid DESC " +
+                ") AS PrivatePayment " +
+                //end line
+
+
+
 
 
 
@@ -392,23 +406,23 @@ namespace JAT.Inquery.Private
                 " ON ( PrivatePayment.tranid = PrivatePayAccount.tranid ) " +
                 " LEFT OUTER JOIN PrivateAccount " +
                 " ON ( PrivatePayAccount.accId = PrivateAccount.accId " +
-                " AND PrivateDetail.memberid = PrivateAccount.memberId ) " 
+                " AND PrivateDetail.memberid = PrivateAccount.memberId ) "
+
+                + " WHERE PrivatePayment.tranid IS NOT NULL "
+                /*
+                 //comment for test 02/07/2025 14:15
+              +  " WHERE PrivatePayment.tranid = ( SELECT MAX(PrivatePayment_2.tranid) " +
+                 " FROM PrivatePayment PrivatePayment_2 " +
+                 " WHERE PrivatePayment.memberId = PrivatePayment_2.memberId ) " 
+                 */
 
 
-               /*
-                //comment for test 02/07/2025 14:15
-             +  " WHERE PrivatePayment.tranid = ( SELECT MAX(PrivatePayment_2.tranid) " +
-                " FROM PrivatePayment PrivatePayment_2 " +
-                " WHERE PrivatePayment.memberId = PrivatePayment_2.memberId ) " 
-                */
 
-
-                
                 //unused for show 5B and 7 02/07/2025 13:12
-                
-               //+ " AND PrivateDetail.firstMemberid = PrivateDetail.memberid "
+
+                //+ " AND PrivateDetail.firstMemberid = PrivateDetail.memberid "
                 //end line
-                
+
 
 
                 ;
