@@ -15,6 +15,7 @@ using System.Security.Cryptography;
 using Microsoft.Ajax.Utilities;
 using System.Text.RegularExpressions;
 using JATMEMBER.View.Private;
+using System.Collections.Concurrent;
 
 namespace JAT.Inquery.Private
 {
@@ -328,104 +329,201 @@ namespace JAT.Inquery.Private
             }
             //total = 31 + i;
 
+            /* comment for test
+             ///this is sql statement which returns records add "DISTINCT" to filter only memberid
+             string SQLStatement = string.Format(" SELECT  'Member Id' = PrivateDetail.memberid,'Firstmember Id' = PrivateDetail.firstmemberid, 'Prefix Name' = PrivateDetail.prefixNm, " +
+             " 'Member Name (JPN)' = PrivateDetail.nameJ, 'Member Name (Eng)' = PrivateDetail.nameE, " +
+             " 'Birth Place' = Private.birthplace, 'Applied Date' = PrivateDetail.appliedDate, " +
+             " 'Birth Date' = PrivateDetail.birthdate, 'Effective Date' = PrivatePayment.effectiveDate, " +
+             " 'Expired' = PrivatePayment.expireDate, 'Pay Duration' = PrivatePayment.payDuration, " +
+             " 'Send Type' = Private.sendtype, 'Company Name' = PrivateAddressC.companyNm, " +
+             " 'Company Address' = PrivateAddressC.Address, 'Company Phone' = PrivateAddressC.Phone, " +
+             " 'Company Fax' = PrivateAddressC.Fax, 'Home Address' = PrivateAddressH.Address, " +
+             " 'Home Phone' = PrivateAddressH.Phone, 'Mobile Phone' = PrivateAddressH.Mobile, " +
+             " 'Position' = PrivateBoard.boardPosition, 'Member Type' = PrivateDetail.membertype, " +
+             " 'Member Status' = PrivateDetail.memberStatus, 'Golf' = PrivateClub.golf, " +
+             " 'Board' = PrivateClub.board, 'Lady' = PrivateClub.lady, " +
+             " 'Children' = PrivateClub.children, 'Zukuzuku' = PrivateClub.zukuzuku ,   " +
+             //" 'Meijinkai' = PrivateClub.meijinkai ," +
+             "'Board List' = PrivateClub.sub_board_list  ,  'Club secretary' = PrivateClub.sub_secretary,  " +
+             "'Bazaar volunteer' = PrivateClub.sub_volunteer,  'Social gathering members' = PrivateClub.sub_social,  " +
+             "'Youth circle members' = PrivateClub.sub_member {0} {1} ," +
+             " 'English test' = PrivateClub.ev_1 ,'Online Event' = PrivateClub.ev_2 ," +
+             "'Softball' = PrivateClub.ev_3 , 'Yoga' = PrivateClub.ev_4,'Overseas resident members' = PrivateClub.ov_member ",
+             sqlAll, sqlAll2);
+
+             SQLStatement = SQLStatement  
+                 + " FROM PrivateDetail " +
+
+                 //new code 13:30 11/07/2025
+                 "INNER JOIN [NEW_JATDB].[dbo].[SMemberType] m ON PrivateDetail.membertype = m.membertype AND m.EffectiveID = (SELECT TOP 1 EffectiveID FROM [NEW_JATDB].[dbo].[tblEffective] " +
+                 "WHERE EffectiveDate <= FLOOR(CAST(GETDATE() AS FLOAT)) AND ExpireDate >= FLOOR(CAST(GETDATE() AS FLOAT)) ORDER BY EffectiveDate ASC)" +
+                 //new code end line
 
 
-            ///this is sql statement which returns records
-            string SQLStatement = string.Format(" SELECT 'Member Id' = PrivateDetail.memberid,'Firstmember Id' = PrivateDetail.firstmemberid, 'Prefix Name' = PrivateDetail.prefixNm, " +
-            " 'Member Name (JPN)' = PrivateDetail.nameJ, 'Member Name (Eng)' = PrivateDetail.nameE, " +
-            " 'Birth Place' = Private.birthplace, 'Applied Date' = PrivateDetail.appliedDate, " +
-            " 'Birth Date' = PrivateDetail.birthdate, 'Effective Date' = PrivatePayment.effectiveDate, " +
-            " 'Expired' = PrivatePayment.expireDate, 'Pay Duration' = PrivatePayment.payDuration, " +
-            " 'Send Type' = Private.sendtype, 'Company Name' = PrivateAddressC.companyNm, " +
-            " 'Company Address' = PrivateAddressC.Address, 'Company Phone' = PrivateAddressC.Phone, " +
-            " 'Company Fax' = PrivateAddressC.Fax, 'Home Address' = PrivateAddressH.Address, " +
-            " 'Home Phone' = PrivateAddressH.Phone, 'Mobile Phone' = PrivateAddressH.Mobile, " +
-            " 'Position' = PrivateBoard.boardPosition, 'Member Type' = PrivateDetail.membertype, " +
-            " 'Member Status' = PrivateDetail.memberStatus, 'Golf' = PrivateClub.golf, " +
-            " 'Board' = PrivateClub.board, 'Lady' = PrivateClub.lady, " +
-            " 'Children' = PrivateClub.children, 'Zukuzuku' = PrivateClub.zukuzuku ,   " +
-            //" 'Meijinkai' = PrivateClub.meijinkai ," +
-            "'Board List' = PrivateClub.sub_board_list  ,  'Club secretary' = PrivateClub.sub_secretary,  " +
-            "'Bazaar volunteer' = PrivateClub.sub_volunteer,  'Social gathering members' = PrivateClub.sub_social,  " +
-            "'Youth circle members' = PrivateClub.sub_member {0} {1} ," +
-            " 'English test' = PrivateClub.ev_1 ,'Online Event' = PrivateClub.ev_2 ," +
-            "'Softball' = PrivateClub.ev_3 , 'Yoga' = PrivateClub.ev_4,'Overseas resident members' = PrivateClub.ov_member ", sqlAll, sqlAll2);
-
-            SQLStatement = SQLStatement + " FROM PrivateDetail LEFT OUTER JOIN Private " +
-                " ON ( PrivateDetail.memberid = Private.memberid ) " +
-                " LEFT OUTER JOIN PrivateAddress PrivateAddressC " +
-                " ON ( PrivateDetail.memberid = PrivateAddressC.memberid " +
-                " AND PrivateAddressC.addressType = 2) " +
-                " LEFT OUTER JOIN PrivateAddress PrivateAddressH " +
-                " ON ( PrivateDetail.memberid = PrivateAddressH.memberid " +
-                " AND PrivateAddressH.addressType = 1) " +
-                " LEFT OUTER JOIN PrivateClub " +
-                " ON ( PrivateDetail.memberid = PrivateClub.memberid ) " +
-                " LEFT OUTER JOIN PrivateBoard " +
-                " ON ( PrivateDetail.memberid = PrivateBoard.memberid ) " +
+                 "LEFT OUTER JOIN Private " +
+                 " ON ( PrivateDetail.memberid = Private.memberid ) " +
+                 " LEFT OUTER JOIN PrivateAddress PrivateAddressC " +
+                 " ON ( PrivateDetail.memberid = PrivateAddressC.memberid " +
+                 " AND PrivateAddressC.addressType = 2) " +
+                 " LEFT OUTER JOIN PrivateAddress PrivateAddressH " +
+                 " ON ( PrivateDetail.memberid = PrivateAddressH.memberid " +
+                 " AND PrivateAddressH.addressType = 1) " +
+                 " LEFT OUTER JOIN PrivateClub " +
+                 " ON ( PrivateDetail.memberid = PrivateClub.memberid ) " +
+                 " LEFT OUTER JOIN PrivateBoard " +
+                 " ON ( PrivateDetail.memberid = PrivateBoard.memberid ) " +
 
 
-                //old code comment for test 02/07/2025 14:16
-                //" INNER JOIN PrivatePayment " +
+                 //old code comment for test 02/07/2025 14:16
+                 //" INNER JOIN PrivatePayment " +
 
-                //new code comment for test 02/07/2025 14:16
-                //" LEFT JOIN PrivatePayment " +
+                 //new code comment for test 02/07/2025 14:16
+                 //" LEFT JOIN PrivatePayment " +
 
-                //old code comment for test 02/07/2025 14:16
-                //" ON ( PrivateDetail.memberid = PrivatePayment.memberid ) " +
-                //end line
-
-
-                //comment for test new code (over data) 14:33 02/07/2025
+                 //old code comment for test 02/07/2025 14:16
+                 //" ON ( PrivateDetail.memberid = PrivatePayment.memberid ) " +
+                 //end line
 
 
-                /*
-                //new code for test 14:18 02/07/2025 move where clause here
-                 " LEFT JOIN ( " +
-                 " SELECT * FROM PrivatePayment p1 " +
-                 " WHERE p1.tranid = (SELECT MAX(p2.tranid) FROM PrivatePayment p2 WHERE p2.memberid = p1.memberid) " +
-                 " ) AS PrivatePayment ON PrivateDetail.memberid = PrivatePayment.memberid " +
-                //end line
-                */
-
-                //new code for test
-                "OUTER APPLY ( " +
-                "SELECT TOP 1 * " +
-                "FROM [NEW_JATDB].[dbo].[PrivatePayment] p " +
-                "WHERE p.memberid = PrivateDetail.memberid " +
-                "ORDER BY p.tranid DESC " +
-                ") AS PrivatePayment " +
-                //end line
+                 //comment for test new code (over data) 14:33 02/07/2025
 
 
 
+                 //new code for test 14:18 02/07/2025 move where clause here
+                //  " LEFT JOIN ( " +
+                 // " SELECT * FROM PrivatePayment p1 " +
+                 // " WHERE p1.tranid = (SELECT MAX(p2.tranid) FROM PrivatePayment p2 WHERE p2.memberid = p1.memberid) " +
+                  //" ) AS PrivatePayment ON PrivateDetail.memberid = PrivatePayment.memberid " +
+                 //end line
+
+
+                 //new code for test
+                 "OUTER APPLY ( " +
+                 "SELECT TOP 1 * " +
+                 "FROM [NEW_JATDB].[dbo].[PrivatePayment] p " +
+                 "WHERE p.memberid = PrivateDetail.memberid " +
+                 "ORDER BY p.tranid DESC " +
+                 ") AS PrivatePayment " +
+                 //end line
 
 
 
-                " LEFT OUTER JOIN PrivatePayAccount " +
-                " ON ( PrivatePayment.tranid = PrivatePayAccount.tranid ) " +
-                " LEFT OUTER JOIN PrivateAccount " +
-                " ON ( PrivatePayAccount.accId = PrivateAccount.accId " +
-                " AND PrivateDetail.memberid = PrivateAccount.memberId ) "
-
-                + " WHERE PrivatePayment.tranid IS NOT NULL "
-                /*
-                 //comment for test 02/07/2025 14:15
-              +  " WHERE PrivatePayment.tranid = ( SELECT MAX(PrivatePayment_2.tranid) " +
-                 " FROM PrivatePayment PrivatePayment_2 " +
-                 " WHERE PrivatePayment.memberId = PrivatePayment_2.memberId ) " 
-                 */
 
 
 
-                //unused for show 5B and 7 02/07/2025 13:12
+                 " LEFT OUTER JOIN PrivatePayAccount " +
+                 " ON ( PrivatePayment.tranid = PrivatePayAccount.tranid ) " +
+                 " LEFT OUTER JOIN PrivateAccount " +
+                 " ON ( PrivatePayAccount.accId = PrivateAccount.accId " +
+                 " AND PrivateDetail.memberid = PrivateAccount.memberId ) "
 
-                //+ " AND PrivateDetail.firstMemberid = PrivateDetail.memberid "
-                //end line
+
+                 //new code to fliter only member that has payment 11:51 03/07/2025   comment for test 11/07/2025
+                 //+ " WHERE PrivatePayment.tranid IS NOT NULL "
+                 //end line
 
 
 
-                ;
+             //     //comment for test 02/07/2025 14:15
+             //  +  " WHERE PrivatePayment.tranid = ( SELECT MAX(PrivatePayment_2.tranid) " +
+              //    " FROM PrivatePayment PrivatePayment_2 " +
+               //   " WHERE PrivatePayment.memberId = PrivatePayment_2.memberId ) " 
+
+
+
+
+                 //unused for show 5B and 7 02/07/2025 13:12
+
+                 //+ " AND PrivateDetail.firstMemberid = PrivateDetail.memberid "
+                 //end line
+
+
+
+                 ;
+
+             Comment for test*/
+
+            // เริ่มด้วย SELECT พร้อม format ส่วน column
+            string SQLStatement = string.Format(
+                "SELECT DISTINCT " +
+                "'Member Id' = PrivateDetail.memberid, " +
+                "'Firstmember Id' = PrivateDetail.firstmemberid, " +
+                "'Prefix Name' = PrivateDetail.prefixNm, " +
+                "'Member Name (JPN)' = PrivateDetail.nameJ, " +
+                "'Member Name (Eng)' = PrivateDetail.nameE, " +
+                "'Birth Place' = Private.birthplace, " +
+                "'Applied Date' = PrivateDetail.appliedDate, " +
+                "'Birth Date' = PrivateDetail.birthdate, " +
+                "'Effective Date' = PrivatePayment.effectiveDate, " +
+                "'Expired' = PrivatePayment.expireDate, " +
+                "'Pay Duration' = PrivatePayment.payDuration, " +
+                "'Send Type' = Private.sendtype, " +
+                "'Company Name' = PrivateAddressC.companyNm, " +
+                "'Company Address' = PrivateAddressC.Address, " +
+                "'Company Phone' = PrivateAddressC.Phone, " +
+                "'Company Fax' = PrivateAddressC.Fax, " +
+                "'Home Address' = PrivateAddressH.Address, " +
+                "'Home Phone' = PrivateAddressH.Phone, " +
+                "'Mobile Phone' = PrivateAddressH.Mobile, " +
+                "'Position' = PrivateBoard.boardPosition, " +
+                "'Member Type' = PrivateDetail.membertype, " +
+                "'Member Status' = PrivateDetail.memberStatus, " +
+                "'Golf' = PrivateClub.golf, " +
+                "'Board' = PrivateClub.board, " +
+                "'Lady' = PrivateClub.lady, " +
+                "'Children' = PrivateClub.children, " +
+                "'Zukuzuku' = PrivateClub.zukuzuku, " +
+                "'Board List' = PrivateClub.sub_board_list, " +
+                "'Club secretary' = PrivateClub.sub_secretary, " +
+                "'Bazaar volunteer' = PrivateClub.sub_volunteer, " +
+                "'Social gathering members' = PrivateClub.sub_social, " +
+                "'Youth circle members' = PrivateClub.sub_member, " +
+                "'English test' = PrivateClub.ev_1, " +
+                "'Online Event' = PrivateClub.ev_2, " +
+                "'Softball' = PrivateClub.ev_3, " +
+                "'Yoga' = PrivateClub.ev_4, " +
+                "'Overseas resident members' = PrivateClub.ov_member " +
+                "{0} {1}", sqlAll, sqlAll2);
+
+            SQLStatement +=
+                " FROM PrivateDetail " +
+                "INNER JOIN [NEW_JATDB].[dbo].[SMemberType] m " +
+                " ON PrivateDetail.membertype = m.membertype AND m.EffectiveID = (" +
+                " SELECT TOP 1 EffectiveID FROM [NEW_JATDB].[dbo].[tblEffective] " +
+                " WHERE EffectiveDate <= FLOOR(CAST(GETDATE() AS FLOAT)) " +
+                " AND ExpireDate >= FLOOR(CAST(GETDATE() AS FLOAT)) " +
+                " ORDER BY EffectiveDate ASC ) " +
+
+                "LEFT OUTER JOIN Private ON PrivateDetail.memberid = Private.memberid " +
+
+                "OUTER APPLY (SELECT TOP 1 * FROM PrivateAddress WHERE memberid = PrivateDetail.memberid AND addressType = 2) AS PrivateAddressC " +
+                "OUTER APPLY (SELECT TOP 1 * FROM PrivateAddress WHERE memberid = PrivateDetail.memberid AND addressType = 1) AS PrivateAddressH " +
+
+                "LEFT OUTER JOIN PrivateClub ON PrivateDetail.memberid = PrivateClub.memberid " +
+
+                "OUTER APPLY (SELECT TOP 1 * FROM PrivateBoard WHERE memberid = PrivateDetail.memberid) AS PrivateBoard " +
+
+                "OUTER APPLY (SELECT TOP 1 * FROM PrivatePayment p WHERE p.memberid = PrivateDetail.memberid ORDER BY p.tranid DESC) AS PrivatePayment " +
+
+                "LEFT OUTER JOIN PrivatePayAccount ON PrivatePayment.tranid = PrivatePayAccount.tranid " +
+                "LEFT OUTER JOIN PrivateAccount ON PrivatePayAccount.accId = PrivateAccount.accId AND PrivateDetail.memberid = PrivateAccount.memberId " +
+
+                // START: WHERE base
+                " WHERE 1 = 1 ";
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
