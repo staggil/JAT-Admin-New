@@ -329,7 +329,7 @@ namespace JAT.Inquery.Private
             }
             //total = 31 + i;
 
-            /* comment for test
+            /* comment old code 10:25 14/07/2025
              ///this is sql statement which returns records add "DISTINCT" to filter only memberid
              string SQLStatement = string.Format(" SELECT  'Member Id' = PrivateDetail.memberid,'Firstmember Id' = PrivateDetail.firstmemberid, 'Prefix Name' = PrivateDetail.prefixNm, " +
              " 'Member Name (JPN)' = PrivateDetail.nameJ, 'Member Name (Eng)' = PrivateDetail.nameE, " +
@@ -407,30 +407,20 @@ namespace JAT.Inquery.Private
                  ") AS PrivatePayment " +
                  //end line
 
-
-
-
-
-
                  " LEFT OUTER JOIN PrivatePayAccount " +
                  " ON ( PrivatePayment.tranid = PrivatePayAccount.tranid ) " +
                  " LEFT OUTER JOIN PrivateAccount " +
                  " ON ( PrivatePayAccount.accId = PrivateAccount.accId " +
                  " AND PrivateDetail.memberid = PrivateAccount.memberId ) "
 
-
                  //new code to fliter only member that has payment 11:51 03/07/2025   comment for test 11/07/2025
                  //+ " WHERE PrivatePayment.tranid IS NOT NULL "
                  //end line
-
-
 
              //     //comment for test 02/07/2025 14:15
              //  +  " WHERE PrivatePayment.tranid = ( SELECT MAX(PrivatePayment_2.tranid) " +
               //    " FROM PrivatePayment PrivatePayment_2 " +
                //   " WHERE PrivatePayment.memberId = PrivatePayment_2.memberId ) " 
-
-
 
 
                  //unused for show 5B and 7 02/07/2025 13:12
@@ -442,7 +432,7 @@ namespace JAT.Inquery.Private
 
                  ;
 
-             Comment for test*/
+             Comment old code 10:25 14/07/2025*/
 
             // เริ่มด้วย SELECT พร้อม format ส่วน column
             string SQLStatement = string.Format(
