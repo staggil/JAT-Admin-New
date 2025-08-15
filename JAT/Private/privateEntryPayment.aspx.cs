@@ -576,7 +576,7 @@ namespace JAT.Private
             }
         }
 
-        protected void showInGrid()
+        protected void showInGrid() //about payment list under private entrypayment page
         {
             DataTable td;
 
@@ -607,7 +607,10 @@ namespace JAT.Private
 
                                 //old code
                                 //"ORDER BY t1.paymentDate DESC, t1.expireDate DESC, t1.receiptNo");
-                                "ORDER BY t1.expireDate DESC, t1.receiptNo");
+                                "ORDER BY t1.expireDate DESC");
+            
+                                //comment for unused 15/08/2025 14:52
+                                //+ ", t1.receiptNo");
 
             
 
