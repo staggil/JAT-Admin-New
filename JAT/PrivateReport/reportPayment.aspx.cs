@@ -60,6 +60,12 @@ namespace JAT.PrivateReport
                         "from privateDetail d left join privateAddress a on d.memberId = a.memberId and addressType = 2 " +
                         "inner join privatePayment pp on d.memberId = pp.payBy " +
                         "where pp.paymethod in ('J', 'K', 'P') and pp.paymentDate between '" + DateFrom + "' and '" + DateTo + "' and pp.payat not in ('Rec.', 'Annex', 'Transfer') " +
+
+                        //add new line 25/08/2025 there are 3 rows that checkpay are 'WT' i shouldn't show on the report by gil
+                        "AND pp.checkpay <> 'WT'" +
+                       //end line
+
+
                         "and pp.Deleted_at IS NULL order by pp.paymentDate, d.nameE ";
 
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivatepayment.rdlc");
