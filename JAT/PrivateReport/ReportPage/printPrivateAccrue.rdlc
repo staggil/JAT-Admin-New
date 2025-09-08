@@ -1305,7 +1305,6 @@
                             <PaddingBottom>0.5pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1321,7 +1320,7 @@
                                   <Style>
                                     <FontFamily>MS Gothic</FontFamily>
                                     <FontSize>8pt</FontSize>
-                                    <Format>#,0.00;(#,0.00)</Format>
+                                    <Format>#,0.00</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1343,6 +1342,7 @@
                             <PaddingBottom>0.5pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1900,7 +1900,6 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>OverallTotalPages</rd:DefaultName>
-              <Top>0cm</Top>
               <Left>28.03388cm</Left>
               <Height>0.45889cm</Height>
               <Width>0.71998cm</Width>
@@ -1934,7 +1933,6 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox53</rd:DefaultName>
-              <Top>0cm</Top>
               <Left>27.35594cm</Left>
               <Height>0.45889cm</Height>
               <Width>0.64266cm</Width>
@@ -1967,7 +1965,6 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>PageNumber1</rd:DefaultName>
-              <Top>0cm</Top>
               <Left>26.56261cm</Left>
               <Height>0.45889cm</Height>
               <Width>0.75806cm</Width>
@@ -2002,7 +1999,6 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox50</rd:DefaultName>
-              <Top>0cm</Top>
               <Left>25.54728cm</Left>
               <Height>0.45889cm</Height>
               <Width>0.98005cm</Width>
