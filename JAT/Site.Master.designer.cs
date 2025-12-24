@@ -15,42 +15,6 @@ namespace JAT
     {
 
         /// <summary>
-        /// PanelButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelButton;
-
-        /// <summary>
-        /// TextBoxRequestPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxRequestPassword;
-
-        /// <summary>
-        /// LabelCheckPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelCheckPassword;
-
-        /// <summary>
-        /// ButtonPopupConfirm control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonPopupConfirm;
-
-        /// <summary>
         /// LinkButtonJP control.
         /// </summary>
         /// <remarks>
@@ -94,6 +58,15 @@ namespace JAT
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl sidebarmenu;
+
+        /// <summary>
+        /// maintenanceMenu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl maintenanceMenu;
 
         /// <summary>
         /// testhid control.

@@ -63,15 +63,16 @@
 
 
           <%----------------------------------------------------------------------%>
+
+       <%------------- commentted for project
         <asp:Panel DefaultButton="ButtonPopupConfirm" runat="server" ID="PanelButton">
            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h6 class="modal-title" id="exampleModalLabel" style="font-size:24px; text-align:center;">Request Password</h6>
-                   <%-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>--%>
+
+              
                   </div>
                   <div class="modal-body" style="text-align: center;">
                       <span style="font-size:16px">Password : </span>
@@ -88,6 +89,8 @@
               </div>
             </div>
             </asp:Panel>
+           ---------------%>
+            
         <%----------------------------------------------------------------------%>
         <!-- Page Content  -->
         <div id="content" style="padding: 0px;">
@@ -115,7 +118,9 @@
                     <hr />
                     <footer>
                         <p align="center">JAT In-House System <asp:Label ID="LblVersion" runat="server" Text="" />
-                        </br>Copyright &copy;2024 Japanese Association in Thailand. All Rights Reserved.</p>
+
+                            <!--commentted for project-->
+                       <!-- </br>Copyright &copy;2024 Japanese Association in Thailand. All Rights Reserved.</p> -->
                     </footer>
                 </div>
             </div>
@@ -149,6 +154,7 @@
                             </li>
                         </ul>
                     </li>
+                    <!-- comment for project
                     <li class="">
                         <a href="#companySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-info-circle faspace"></i><%=Resources.Resources.menu_2_header %></a>
                         <ul class="collapse list-unstyled subspace" id="companySubmenu">
@@ -160,6 +166,7 @@
                             </li>
                         </ul>
                     </li>
+                    -->
                     <li class="">
                         <a href="#privatereportSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-info-circle faspace"></i><%=Resources.Resources.menu_3_header %></a>
                         <ul class="collapse list-unstyled subspace" id="privatereportSubmenu">
@@ -193,14 +200,19 @@
                             <li>
                                 <a runat="server" href="~/PrivateReport/reportSummaryAccrue"><%=Resources.Resources.menu_3_item_10 %></a>
                             </li>
+
+                            <!-- commentted for project
                             <li>
                                 <a runat="server" href="~/PrivateReport/reportMonthlyReport">Monthly Report</a>
                             </li>
                             <li>
                                 <a runat="server" href="~/PrivateReport/dataExtraction"><%=Resources.Resources.menu_3_item_11 %></a>
                             </li>
+                            -->
                         </ul>
                     </li>
+
+                    <!--commentted for project
                     <li class="">
                         <a href="#companyreportSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-info-circle faspace"></i><%=Resources.Resources.menu_4_header %></a>
                         <ul class="collapse list-unstyled subspace" id="companyreportSubmenu">
@@ -218,9 +230,30 @@
                             </li>
                         </ul>
                     </li>
+                        -->
                     <li class="">
                         <a href="#inquerySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-info-circle faspace"></i><%=Resources.Resources.menu_5_header %></a>
                         <ul class="collapse list-unstyled subspace" id="inquerySubmenu">
+
+                            <!--new line for project-->
+                            <li>
+                                <a runat="server" href="~/Inquery/Private/listPrivate"><%=Resources.Resources.menu_5_item_1_1 %></a>
+                            </li>
+                            <li>
+                                <a runat="server" href="~/Inquery/Private/listPrivatePayment"><%=Resources.Resources.menu_5_item_1_2 %></a>
+                            </li>
+                            <li>
+                                <a runat="server" href="~/Inquery/Private/listPrivateStat"><%=Resources.Resources.menu_5_item_1_3 %></a>
+                            </li>
+                            <li>
+                                <a runat="server" href="~/Inquery/Private/listSummaryMember"><%=Resources.Resources.menu_5_item_1_4 %></a>
+                            </li>
+                            <li>
+                                <a runat="server" href="~/Inquery/Private/listMemberCheck"><%=Resources.Resources.menu_5_item_1_5 %></a>
+                            </li>
+
+
+                            <!-- commentted for project
                             <li>
                                 <a href="#inquerySubmenu-1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                                     <%=Resources.Resources.menu_5_subheader_1 %><i class="fas fa-caret-down" style="float: right; margin-right: 8px;"></i>
@@ -243,6 +276,9 @@
                                     </li>
                                 </ul>
                             </li>
+                            -->
+
+                            <!-- commentted for project
                             <li>
                                 <a href="#inquerySubmenu-2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                                     <%=Resources.Resources.menu_5_subheader_2 %><i class="fas fa-caret-down" style="float: right; margin-right: 8px;"></i>
@@ -260,11 +296,50 @@
                                     </li>
                                 </ul>
                             </li>
+                            -->
                         </ul>
                     </li>
+
+                    <!-- commentted for project
                     <li>
                         <a runat="server" href="~/procSendMail"><i class="fas fa-info-circle faspace"></i><%=Resources.Resources.menu_6_header %></a>
                     </li>
+                    -->
+
+
+
+
+
+                    <li id="maintenanceMenu" runat="server" class="">
+                        <a href="#maintenanceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <i class="fas fa-info-circle faspace"></i><%=Resources.Resources.menu_7_header %>
+                        </a>
+                        <ul class="collapse list-unstyled subspace" id="maintenanceSubmenu">
+                            <li>
+                                <a runat="server" href="~/Maintenance/viewMemType"><%=Resources.Resources.menu_7_item_1 %></a>
+                            </li>
+                            <li>
+                                <a runat="server" href="~/Maintenance/viewSendType"><%=Resources.Resources.menu_7_item_2 %></a>
+                            </li>
+                            <li>
+                                <a runat="server" href="~/Maintenance/viewStaff"><%=Resources.Resources.menu_7_item_3 %></a>
+                            </li>
+                            <li>
+                                <a runat="server" href="~/Maintenance/mnEffective"><%=Resources.Resources.menu_7_item_4 %></a>
+                            </li>
+                            <li>
+                                <a runat="server" href="~/Maintenance/itemEvent"><%=Resources.Resources.menu_7_item_5 %></a>
+                            </li>
+                            <li>
+                                <a runat="server" href="~/Maintenance/itemSubcommittees"><%=Resources.Resources.menu_7_item_6 %></a>
+                            </li>
+                            <li>
+                                <a runat="server" href="~/Maintenance/ChangePassword"><%=Resources.Resources.menu_7_item_7 %></a>
+                            </li>
+                        </ul>
+                  </li>
+
+                    <!--
                     <li id="testhid" runat="server" class="">
                         <asp:HyperLink ID="HyperLinkFinish" Visible="False" data-toggle="collapse" aria-expanded="false" href="#maintenanceSubmenu" runat="server"  CssClass="dropdown-toggle" ClientIDMode="Static"><i class="fas fa-info-circle faspace"></i><%=Resources.Resources.menu_7_header %></asp:HyperLink>
                         <asp:HyperLink ID="HyperLinkPopUp" data-toggle="modal" data-target="#exampleModal" runat="server" ClientIDMode="Static"><i class="fas fa-info-circle faspace"></i><%=Resources.Resources.menu_7_header %></asp:HyperLink>
@@ -293,7 +368,9 @@
                                 </li>
                             </ul>
                         </asp:Panel>
+                        </ul>
                     </li>
+                -->
                  
                    <li id="adminRole" runat="server" class="">
                         <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">

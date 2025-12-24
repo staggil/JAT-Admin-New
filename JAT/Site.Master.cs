@@ -224,7 +224,7 @@ namespace JAT
             string pageName = Info.Name;
             return pageName;
         }
-
+        /*   commentted for project
         protected void ButtonPopupConfirm_Click(object sender, EventArgs e)
         {
             if (Session["User"] == null)
@@ -275,6 +275,7 @@ namespace JAT
             }
 
         }
+        */
     }
 
 }

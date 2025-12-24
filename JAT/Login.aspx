@@ -42,6 +42,12 @@
         }
     </style>
     <br />
+
+      <!-- Label สำหรับแสดงวันที่ -->
+<!-- Label สำหรับแสดงวันที่ -->
+<asp:Label ID="lblDate" runat="server" CssClass="text-info" Font-Bold="true"></asp:Label>
+
+
     <div class="box" style="background-color: lightgray;">
         <div class="row">
             <div class="form-group col-sm-12">
@@ -60,4 +66,5 @@
     <br />
     <br />
     <br />
+
 </asp:Content>

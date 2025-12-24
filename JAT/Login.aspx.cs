@@ -11,7 +11,7 @@ using System.Configuration;
 using System.Web.Security;
 using System.Data;
 using System.Security.Cryptography;
-
+using JAT.Core; // namespace ของ JAT.Core
 namespace JAT
 {
     public partial class Login : Page
@@ -24,10 +24,23 @@ namespace JAT
             var connectionStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"];
             conn = new SqlConnection(connectionStr.ConnectionString);
         }
+
+        
+
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
             {
+                // เรียกใช้ Date_MsSqlStandard
+                string date = Date_MsSqlStandard.Cast("24/12/2025");
+                logActivity.LogStaffActivity(123, "User login attempt [Stub test]");
+
+                // แสดงใน Label
+                lblDate.Text = "วันที่: " + date;
+
                 if (Session["User"] != null)
                 {
                     Session["User"] = null;
@@ -35,6 +48,23 @@ namespace JAT
                 }
             }
         }
+
+
+        public class LogActivity
+        {
+            public void LogStaffActivity(int staffID, string activityDetail)
+            {
+                // แค่แสดง debug แทน DB
+                System.Diagnostics.Debug.WriteLine($"[Stub] StaffID: {staffID}, Activity: {activityDetail}");
+            }
+        }
+
+
+
+
+
+
+
         protected void LoginControl_Authenticate(object sender, AuthenticateEventArgs e)
         {
             bool authenticated = this.ValidateCredentials(Login1.UserName, Login1.Password);

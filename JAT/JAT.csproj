@@ -1087,6 +1087,12 @@
     <EmbeddedResource Include="PrivateReport\ReportPage\printPrivatepayment.rdlc" />
     <EmbeddedResource Include="PrivateReport\ReportPage\printPrivateReenrollment.rdlc" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\thesis\JAT.Core\JAT.Core\JAT.Core.csproj">
+      <Project>{f337ee8d-fff8-45b0-88e4-7d98465ec8e4}</Project>
+      <Name>JAT.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
