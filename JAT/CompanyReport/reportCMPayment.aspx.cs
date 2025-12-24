@@ -14,6 +14,8 @@ using System.Web.Configuration;
 using Microsoft.Reporting.WebForms;
 using System.Globalization;
 using System.Threading;
+using JAT.Core;
+
 
 namespace JAT.CompanyReport
 {

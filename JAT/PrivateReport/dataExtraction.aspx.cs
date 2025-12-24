@@ -15,6 +15,8 @@ using Microsoft.Reporting.WebForms;
 using System.Globalization;
 using System.Text;
 using System.Collections.Generic;
+using JAT.Core;
+
 
 namespace JAT.PrivateReport
 {

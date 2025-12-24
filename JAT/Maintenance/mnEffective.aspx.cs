@@ -11,6 +11,8 @@ using System.Web.Configuration;
 using System.Globalization;
 using System.Threading;
 using System.Web.Services;
+using JAT.Core;
+
 
 namespace JAT.Maintenance
 {

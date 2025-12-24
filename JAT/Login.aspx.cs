@@ -98,8 +98,12 @@ namespace JAT
         {
             string activityDetail;
 			bool returnValue = false;
+
             try
             {
+
+
+
                 string sql = "SELECT COUNT(*) as columnCount,staffID FROM SStaff WHERE staffName = @username AND staffPass = @password group by staffID";
 
                 connection();

@@ -736,7 +736,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>JAT3DataSet1.xsd</DependentUpon>
     </Compile>
-    <Compile Include="LogActivity.cs" />
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

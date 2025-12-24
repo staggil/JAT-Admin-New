@@ -16,7 +16,7 @@ using System.Threading;
 using System.Diagnostics;
 using CrystalDecisions.CrystalReports.Engine;
 using Microsoft.Reporting.WebForms;
-
+using JAT.Core;
 
 namespace JAT.PrivateReport
 {

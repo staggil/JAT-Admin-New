@@ -13,6 +13,7 @@ using System.Data.SqlClient;
 using System.Web.Configuration;
 using Microsoft.Reporting.WebForms;
 using System.Globalization;
+using JAT.Core;
 
 namespace JAT.PrivateReport
 {

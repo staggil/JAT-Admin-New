@@ -14,6 +14,7 @@ using System.Web.Services;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using JATMEMBER.query;
+using JAT.Core;
 
 namespace JAT.Company
 {

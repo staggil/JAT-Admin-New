@@ -11,6 +11,7 @@ using System.Web.Configuration;
 using System.Globalization;
 using Microsoft.Owin;
 using System.Drawing;
+using JAT.Core;
 
 namespace JAT.Private
 {

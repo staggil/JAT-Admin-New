@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.ComponentModel.Design;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security.Policy;
+using JAT.Core;
 
 namespace JAT.CompanyReport
 {

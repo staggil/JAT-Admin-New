@@ -28,6 +28,8 @@ using System.Globalization;
 
 using Microsoft.Reporting.WebForms;
 //using Microsoft.ApplicationBlocks.Data;
+using JAT.Core;
+
 
 namespace JAT.PrivateReport
 {

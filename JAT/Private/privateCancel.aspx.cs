@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.Configuration;
 using System.Globalization;
-
+using JAT.Core;
 
 namespace JAT.Private
 {

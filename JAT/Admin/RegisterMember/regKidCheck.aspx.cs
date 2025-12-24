@@ -10,6 +10,7 @@ using System.Configuration;
 using System.Web.Configuration;
 using System.Globalization;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using JAT.Core;
 
 namespace JAT.Admin.RegisterMember
 {

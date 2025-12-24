@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using JAT.Core;
+
 
 namespace JAT.Admin.RegisterMember
 {
