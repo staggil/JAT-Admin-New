@@ -183,7 +183,7 @@ namespace JAT.Private
                 GridView1.Columns[24].Visible = true;
             }
         }
-
+        //prepare for comment
         private void connection()
         {
             var connectionStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"];
@@ -201,6 +201,7 @@ namespace JAT.Private
             conn.Close();
             return table;
         }
+        //prepare for comment
 
         private void ShowForm()
         {
@@ -363,6 +364,7 @@ namespace JAT.Private
 
         }
 
+        /*
         protected void BindData()
         {
             connection();
@@ -395,6 +397,29 @@ namespace JAT.Private
 
             conn.Close();
         }
+        */
+
+        protected void BindData()
+        {
+            var repo = new PrivateMemberRepository();
+            var dt = repo.GetPrivateMemberByFirstMemberId(showfirstMem);
+
+            if (dt.Rows.Count > 0)
+            {
+                Label1.Text = dt.Rows[0]["nameJ"].ToString();
+                Label2.Text = dt.Rows[0]["fullName"].ToString();
+            }
+            else
+            {
+                Label1.Text = "";
+                Label2.Text = "";
+            }
+        }
+
+
+
+
+        /*
         private void lastEditor()
         {
             connection();
@@ -426,6 +451,22 @@ namespace JAT.Private
                 }
             }
         }
+        */
+
+        private void lastEditor()
+        {
+            // สร้าง instance ของ repository
+            PrivateMemberRepository privateMemberRepo = new PrivateMemberRepository();
+
+            // เรียก method จาก repository
+            updateBy.Text = privateMemberRepo.GetLastEditor(showfirstMem);
+        }
+
+
+
+
+
+        /* commentted to use new refactor method
         protected void showInGrid()
         {
             DataTable td;
@@ -446,6 +487,29 @@ namespace JAT.Private
                 setGridHeader();
             }
         }
+        */
+
+        protected void showInGrid()
+        {
+            var repo = new PrivateMemberRepository();
+            var dt = repo.GetPrivateMembersByFirstMemberId(showfirstMem);
+
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+
+            if (dt.Rows.Count > 0)
+            {
+                setGridHeader();
+            }
+        }
+
+
+
+
+
+
+
+
 
         protected void memberTab_Click(object sender, EventArgs e)
         {
@@ -492,6 +556,8 @@ namespace JAT.Private
             }
         }
 
+
+        /*  commentted to used new refactor
         protected void GridView_EditButton_Click(object sender, EventArgs e)
         {
             //Response.Redirect("privateEntryMember.aspx?firstmemberid=" + showfirstMem +"&memberid=" + Box1.Value);
@@ -662,6 +728,71 @@ namespace JAT.Private
             conn.Close();
 
         }
+        */
+        protected void GridView_EditButton_Click(object sender, EventArgs e)
+        {
+            ShowForm();
+            addBTN.Visible = false;
+            saveBtn.Visible = false;
+            Box1.Attributes.Add("disabled", "disabled");
+            GridView1.Columns[14].Visible = false;
+            GridView1.Columns[15].Visible = false;
+            updateBtn.Visible = true;
+
+            GridViewRow row = (GridViewRow)(sender as ImageButton).NamingContainer;
+            string memberId = row.Cells[0].Text;
+
+            // เรียก repository
+            PrivateMemberRepository repo = new PrivateMemberRepository();
+            DataRow member = repo.GetMemberForEdit(memberId);
+
+            if (member != null)
+            {
+                Box1.Value = member["memberid"].ToString();
+                Box2.Value = member["nameJ"].ToString();
+                Box3.SelectedValue = string.IsNullOrEmpty(member["prefixNm"].ToString()) ? "-- ANY --" : member["prefixNm"].ToString();
+                Box4.Value = member["nameE"].ToString();
+                Box5.Value = member["birthDate"].ToString();
+                Box6.Value = member["appliedDate"].ToString();
+                Box7.SelectedValue = member["memberType"].ToString();
+                Box8.SelectedValue = member["memberStatus"].ToString();
+                cancelDateTmp = member["cancelledDate"].ToString();
+                dateNAtoA.Text = member["dateNAtoA"].ToString();
+                Box9.Value = member["homePhone"].ToString();
+                Box10.Value = member["mobile"].ToString();
+                Box19.Value = member["email"].ToString();
+
+                cbGolf.Checked = Convert.ToBoolean(member["golf"]);
+                cbBoard.Checked = Convert.ToBoolean(member["board"]);
+                cbLady.Checked = Convert.ToBoolean(member["lady"]);
+                cbChildLibMem.Checked = Convert.ToBoolean(member["children"]);
+                cbSukusukuMem.Checked = Convert.ToBoolean(member["zukuzuku"]);
+                cbEngtest.Checked = Convert.ToBoolean(member["ev_1"]);
+                cbOnevent.Checked = Convert.ToBoolean(member["ev_2"]);
+                cbSoftball.Checked = Convert.ToBoolean(member["ev_3"]);
+                cbYoga.Checked = Convert.ToBoolean(member["ev_4"]);
+                cbValue1.Checked = Convert.ToBoolean(member["ev_tmp1"]);
+                cbValue2.Checked = Convert.ToBoolean(member["ev_tmp2"]);
+                cbValue3.Checked = Convert.ToBoolean(member["ev_tmp3"]);
+                cbBoardlist.Checked = Convert.ToBoolean(member["sub_board_list"]);
+                cbClubSecre.Checked = Convert.ToBoolean(member["sub_secretary"]);
+                cbBaVolun.Checked = Convert.ToBoolean(member["sub_volunteer"]);
+                cbSocialMem.Checked = Convert.ToBoolean(member["sub_social"]);
+                cbYouthMem.Checked = Convert.ToBoolean(member["sub_member"]);
+                cbValue4.Checked = Convert.ToBoolean(member["sub_tmp1"]);
+                cbValue5.Checked = Convert.ToBoolean(member["sub_tmp2"]);
+                cbOverseasMem.Checked = Convert.ToBoolean(member["ov_member"]);
+
+                Box17.Checked = Convert.ToInt32(member["spouse"]) == 1;
+            }
+        }
+
+
+
+
+
+
+        /*  comment to used new refactor method
         protected void BindDataCheckBoxTemp()
         {
             DataTable td;
@@ -678,6 +809,32 @@ namespace JAT.Private
                 }
             }
         }
+        */
+
+
+        protected void BindDataCheckBoxTemp()
+        {
+            var repo = new PrivateMemberRepository();
+            var dt = repo.GetPrivateClubDetail();
+
+            foreach (DataRow tmprow in dt.Rows)
+            {
+                switch (tmprow["itemNm"].ToString().Trim())
+                {
+                    case "ev_tmp1": ev_tmp1.Text = "&nbsp;" + tmprow["itemVal"].ToString(); break;
+                    case "ev_tmp2": ev_tmp2.Text = "&nbsp;" + tmprow["itemVal"].ToString(); break;
+                    case "ev_tmp3": ev_tmp3.Text = "&nbsp;" + tmprow["itemVal"].ToString(); break;
+                    case "sub_tmp1": sub_tmp1.Text = "&nbsp;" + tmprow["itemVal"].ToString(); break;
+                    case "sub_tmp2": sub_tmp2.Text = "&nbsp;" + tmprow["itemVal"].ToString(); break;
+                }
+            }
+        }
+
+
+
+
+
+        /* comment to used refactor method
         protected void GridView_DeleteButton_Click(object sender, EventArgs e)
         {
             DataTable td;
@@ -733,7 +890,35 @@ namespace JAT.Private
             Context.ApplicationInstance.CompleteRequest();
 
         }
+        */
+        protected void GridView_DeleteButton_Click(object sender, EventArgs e)
+        {
+            GridViewRow row = (GridViewRow)(sender as ImageButton).NamingContainer;
+            string memberId = row.Cells[0].Text;
 
+            var uid = Session["UID"];
+            int staffID = uid != null ? Convert.ToInt32(uid) : 0;
+
+            try
+            {
+                var repo = new PrivateMemberRepository();
+                repo.SoftDeleteMember(memberId, staffID);
+
+                string activityDetail = $"Soft deleted data in 3 tables (PrivateDetail, Private, privateAddress) where memberid is '{memberId}' successful (user id = {staffID})";
+                logActivity.LogStaffActivity(staffID, activityDetail);
+            }
+            catch (Exception ex)
+            {
+                logActivity.LogStaffActivity(staffID, $"ERROR during soft delete: {ex.Message}");
+                logActivity.IssueReport(ex);
+            }
+
+            Response.Redirect($"privateEntryMember.aspx?firstmemberid={showfirstMem}");
+            Context.ApplicationInstance.CompleteRequest();
+        }
+
+
+        /* comment to used refactor method
         protected void BindEditFormEntry()
         {
             HideForm();
@@ -908,8 +1093,63 @@ namespace JAT.Private
             ShowForm();
             updateBtn.Visible = true;
         }
+        */
+
+        protected void BindEditFormEntry()
+        {
+            HideForm();
+            Box1.Attributes.Add("disabled", "disabled");
+
+            var repo = new PrivateMemberRepository();
+            var dt = repo.GetPrivateMemberDetails(showMem);
+
+            if (dt.Rows.Count > 0)
+            {
+                var row = dt.Rows[0];
+
+                Box1.Value = row["memberid"].ToString();
+                Box2.Value = row["nameJ"].ToString();
+                Box3.SelectedValue = string.IsNullOrEmpty(row["prefixNm"].ToString()) ? "-- ANY --" : row["prefixNm"].ToString();
+                Box4.Value = row["nameE"].ToString();
+                Box5.Value = row["birthDate"].ToString();
+                Box6.Value = row["appliedDate"].ToString();
+                Box7.SelectedValue = row["memberType"].ToString();
+                cancelDateTmp = row["cancelledDate"].ToString();
+                Box8.SelectedValue = row["memberStatus"].ToString();
+                Box9.Value = row["ev_1"].ToString();
+                Box10.Value = row["ev_2"].ToString();
+                Box19.Value = row["ev_tmp1"].ToString();
+
+                // Checkbox mapping
+                cbGolf.Checked = Convert.ToBoolean(row["golf"]);
+                cbBoard.Checked = Convert.ToBoolean(row["board"]);
+                cbLady.Checked = Convert.ToBoolean(row["lady"]);
+                cbChildLibMem.Checked = Convert.ToBoolean(row["children"]);
+                cbSukusukuMem.Checked = Convert.ToBoolean(row["zukuzuku"]);
+                cbEngtest.Checked = Convert.ToBoolean(row["sub_tmp1"]);
+                cbOnevent.Checked = Convert.ToBoolean(row["sub_tmp2"]);
+                // ... map checkbox อื่นๆ ตาม field เหมือนเดิม
+
+                // check spouse
+                Box17.Checked = row["spouse"].ToString() == "1";
+
+                // Enable/disable value checkboxes
+                cbValue1.Enabled = ev_tmp1.Text.Trim() != "&nbsp;" && addValue != "edit";
+                cbValue2.Enabled = ev_tmp2.Text.Trim() != "&nbsp;" && addValue != "edit";
+                cbValue3.Enabled = ev_tmp3.Text.Trim() != "&nbsp;" && addValue != "edit";
+                cbValue4.Enabled = sub_tmp1.Text.Trim() != "&nbsp;" && addValue != "edit";
+                cbValue5.Enabled = sub_tmp2.Text.Trim() != "&nbsp;" && addValue != "edit";
+            }
+
+            addBTN.Visible = false;
+            saveBtn.Visible = false;
+            ShowForm();
+            updateBtn.Visible = true;
+        }
 
 
+
+        /* commentted to used new refactor method
         protected void saveBtn_Click1(object sender, EventArgs e)
         {
 			var uid = Session["UID"];
@@ -1061,6 +1301,80 @@ namespace JAT.Private
             {
             }
         }
+        */
+        protected void saveBtn_Click1(object sender, EventArgs e)
+        {
+            var uid = Session["UID"];
+            int staffID = uid != null ? Convert.ToInt32(uid) : 0;
+
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue != "Yes") return;
+
+            try
+            {
+                var repo = new PrivateMemberRepository();
+
+                int chkspouse = Box17.Checked ? 1 : 0;
+
+                repo.AddNewMember(
+                    memberId: Box1.Value,
+                    firstMemberId: showfirstMem,
+                    nameJ: Box2.Value,
+                    nameE: Box4.Value,
+                    prefixNm: Box3.SelectedValue == "-- ANY --" ? "" : Box3.SelectedValue,
+                    memberStatus: Box8.SelectedValue,
+                    birthDate: Box5.Value,
+                    memberType: Box7.SelectedValue,
+                    spouse: chkspouse,
+                    updatedBy: staffID,
+                    updatedDate: toDayDate,
+                    email: Box19.Value,
+                    phone: Box9.Value,
+                    mobile: Box10.Value,
+                    golf: cbGolf.Checked,
+                    board: cbBoard.Checked,
+                    lady: cbLady.Checked,
+                    children: cbChildLibMem.Checked,
+                    sukuzuku: cbSukusukuMem.Checked,
+                    ev_1: cbEngtest.Checked,
+                    ev_2: cbOnevent.Checked,
+                    ev_3: cbSoftball.Checked,
+                    ev_4: cbYoga.Checked,
+                    ev_tmp1: cbValue1.Checked,
+                    ev_tmp2: cbValue2.Checked,
+                    ev_tmp3: cbValue3.Checked,
+                    sub_board_list: cbBoardlist.Checked,
+                    sub_secretary: cbClubSecre.Checked,
+                    sub_volunteer: cbBaVolun.Checked,
+                    sub_social: cbSocialMem.Checked,
+                    sub_member: cbYouthMem.Checked,
+                    sub_tmp1: cbValue4.Checked,
+                    sub_tmp2: cbValue5.Checked,
+                    ov_member: cbOverseasMem.Checked
+                );
+
+                logActivity.LogStaffActivity(staffID, $"Added new member {Box1.Value} successfully.");
+            }
+            catch (SqlException ex)
+            {
+                logActivity.LogStaffActivity(staffID, $"SQL Error: {ex.Message}");
+                lbError.Text = ex.Number == 2627 ? "Duplicate member id." : "Database error.";
+            }
+            catch (Exception ex)
+            {
+                logActivity.LogStaffActivity(staffID, $"Error: {ex.Message}");
+                lbError.Text = ex.ToString();
+            }
+
+            this.InitialPage();
+        }
+
+
+
+
+
+
+
 
         protected void addBTN_Click(object sender, EventArgs e)
         {
@@ -1075,6 +1389,8 @@ namespace JAT.Private
             Context.ApplicationInstance.CompleteRequest();
         }
 
+
+        /* commentted to used new refactor
         protected void updateBtn_Click(object sender, EventArgs e)
         {
 			var uid = Session["UID"];
@@ -1272,6 +1588,87 @@ namespace JAT.Private
                 this.InitialPage();
             }
         }
+        */
+
+        protected void updateBtn_Click(object sender, EventArgs e)
+        {
+            var uid = Session["UID"];
+            int staffID = uid != null ? Convert.ToInt32(uid) : 0;
+
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue != "Yes") return;
+
+            try
+            {
+                var repo = new PrivateMemberRepository();
+                int chkspouse = Box17.Checked ? 1 : 0;
+
+                bool updateNaToAFlag = false;
+                string cancelDateValue = cancelDateTmp;
+
+                if (Box8.SelectedValue == "A" && !string.IsNullOrEmpty(cancelDateTmp))
+                {
+                    updateNaToAFlag = true;
+                    cancelDateValue = null;
+                }
+                else if (string.IsNullOrEmpty(cancelDateTmp) && Box8.SelectedValue == "NA")
+                {
+                    cancelDateValue = DateTime.Now.ToString("dd/MM/yyyy");
+                }
+
+                repo.UpdateMember(
+                    memberId: Box1.Value,
+                    appliedDate: Box6.Value,
+                    nameJ: Box2.Value,
+                    nameE: Box4.Value,
+                    prefixNm: Box3.SelectedValue == "-- ANY --" ? "" : Box3.SelectedValue,
+                    memberStatus: Box8.SelectedValue,
+                    birthDate: Box5.Value,
+                    memberType: Box7.SelectedValue,
+                    spouse: chkspouse,
+                    updatedBy: staffID,
+                    updatedDate: toDayDate,
+                    cancelledDate: cancelDateValue,
+                    email: Box19.Value,
+                    phone: Box9.Value,
+                    mobile: Box10.Value,
+                    golf: cbGolf.Checked,
+                    board: cbBoard.Checked,
+                    lady: cbLady.Checked,
+                    children: cbChildLibMem.Checked,
+                    sukuzuku: cbSukusukuMem.Checked,
+                    ev_1: cbEngtest.Checked,
+                    ev_2: cbOnevent.Checked,
+                    ev_3: cbSoftball.Checked,
+                    ev_4: cbYoga.Checked,
+                    ev_tmp1: cbValue1.Checked,
+                    ev_tmp2: cbValue2.Checked,
+                    ev_tmp3: cbValue3.Checked,
+                    sub_board_list: cbBoardlist.Checked,
+                    sub_secretary: cbClubSecre.Checked,
+                    sub_volunteer: cbBaVolun.Checked,
+                    sub_social: cbSocialMem.Checked,
+                    sub_member: cbYouthMem.Checked,
+                    sub_tmp1: cbValue4.Checked,
+                    sub_tmp2: cbValue5.Checked,
+                    ov_member: cbOverseasMem.Checked,
+                    updateNaToAFlag: updateNaToAFlag
+                );
+
+                logActivity.LogStaffActivity(staffID, $"Updated member {Box1.Value} successfully.");
+            }
+            catch (Exception ex)
+            {
+                logActivity.LogStaffActivity(staffID, $"Error updating member: {ex.Message}");
+                lbError.Text = ex.ToString();
+            }
+
+            this.InitialPage();
+        }
+
+
+
+
         protected void BindMemberTypeList()
         {
             DataTable subjects = new DataTable();

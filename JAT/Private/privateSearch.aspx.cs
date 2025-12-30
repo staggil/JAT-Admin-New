@@ -21,6 +21,8 @@ namespace JAT.Private
         private string textInput;
         private int textInputInt;
         private int valOfTable;
+        private PrivateSearchRepository _repo = new PrivateSearchRepository();
+        /*
         private void connection()
         {
             var connectionStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"];
@@ -40,6 +42,9 @@ namespace JAT.Private
             conn.Close();
             return table;
         }
+        */
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //Session.Clear();
@@ -80,176 +85,83 @@ namespace JAT.Private
 
         protected void BindData()
         {
-			var uid = Session["UID"];
-			int staffID = uid != null ? Convert.ToInt32(uid) : 0;
+            var uid = Session["UID"];
+            int staffID = uid != null ? Convert.ToInt32(uid) : 0;
 
-			DataTable td;
+            var repo = new PrivateSearchRepository();
+            DataTable td;
+            string activityDetail;
 
-            var memSatCho = DropDownList1.SelectedValue.ToString();
-            var memberTypeCho = RadioButtonList1.SelectedValue.ToString();
-            var textInputOpt = DropDownList2.SelectedValue.ToString();
-            textInput = Text1.Value.ToString();
-            var sortOpt = DropDownList3.SelectedValue.ToString();
-            var sortCouOpt = DropDownList4.SelectedValue.ToString();
-            string query = "";
-			int queryCheck;
-			string activityDetail;
+            string memSatCho = DropDownList1.SelectedValue;
+            string memberTypeCho = RadioButtonList1.SelectedValue;
+            string textInputOpt = DropDownList2.SelectedValue;
+            string textInput = Text1.Value;
+            string sortOpt = DropDownList3.SelectedValue;
+            string sortCouOpt = DropDownList4.SelectedValue;
 
-			if (RadioButtonList1.SelectedValue != "4")
+            string query;
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+
+
+            if (RadioButtonList1.SelectedValue != "4")
             {
-                query = "EXEC searchPrivate '" + memSatCho + "','" + memberTypeCho + "','" + textInputOpt + "','%" + textInput + "%','" + sortOpt + "','" + sortCouOpt + "'";
-                queryCheck = 1;
-                
-                switch (textInputOpt)
-                {
-                    case "":
-                        {
-                            GridView1.Columns[4].Visible = true;
-                            GridView1.Columns[5].Visible = false;
-                            GridView1.Columns[6].Visible = true;
-                            GridView1.Columns[7].Visible = true;
-                            GridView1.Columns[8].Visible = true;
-                            GridView1.Columns[9].Visible = true;
-                        };break;
-                    case "1":
-                        {
-                            GridView1.Columns[4].Visible = true;
-                            GridView1.Columns[5].Visible = false;
-                            GridView1.Columns[6].Visible = true;
-                            GridView1.Columns[7].Visible = true;
-                            GridView1.Columns[8].Visible = true;
-                            GridView1.Columns[9].Visible = true;
-                        };break;
-                    case "2":
-                        {
-                            GridView1.Columns[4].Visible = true;
-                            GridView1.Columns[5].Visible = false;
-                            GridView1.Columns[6].Visible = true;
-                            GridView1.Columns[7].Visible = true;
-                            GridView1.Columns[8].Visible = true;
-                            GridView1.Columns[9].Visible = true;
-                        };break;
-                    case "3":
-                        {
-                            GridView1.Columns[4].Visible = true;
-                            GridView1.Columns[5].Visible = false;
-                            GridView1.Columns[6].Visible = true;
-                            GridView1.Columns[7].Visible = true;
-                            GridView1.Columns[8].Visible = true;
-                            GridView1.Columns[9].Visible = true;
-                        }; break;
-                    case "4":
-                        {
-                            GridView1.Columns[4].Visible = true;
-                            GridView1.Columns[5].Visible = false;
-                            GridView1.Columns[6].Visible = true;
-                            GridView1.Columns[7].Visible = true;
-                            GridView1.Columns[8].Visible = true;
-                            GridView1.Columns[9].Visible = true;
-                        }; break;
-                    case "5":
-                        {
-                            GridView1.Columns[4].Visible = true;
-                            GridView1.Columns[5].Visible = false;
-                            GridView1.Columns[6].Visible = true;
-                            GridView1.Columns[7].Visible = true;
-                            GridView1.Columns[8].Visible = true;
-                            GridView1.Columns[9].Visible = true;
-                        }; break;
-                    case "6":
-                        {
-                            GridView1.Columns[4].Visible = true;
-                            GridView1.Columns[5].Visible = false;
-                            GridView1.Columns[6].Visible = true;
-                            GridView1.Columns[7].Visible = true;
-                            GridView1.Columns[8].Visible = true;
-                            GridView1.Columns[9].Visible = true;
-                        }; break;
-                }
+                query = "EXEC searchPrivate @memSatCho, @memberTypeCho, @textInputOpt, @textInput, @sortOpt, @sortCouOpt";
+                parameters.Add("@memSatCho", memSatCho);
+                parameters.Add("@memberTypeCho", memberTypeCho);
+                parameters.Add("@textInputOpt", textInputOpt);
+                parameters.Add("@textInput", "%" + textInput + "%");
+                parameters.Add("@sortOpt", sortOpt);
+                parameters.Add("@sortCouOpt", sortCouOpt);
             }
             else
             {
-                query = "IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = '#TEMP1')) " +
-                    "DROP TABLE #TEMP1 " +
-                    "IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = '#TEMP2')) " +
-                    "DROP TABLE #TEMP2 " +
-                    "IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = '#TEMP3')) " +
-                    "DROP TABLE #TEMP3 " +
-                    "IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = '#TEMP')) " +
-                    "DROP TABLE #TEMP " +
-                    "CREATE TABLE #TEMP1 (firstmemberid nvarchar(100),memberid nvarchar(100),nameEng nvarchar(100),nameJ nvarchar(100),membertype nvarchar(100),companyNm nvarchar(100),nameKidJ nvarchar(100),nameKidE nvarchar(100),familyNameJ  nvarchar(100),familyNameE nvarchar(100)) " +
-                    "CREATE TABLE #TEMP2 (firstmemberid nvarchar(100),memberid nvarchar(100),nameEng nvarchar(100),nameJ nvarchar(100),membertype nvarchar(100),companyNm nvarchar(100),nameKidJ nvarchar(100),nameKidE nvarchar(100),familyNameJ  nvarchar(100),familyNameE nvarchar(100)) " +
-                    "CREATE TABLE #TEMP3 (firstmemberid nvarchar(100),memberid nvarchar(100),nameEng nvarchar(100),nameJ nvarchar(100),membertype nvarchar(100),companyNm nvarchar(100),nameKidJ nvarchar(100),nameKidE nvarchar(100),familyNameJ  nvarchar(100),familyNameE nvarchar(100)) " +
-                    "INSERT INTO #TEMP1 EXEC searchPrivate '" + memSatCho + "','1','" + textInputOpt + "','%" + textInput + "%','" + sortOpt + "','" + sortCouOpt + "' " +
-                    "INSERT INTO #TEMP2 EXEC searchPrivate '" + memSatCho + "','2','" + textInputOpt + "','%" + textInput + "%','" + sortOpt + "','" + sortCouOpt + "' " +
-                    "INSERT INTO #TEMP3 EXEC searchPrivate '" + memSatCho + "','3','" + textInputOpt + "','%" + textInput + "%','" + sortOpt + "','" + sortCouOpt + "' " +
-                    "SELECT * INTO #TEMP FROM #TEMP1 UNION SELECT * FROM #TEMP2 UNION SELECT * FROM #TEMP3 " +
-                    "SELECT * FROM #TEMP " +
-                    "DROP TABLE #TEMP1,#TEMP2,#TEMP3,#TEMP";
-                queryCheck = 2;
-                GridView1.Columns[4].Visible = true;
-                GridView1.Columns[5].Visible = false;
-                GridView1.Columns[6].Visible = true;
-                GridView1.Columns[7].Visible = true;
-                GridView1.Columns[8].Visible = true;
-                GridView1.Columns[9].Visible = true;
-				
-			}
-            
-            if (queryCheck == 1)
-            {
-                try
-                {
-					td = SelectSqlTable(query);
-					GridView1.DataSource = td;
-					valOfTable = td.Rows.Count;
-					activityDetail = $"Executed procedure name 'searchPrivate' successful (user id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
-				}
-                catch
-                {
-					activityDetail = $"Executed procedure name 'searchPrivate' unsuccessful (user id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
+                query = @"
+            IF OBJECT_ID('tempdb..#TEMP1') IS NOT NULL DROP TABLE #TEMP1
+            IF OBJECT_ID('tempdb..#TEMP2') IS NOT NULL DROP TABLE #TEMP2
+            IF OBJECT_ID('tempdb..#TEMP3') IS NOT NULL DROP TABLE #TEMP3
+            IF OBJECT_ID('tempdb..#TEMP') IS NOT NULL DROP TABLE #TEMP
 
-				}
-				
-			}
-            else if (queryCheck == 2)
-            {
-                try
-                {
-					td = SelectSqlTable(query);
-					GridView1.DataSource = td;
-					valOfTable = td.Rows.Count;
-					activityDetail = $"Created new table name '#TEMP1,#TEMP2,#TEMP3,#TEMP' then added a procedure result name 'searchPrivate' then get data from table '#TEMP1,#TEMP2,#TEMP3,#TEMP' before removed table '#TEMP1,#TEMP2,#TEMP3,#TEMP' successful (user id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
-				}
-                catch (SqlException ex)
-                {
-					activityDetail = $"Created new table name '#TEMP1,#TEMP2,#TEMP3,#TEMP' then added a procedure result name 'searchPrivate' then get data from table '#TEMP1,#TEMP2,#TEMP3,#TEMP' before removed table '#TEMP1,#TEMP2,#TEMP3,#TEMP' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
-				}
-				catch (Exception ex)
-				{
-					activityDetail = $"Created new table name '#TEMP1,#TEMP2,#TEMP3,#TEMP' then added a procedure result name 'searchPrivate' then get data from table '#TEMP1,#TEMP2,#TEMP3,#TEMP' before removed table '#TEMP1,#TEMP2,#TEMP3,#TEMP' unsuccessful [{ex.Message}] (user id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
-				}
+            CREATE TABLE #TEMP1 (...columns...)
+            CREATE TABLE #TEMP2 (...columns...)
+            CREATE TABLE #TEMP3 (...columns...)
 
-			}
+            INSERT INTO #TEMP1 EXEC searchPrivate @memSatCho, '1', @textInputOpt, @textInput, @sortOpt, @sortCouOpt
+            INSERT INTO #TEMP2 EXEC searchPrivate @memSatCho, '2', @textInputOpt, @textInput, @sortOpt, @sortCouOpt
+            INSERT INTO #TEMP3 EXEC searchPrivate @memSatCho, '3', @textInputOpt, @textInput, @sortOpt, @sortCouOpt
 
-            
-			
+            SELECT * INTO #TEMP FROM #TEMP1
+            UNION SELECT * FROM #TEMP2
+            UNION SELECT * FROM #TEMP3
 
-			
-            
-            Label1.Text = "Searching for " + "<b>" + textInput + "</b>" + " returned " + "<b>" + valOfTable + "</b>" + " people(s).";
-            GridView1.DataBind();
-            ImageButton2.Visible = true;
-            if (GridView1.PageIndex != 0)
-            {
-                ImageButton1.Visible = true;
+            SELECT * FROM #TEMP
+
+            DROP TABLE #TEMP1, #TEMP2, #TEMP3, #TEMP";
+                parameters.Add("@memSatCho", memSatCho);
+                parameters.Add("@textInputOpt", textInputOpt);
+                parameters.Add("@textInput", "%" + textInput + "%");
+                parameters.Add("@sortOpt", sortOpt);
+                parameters.Add("@sortCouOpt", sortCouOpt);
             }
+
+            try
+            {
+                td = repo.ExecuteQuery(query, parameters);
+                GridView1.DataSource = td;
+                GridView1.DataBind();
+                Label1.Text = $"Searching for <b>{textInput}</b> returned <b>{td.Rows.Count}</b> people(s).";
+                activityDetail = "Executed searchPrivate successfully (user id = '" + staffID + "')";
+                logActivity.LogStaffActivity(staffID, activityDetail);
+            }
+            catch (Exception ex)
+            {
+                activityDetail = "Executed searchPrivate unsuccessfully [" + ex.Message + "] (user id = '" + staffID + "')";
+                logActivity.LogStaffActivity(staffID, activityDetail);
+            }
+
+            ImageButton2.Visible = true;
+            ImageButton1.Visible = GridView1.PageIndex != 0;
         }
+
 
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {

@@ -18,6 +18,9 @@ namespace JAT.Private
 
 		private SqlConnection conn;
 		private SqlCommand cmd;
+
+
+		/* commentted 
 		private void connection()
 		{
 			var connectionStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"];
@@ -36,90 +39,59 @@ namespace JAT.Private
 			conn.Close();
 			return table;
 		}
+		*/
+
 
 		protected void Page_Load(object sender, EventArgs e)
         {
 			//Session.Clear();
 		}
 
-		protected void Button1_Click(object sender, EventArgs e)
-		{
-			var uid = Session["UID"];
-			int staffID = uid != null ? Convert.ToInt32(uid) : 0;
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            var uid = Session["UID"];
+            int staffID = uid != null ? Convert.ToInt32(uid) : 0;
 
-			DataTable td;
+            var oldID = oldMemID.Value?.Trim();
+            var newID = newMemID.Value?.Trim();
 
-			var oldID = oldMemID.Value.ToString();
-			var newID = newMemID.Value.ToString();
+            if (string.IsNullOrEmpty(oldID) || string.IsNullOrEmpty(newID))
+            {
+                ScriptManager.RegisterClientScriptBlock(
+                    this, GetType(), "alertMessage",
+                    "alert('Member id is empty.')", true);
+                return;
+            }
 
-			if (oldID == newID)
-			{
-				ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Old member id can not same as new member id.')", true);
-			}
-			else
-			{
-				try
-				{
-					td = SelectSqlTable("UPDATE PrivateDetail " +
-										"SET firstmemberid = CASE WHEN firstmemberid = memberid OR firstmemberid != memberid THEN '" + newID + "'" + "WHEN firstmemberid = NULL THEN firstmemberid ELSE firstmemberid END " +
-										"WHERE firstmemberid = '" + oldID + "'" + 
-										"UPDATE PrivateDetail " + 
-										"SET memberid = '" + newID + "'" +
-										"WHERE memberid = '" + oldID + "'" +
-										"UPDATE Private " +
-										"SET memberid = '" + newID + "'" +
-										"WHERE memberid = '" + oldID + "'" +
-										"UPDATE PrivateAccount " +
-										"SET memberid = '" + newID + "'" +
-										"WHERE memberid = '" + oldID + "'" +
-										"UPDATE privateAddress " +
-										"SET memberid = '" + newID + "'" +
-										"WHERE memberid = '" + oldID + "'" +
-										"UPDATE PrivateBoard " +
-										"SET memberid = '" + newID + "'" +
-										"WHERE memberid = '" + oldID + "'" +
-										"UPDATE PrivateChild " +
-										"SET memberid = '" + newID + "'" +
-										"WHERE memberid = '" + oldID + "'" +
-										"UPDATE PrivateClub " +
-										"SET memberid = '" + newID + "'" +
-										"WHERE memberid = '" + oldID + "'" +
-										"UPDATE PrivatePayment " +
-										"SET memberid = '" + newID + "'," + "payBy = '" + newID + "'" + 
-										"WHERE memberid = '" + oldID + "'" + "AND payBy = '" + oldID + "'"+
-										"UPDATE PrivateRefer " +
-										"SET memberid = '" + newID + "'" +
-										"WHERE memberid = '" + oldID + "'" +
-										"UPDATE PrivateRemark " +
-										"SET memberid = '" + newID + "'" +
-										"WHERE memberid = '" + oldID + "'" +
-										"UPDATE PrivateSendHistory " +
-										"SET memberid = '" + newID + "'" +
-										"WHERE memberid = '" + oldID + "'");
+            if (oldID == newID)
+            {
+                ScriptManager.RegisterClientScriptBlock(
+                    this, GetType(), "alertMessage",
+                    "alert('Old member id can not same as new member id.')", true);
+                return;
+            }
 
-					string activityDetail = $"Changed data in 11 tables ('PrivateDetail, Private, PrivateAccount, privateAddress, PrivateBoard, PrivateChild, PrivateClub, PrivatePayment, PrivateRefer, PrivateRemark, PrivateSendHistory') where memberid is '{oldID}' successful (user id = {staffID})";
-					logActivity.LogStaffActivity(staffID, activityDetail);
+            try
+            {
+                var connStr = WebConfigurationManager
+                    .ConnectionStrings["DefaultConnection"]
+                    .ConnectionString;
 
-					ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Member id : " + oldID + " " + "change to : " + newID + "'" + ")", true);
+                var repo = new PrivateChangeMemberRepository(connStr);
+                repo.ChangeMemberId(oldID, newID, staffID);
 
-				}
-				catch (SqlException ex)
-				{
-					string activityDetail = $"Changed data in 11 tables ('PrivateDetail, Private, PrivateAccount, privateAddress, PrivateBoard, PrivateChild, PrivateClub, PrivatePayment, PrivateRefer, PrivateRemark, PrivateSendHistory') where memberid is '{oldID}' unsuccessful [{ex.Message}] (user id = {staffID})";
-					logActivity.LogStaffActivity(staffID, activityDetail);
-					ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Member id : " + oldID + " " + "not found." + "'" + ")", true);
-					
-				}
-				catch (Exception ex)
-				{
-					string activityDetail = $"Changed data in 11 tables ('PrivateDetail, Private, PrivateAccount, privateAddress, PrivateBoard, PrivateChild, PrivateClub, PrivatePayment, PrivateRefer, PrivateRemark, PrivateSendHistory') where memberid is '{oldID}' unsuccessful [{ex.Message}] (user id = {staffID})";
-					logActivity.LogStaffActivity(staffID, activityDetail);
-					ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Member id : " + oldID + " " + "not found." + "'" + ")", true);
+                ScriptManager.RegisterClientScriptBlock(
+                    this, GetType(), "alertMessage",
+                    $"alert('Member id : {oldID} change to : {newID}')", true);
+            }
+            catch
+            {
+                ScriptManager.RegisterClientScriptBlock(
+                    this, GetType(), "alertMessage",
+                    $"alert('Member id : {oldID} not found.')", true);
+            }
+        }
 
-				}
-			}
-
-		}
 
         protected void Button1_Click1(object sender, EventArgs e)
         {

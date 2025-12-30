@@ -10,7 +10,7 @@ using System.Configuration;
 using System.Web.Configuration;
 using System.Globalization;
 using JAT.Core;
-
+using System.Web.Configuration; // ต้องมี using ตัวนี้
 
 
 namespace JAT.Private
@@ -27,7 +27,7 @@ namespace JAT.Private
         private string showMem;
         string addValue;
         string tran;
-
+        string connStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         string toDayDate = DateTime.Now.ToString("yyyy-MMM-dd HH:mm:ss", new CultureInfo("en-US"));
         string toDayDateOnly = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", new CultureInfo("en-US"));
 
@@ -35,13 +35,10 @@ namespace JAT.Private
         {
             showfristMem = Request.QueryString["firstmemberid"];
             showMem = Request.QueryString["memberid"];
-
             addValue = Request.QueryString["mode"];
 
             if (showMem != null || showfristMem != null)
             {
-
-
                 if (!Page.IsPostBack)
                 {
                     update.Visible = false;
@@ -53,57 +50,49 @@ namespace JAT.Private
                     {
                         DisabledForm();
                     }
-                    connection();
-                    SqlCommand sc;
-                    SqlDataReader rd;
 
-                    string sql = "select top 1 pp.tranId,payMethod " +
-                                 "from PrivatePayment pp " +
-                                 "inner join PrivateDetail pd on pp.memberid = pd.memberid " +
-                                 //"inner join SStaff ss on pp.updatedBy = ss.staffID " +
-                                 "where pp.memberid = '" + showfristMem + "' " +
-                                 "order by tranId ";
+                    // ใช้ repository แทน connection() + SqlCommand
+                    string connStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    PrivatePaymentRepository paymentRepo = new PrivatePaymentRepository(connStr);
 
-                    try
+                    string sql = @"
+                SELECT TOP 1 pp.tranId, pp.payMethod
+                FROM PrivatePayment pp
+                INNER JOIN PrivateDetail pd ON pp.memberid = pd.memberid
+                WHERE pp.memberid = @firstMemberId
+                ORDER BY pp.tranId";
+
+                    var parameters = new Dictionary<string, object>
+            {
+                { "@firstMemberId", showfristMem }
+            };
+
+                    DataTable dt = paymentRepo.ExecuteSelectQuery(sql, parameters);
+
+                    if (dt.Rows.Count > 0)
                     {
-                        conn.Open();
-                        sc = new SqlCommand(sql, conn);
-                        sc.CommandTimeout = 480;
-                        rd = sc.ExecuteReader();
-
-                        while (rd.Read())
-                        {
-                            Label5.Text = rd.GetValue(0).ToString();
-                            Label6.Text = rd.GetValue(1).ToString();
-                            //updateBy.Text = rd.GetValue(2).ToString();
-                        }
-
+                        Label5.Text = dt.Rows[0]["tranId"].ToString();
+                        Label6.Text = dt.Rows[0]["payMethod"].ToString();
+                        // updateBy.Text = ??? (เรียก lastEditor() แทน)
                     }
-                    catch { }
 
-
-                    conn.Close();
-                    lastEditor();
+                    lastEditor(); // ถ้าแก้ lastEditor ให้เรียก repository แล้วก็ยังใช้ได้
                     GetDropDown();
                     BindData();
-                    if (addValue == "add")
-                    {
 
-                    }
-                    else
+                    if (addValue != "add")
                     {
                         BindData2();
                     }
+
                     showInGrid();
                 }
-
-
             }
-
-
         }
 
-        private void connection()
+
+        /*
+        private void connection() c0mment for unuse
         {
             var connectionStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"];
             conn = new SqlConnection(connectionStr.ConnectionString);
@@ -121,6 +110,9 @@ namespace JAT.Private
             conn.Close();
             return table;
         }
+        */
+
+        /* commentted to use new refactor
         private void lastEditor()
         {
             connection();
@@ -154,6 +146,39 @@ namespace JAT.Private
                 }
             }
         }
+        */
+
+        private void lastEditor()
+        {
+            string connStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            PrivatePaymentRepository paymentRepo = new PrivatePaymentRepository(connStr);
+
+            string sql = @"
+        SELECT TOP 1 ss.staffFName
+        FROM PrivatePayment pp
+        LEFT JOIN SStaff ss ON pp.updatedBy = ss.staffID
+        WHERE pp.memberid = @memberid
+        ORDER BY pp.updatedDate DESC";
+
+            var parameters = new Dictionary<string, object>
+    {
+        {"@memberid", showfristMem}
+    };
+
+            DataTable dt = paymentRepo.ExecuteSelectQuery(sql, parameters);
+
+            if (dt.Rows.Count > 0 && dt.Rows[0][0] != DBNull.Value)
+            {
+                updateBy.Text = dt.Rows[0][0].ToString();
+            }
+            else
+            {
+                updateBy.Text = "N/A";
+            }
+        }
+
+
+
         private void GetDropDown()
         {
             int tmpSelect = 0;
@@ -162,6 +187,9 @@ namespace JAT.Private
             BindMemberFamilyList();
             BindMemberAccountList();
         }
+
+
+        /* commentted for used new refactor
         protected void BindPaymentMethodList()
         {
             DataTable subjects = new DataTable();
@@ -186,6 +214,28 @@ namespace JAT.Private
             }
             DropDownList3.Items.Insert(0, new ListItem("--Any--", "0"));
         }
+        */
+
+        protected void BindPaymentMethodList()
+        {
+            string connStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            PrivatePaymentRepository paymentRepo = new PrivatePaymentRepository(connStr);
+
+            string sql = "SELECT * FROM SPayMethod ORDER BY payMethod";
+
+            DataTable subjects = paymentRepo.ExecuteSelectQuery(sql);
+
+            DropDownList3.DataSource = subjects;
+            DropDownList3.DataValueField = "payMethod";
+            DropDownList3.DataBind();
+
+            DropDownList3.Items.Insert(0, new ListItem("--Any--", "0"));
+        }
+
+
+
+
+        /* commentted to used new refactor
         protected void BindMemberTypeList()
         {
             DataTable subjects = new DataTable();
@@ -247,6 +297,58 @@ namespace JAT.Private
             }
             DropDownList1.Items.Insert(0, new ListItem("--Any--", "0"));
         }
+        */
+
+        protected void BindMemberTypeList()
+        {
+            string connStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            PrivatePaymentRepository paymentRepo = new PrivatePaymentRepository(connStr);
+
+            string sql = @"
+        SELECT * 
+        FROM SMemberType 
+        WHERE EffectiveID = (
+            SELECT TOP(1) EffectiveID 
+            FROM tblEffective 
+            WHERE EffectiveDate <= FLOOR(CAST(GETDATE() AS FLOAT)) 
+              AND ExpireDate >= FLOOR(CAST(GETDATE() AS FLOAT))
+        )
+        ORDER BY memberType";
+
+            DataTable subjects = paymentRepo.ExecuteSelectQuery(sql);
+
+            DropDownList2.DataSource = subjects;
+            DropDownList2.DataValueField = "MemberType";
+            DropDownList2.DataBind();
+
+            DropDownList2.Items.Insert(0, new ListItem("0", "0"));
+            DropDownList2.Items.Insert(0, new ListItem("--Any--", "99"));
+        }
+
+        protected void BindMemberFamilyList()
+        {
+            string connStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            PrivatePaymentRepository paymentRepo = new PrivatePaymentRepository(connStr);
+
+            string sql = "SELECT memberId, (prefixNm + ' ' + nameE) AS nameEng FROM privateDetail WHERE firstmemberId = @firstMemberId";
+
+            var parameters = new Dictionary<string, object>
+    {
+        { "@firstMemberId", showfristMem }
+    };
+
+            DataTable subjects = paymentRepo.ExecuteSelectQuery(sql, parameters);
+
+            DropDownList1.DataSource = subjects;
+            DropDownList1.DataValueField = "memberId";
+            DropDownList1.DataTextField = "nameEng";
+            DropDownList1.DataBind();
+
+            DropDownList1.Items.Insert(0, new ListItem("--Any--", "0"));
+        }
+
+
+        /* commentted to used new refactor
         protected void BindMemberAccountList()
         {
             DataTable subjects = new DataTable();
@@ -275,6 +377,36 @@ namespace JAT.Private
 
 
         }
+        */
+        protected void BindMemberAccountList()
+        {
+            string connStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            PrivatePaymentRepository paymentRepo = new PrivatePaymentRepository(connStr);
+
+            string sql = @"
+        SELECT accId, 
+               (accNo + ':' + bankCode + ':' + CONVERT(nvarchar(2), payAccDuration)) AS bankDetail
+        FROM privateaccount
+        WHERE memberId = @firstMemberId";
+
+            var parameters = new Dictionary<string, object>
+    {
+        { "@firstMemberId", showfristMem }
+    };
+
+            DataTable subjects = paymentRepo.ExecuteSelectQuery(sql, parameters);
+
+            DropDownList4.DataSource = subjects;
+            DropDownList4.DataValueField = "accId";
+            DropDownList4.DataTextField = "bankDetail";
+            DropDownList4.DataBind();
+
+            DropDownList4.Items.Insert(0, new ListItem("--Any--", "0"));
+        }
+
+
+
+
 
         private void EnabledForm()
         {
@@ -382,6 +514,8 @@ namespace JAT.Private
 
         }
 
+
+        /* commentted to use new refactor
         protected void BindData()
         {
             connection();
@@ -415,7 +549,40 @@ namespace JAT.Private
 
             conn.Close();
         }
+        */
 
+        protected void BindData()
+        {
+            string connStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            PrivatePaymentRepository paymentRepo = new PrivatePaymentRepository(connStr);
+
+            string sql = @"
+        SELECT t1.nameJ, CONCAT(t1.prefixNm, t1.nameE), t2.companyNm
+        FROM PrivateDetail t1
+        INNER JOIN privateAddress t2 ON t1.firstmemberid = t2.memberid
+        WHERE t1.memberid = @firstMemberId
+          AND t2.addressType = 2";
+
+            var parameters = new Dictionary<string, object>
+    {
+        { "@firstMemberId", showfristMem }
+    };
+
+            DataTable dt = paymentRepo.ExecuteSelectQuery(sql, parameters);
+
+            if (dt.Rows.Count > 0)
+            {
+                Label1.Text = dt.Rows[0][0].ToString();
+                Label2.Text = dt.Rows[0][1].ToString();
+                Label3.Text = dt.Rows[0][2].ToString();
+            }
+        }
+
+
+
+
+
+        /* commetted to use new refactor
         protected void BindData2()
         {
             connection();
@@ -538,6 +705,86 @@ namespace JAT.Private
 
             conn.Close();
         }
+        */
+        protected void BindData2()
+        {
+            string connStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            PrivatePaymentRepository paymentRepo = new PrivatePaymentRepository(connStr);
+
+            string sql = "";
+            var parameters = new Dictionary<string, object>
+    {
+        { "@firstMemberId", showfristMem },
+        { "@tranId", Label5.Text }
+    };
+
+            if (Label6.Text == "B" || Label6.Text == "T" || Label6.Text == "S")
+            {
+                sql = @"
+            SELECT pp.tranId, pp.memberId, (prefixNm + ' ' + nameE) as nameEng, pp.memberType, payNoMember, payDuration,
+                   FORMAT(paymentDate, 'dd/MM/yyyy'), FORMAT(effectiveDate, 'dd/MM/yyyy'), FORMAT(expireDate, 'dd/MM/yyyy'),
+                   payMethod, payRemark, receiptNo, checkReceipt, entranceFee, newsletterFee, checkShort,
+                   FORMAT(shortFrom, 'dd/MM/yyyy'), FORMAT(shortTo, 'dd/MM/yyyy'), accno, bankcode, payAccDuration
+            FROM PrivatePayment pp
+            LEFT OUTER JOIN privateDetail d ON pp.payBy = d.memberId
+            LEFT OUTER JOIN privatePayAccount ppa ON ppa.tranId = pp.tranId
+            LEFT OUTER JOIN privateAccount pa ON pa.memberid = pp.memberid AND pa.accId = ppa.accId
+            LEFT OUTER JOIN PrivatePayShort pps ON pp.tranId = pps.tranId
+            WHERE pp.memberid = @firstMemberId AND ppa.tranId = @tranId
+            ORDER BY pp.tranId DESC";
+            }
+            else
+            {
+                sql = @"
+            SELECT TOP 1 pp.tranId, pp.memberId, (prefixNm + ' ' + nameE) as nameEng, pp.memberType, payNoMember,
+                   payDuration, FORMAT(paymentDate, 'dd/MM/yyyy'), FORMAT(effectiveDate, 'dd/MM/yyyy'), FORMAT(expireDate, 'dd/MM/yyyy'),
+                   payMethod, payRemark, receiptNo, checkReceipt, entranceFee, newsletterFee, checkShort,
+                   FORMAT(shortFrom, 'dd/MM/yyyy'), FORMAT(shortTo, 'dd/MM/yyyy')
+            FROM PrivatePayment pp
+            INNER JOIN PrivateDetail pd ON pp.memberid = pd.memberid
+            LEFT OUTER JOIN PrivatePayShort pps ON pp.tranId = pps.tranId
+            WHERE pp.memberid = @firstMemberId
+            ORDER BY tranId";
+            }
+
+            DataTable dt = paymentRepo.ExecuteSelectQuery(sql, parameters);
+
+            if (dt.Rows.Count > 0)
+            {
+                var row = dt.Rows[0];
+                DropDownList1.SelectedItem.Text = row[2].ToString();
+                DropDownList2.SelectedValue = row[3].ToString();
+                numMemBox.Text = row[4].ToString();
+                PayDuration.Text = row[5].ToString();
+                paymentDateBox.Value = row[6].ToString();
+                EffectiveDateInput.Value = row[7].ToString();
+                ExpiredDate.Text = row[8].ToString();
+
+                string paymethodcho = string.IsNullOrEmpty(row[9].ToString()) ? "-- Any --" : row[9].ToString();
+                DropDownList3.SelectedValue = paymethodcho;
+
+                remarkBox.Value = row[10].ToString();
+                cNoBox.Value = row[11].ToString();
+                GetReceiptChk.Checked = row[12] != DBNull.Value && (bool)row[12];
+                entranceVal.Text = row[13].ToString();
+                annualVal.Text = row[14].ToString();
+                CheckShort.Checked = row[15] != DBNull.Value && (bool)row[15];
+                ShortFromBox.Value = row[16].ToString();
+                ShortToBox.Value = row[17].ToString();
+
+                if (Label6.Text == "S" || Label6.Text == "T" || Label6.Text == "B")
+                {
+                    bankPanel.Value = row[18].ToString();
+                    bankCodeBox.Value = row[19].ToString();
+                    RadioButtonList1.SelectedValue = row[20].ToString();
+                }
+            }
+        }
+
+
+
+
+
 
         protected void memberTab_Click(object sender, EventArgs e)
         {
@@ -579,6 +826,7 @@ namespace JAT.Private
             }
         }
 
+        /* commentted for new refactor
         protected void showInGrid() //about payment list under private entrypayment page
         {
             DataTable td;
@@ -629,7 +877,49 @@ namespace JAT.Private
             conn.Close();
 
         }
+        */
 
+        protected void showInGrid()
+        {
+            string connStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            PrivatePaymentRepository paymentRepo = new PrivatePaymentRepository(connStr);
+
+            string sql = @"
+        SELECT 
+            t1.tranId, t1.payBy, t2.nameE, 
+            FORMAT(t1.paymentDate, 'dd/MM/yyyy') AS paymentDate, 
+            FORMAT(t1.effectiveDate, 'dd/MM/yyyy') AS effectiveDate, 
+            FORMAT(t1.expireDate, 'dd/MM/yyyy') AS expireDate, 
+            t1.payMethod, t3.accno, t3.bankcode, 
+            t1.receiptNo, t1.payNoMember, t1.entranceFee, 
+            t1.payDuration, t1.newsletterFee, t1.payRemark, 
+            t3.accId, t1.payat
+        FROM PrivatePayment t1
+        LEFT OUTER JOIN privateDetail t2 ON t1.payBy = t2.memberId
+        LEFT OUTER JOIN privatePayAccount ppa ON ppa.tranId = t1.tranId
+        LEFT OUTER JOIN privateAccount t3 ON t3.memberid = t1.memberid AND t3.accId = ppa.accId
+        WHERE t2.firstmemberid = @firstMemberId
+          AND t1.Deleted_at IS NULL
+          AND t1.checkpay = 'C'
+        ORDER BY t1.expireDate DESC";
+
+            var parameters = new Dictionary<string, object>
+    {
+        { "@firstMemberId", showfristMem }
+    };
+
+            DataTable td = paymentRepo.ExecuteSelectQuery(sql, parameters);
+
+            GridView1.DataSource = td;
+            GridView1.DataBind();
+        }
+
+
+
+
+
+
+        /* commetted to used new refactor
         protected void GridView_Button_Click(object sender, EventArgs e)
         {
             //EnabledForm();
@@ -798,7 +1088,87 @@ namespace JAT.Private
             conn.Close();
 
         }
+        */
+        protected void GridView_Button_Click(object sender, EventArgs e)
+        {
+            GridView1.Columns[15].Visible = false;
+            GridView1.Columns[16].Visible = false;
 
+            GridViewRow row = (GridViewRow)(sender as ImageButton).NamingContainer;
+            string tranId = row.Cells[0].Text;
+
+            string connStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            var repo = new PrivatePaymentRepository(connStr);
+
+            try
+            {
+                string sql = @"SELECT t1.tranId, t1.payBy, t2.nameE, 
+                              FORMAT(t1.paymentDate, 'dd/MM/yyyy') AS paymentDate, 
+                              FORMAT(t1.effectiveDate, 'dd/MM/yyyy') AS effectiveDate, 
+                              FORMAT(t1.expireDate, 'dd/MM/yyyy') AS expireDate, 
+                              t1.payMethod, t3.accno, t3.bankcode, 
+                              t1.receiptNo, t1.payNoMember, t1.entranceFee, 
+                              t1.payDuration, t1.newsletterFee, t1.payRemark, 
+                              t1.memberType, t1.checkReceipt, t1.checkShort
+                       FROM PrivatePayment t1
+                       INNER JOIN PrivateDetail t2 ON t1.payBy = t2.memberid
+                       INNER JOIN PrivateAccount t3 ON t1.tranId = t3.accId
+                       WHERE t1.tranId=@tranId";
+
+                var dt = repo.ExecuteSelectQuery(sql, new Dictionary<string, object> { { "@tranId", tranId } });
+
+                if (dt.Rows.Count > 0)
+                {
+                    var rowData = dt.Rows[0];
+
+                    BindInPayBy();
+
+                    GetReceiptChk.Checked = Convert.ToBoolean(rowData["checkReceipt"]);
+                    CheckShort.Checked = Convert.ToBoolean(rowData["checkShort"]);
+
+                    string memType = rowData["memberType"].ToString();
+                    DropDownList2.SelectedValue = memType;
+
+                    numMemBox.Text = rowData["payNoMember"].ToString();
+                    PayDuration.Text = rowData["payDuration"].ToString();
+                    paymentDateBox.Value = rowData["paymentDate"].ToString();
+                    EffectiveDateInput.Value = rowData["effectiveDate"].ToString();
+                    ExpiredDate.Text = rowData["expireDate"].ToString();
+
+                    DropDownList3.SelectedValue = rowData["payMethod"].ToString();
+
+                    cNoBox.Value = rowData["receiptNo"].ToString();
+                    bankCodeBox.Value = rowData["bankcode"].ToString();
+                    bankPanel.Value = rowData["accno"].ToString();
+                    remarkBox.Value = rowData["payRemark"].ToString();
+                    entranceVal.Text = rowData["entranceFee"].ToString();
+                    annualVal.Text = rowData["newsletterFee"].ToString();
+
+                    int num1 = int.Parse(entranceVal.Text);
+                    int num2 = int.Parse(annualVal.Text);
+                    totolSum.Text = (num1 + num2).ToString();
+
+                    if (num1 > 0 && num2 > 0) PaymentType.SelectedValue = "Both";
+                    else if (num1 > 0) PaymentType.SelectedValue = "Entrance Fee";
+                    else if (num2 > 0) PaymentType.SelectedValue = "Annual Fee";
+
+                    int payDurationChk = int.Parse(PayDuration.Text);
+                    if (payDurationChk >= 12) RadioButtonList1.SelectedValue = "12";
+                    else if (payDurationChk >= 6) RadioButtonList1.SelectedValue = "6";
+                    else RadioButtonList1.SelectedValue = "1";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log error ถ้าต้องการ
+            }
+        }
+
+
+
+
+
+        /* commentted to used new refactor
         protected void BindInPayBy()
         {
             DataTable td;
@@ -817,7 +1187,36 @@ namespace JAT.Private
 
             conn.Close();
         }
+        */
+        protected void BindInPayBy()
+        {
+            string connStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            PrivatePaymentRepository paymentRepo = new PrivatePaymentRepository(connStr);
 
+            string sql = @"
+        SELECT DISTINCT t1.nameE
+        FROM PrivateDetail t1
+        INNER JOIN PrivatePayment t2 ON t1.firstmemberid = t2.payBy
+        WHERE t2.memberid = @firstMemberId";
+
+            var parameters = new Dictionary<string, object>
+    {
+        { "@firstMemberId", showfristMem }
+    };
+
+            DataTable td = paymentRepo.ExecuteSelectQuery(sql, parameters);
+
+            DropDownList1.DataSource = td;
+            DropDownList1.DataTextField = "nameE";
+            DropDownList1.DataValueField = "nameE";
+            DropDownList1.DataBind();
+        }
+
+
+
+
+
+        /* commentted to used new refactor
         protected void BindInBankAccount()
         {
             DataTable td;
@@ -836,6 +1235,34 @@ namespace JAT.Private
 
             conn.Close();
         }
+        */
+
+        protected void BindInBankAccount()
+        {
+            string connStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            PrivatePaymentRepository paymentRepo = new PrivatePaymentRepository(connStr);
+
+            string sql = "SELECT CONCAT(accId, ':', accno, ':', bankcode, ':', payAccDuration) AS BankAccount " +
+                         "FROM PrivateAccount WHERE memberid = @firstMemberId";
+
+            var parameters = new Dictionary<string, object>
+    {
+        { "@firstMemberId", showfristMem }
+    };
+
+            DataTable td = paymentRepo.ExecuteSelectQuery(sql, parameters);
+
+            DropDownList4.DataSource = td;
+            DropDownList4.DataTextField = "BankAccount";
+            DropDownList4.DataValueField = "BankAccount";
+            DropDownList4.DataBind();
+        }
+
+
+
+
+
+
 
         protected void cancelBtn_Click(object sender, EventArgs e)
         {
@@ -851,6 +1278,10 @@ namespace JAT.Private
         }
 
 
+
+
+
+        /* commentted to used new refactor
         protected void GridView1_ItemCommand(object source, DataGridCommandEventArgs e)
         {
 			//string tranId = e.CommandArgument.ToString();
@@ -1056,7 +1487,144 @@ namespace JAT.Private
                 conn.Close();
             }
         }
+        */
+        protected void GridView1_ItemCommand(object source, DataGridCommandEventArgs e)
+        {
+            var uid = Session["UID"];
+            int staffID = uid != null ? Convert.ToInt32(uid) : 0;
 
+            string[] commandArgs = e.CommandArgument.ToString().Split(',');
+            string tranId = commandArgs[0];
+            string payMethod = commandArgs[1];
+            string accid = commandArgs[2];
+
+            string connStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            var repo = new PrivatePaymentRepository(connStr);
+
+            if (e.CommandName == "delete")
+            {
+                string confirmValue = Request.Form["confirm_value"];
+                if (confirmValue == "Yes")
+                {
+                    try
+                    {
+                        string sql = "UPDATE PrivatePayment SET Deleted_at = GETDATE() WHERE tranId=@tranId";
+                        repo.ExecuteNonQuery(sql, new Dictionary<string, object> { { "@tranId", tranId } });
+
+                        string activityDetail = $"Soft deleted data in PrivatePayment where tranId='{tranId}' (user id={staffID})";
+                        logActivity.LogStaffActivity(staffID, activityDetail);
+
+                        this.showInGrid();
+                    }
+                    catch (Exception ex)
+                    {
+                        logActivity.LogStaffActivity(staffID, $"ERROR deleting tranId={tranId}: {ex.Message}");
+                    }
+                }
+            }
+            else if (e.CommandName == "edit")
+            {
+                try
+                {
+                    string sql = @"SELECT pp.memberId, (prefixNm + ' ' + nameE) as nameEng, pp.memberType, payNoMember, payDuration,
+                                  FORMAT(paymentDate,'dd/MM/yyyy') as paymentDate, FORMAT(effectiveDate,'dd/MM/yyyy') as effectiveDate,
+                                  FORMAT(expireDate,'dd/MM/yyyy') as expireDate, payMethod, payRemark, receiptNo, checkReceipt,
+                                  entranceFee, newsletterFee, pp.tranId, checkShort, FORMAT(shortFrom,'dd/MM/yyyy') as shortFrom,
+                                  FORMAT(shortTo,'dd/MM/yyyy') as shortTo, pa.accno, pa.bankcode, pa.payAccDuration,
+                                  ppa.accId, pp.payat
+                           FROM PrivatePayment pp
+                           LEFT JOIN privateDetail d ON pp.payBy = d.memberId
+                           LEFT JOIN privatePayAccount ppa ON ppa.tranId = pp.tranId
+                           LEFT JOIN privateAccount pa ON pa.memberid = pp.memberid AND pa.accId = ppa.accId
+                           LEFT JOIN PrivatePayShort pps ON pp.tranId = pps.tranId
+                           WHERE pp.tranId=@tranId";
+
+                    var dt = repo.ExecuteSelectQuery(sql, new Dictionary<string, object> { { "@tranId", tranId } });
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        var rd = dt.Rows[0];
+
+                        DropDownList1.SelectedItem.Text = rd["nameEng"].ToString();
+                        DropDownList2.SelectedValue = rd["memberType"].ToString();
+                        numMemBox.Text = rd["payNoMember"].ToString();
+                        PayDuration.Text = rd["payDuration"].ToString();
+                        paymentDateBox.Value = rd["paymentDate"].ToString();
+                        EffectiveDateInput.Value = rd["effectiveDate"].ToString();
+                        ExpiredDate.Text = rd["expireDate"].ToString();
+                        HiddenExpiredDate.Value = rd["expireDate"].ToString();
+                        DropDownList3.SelectedValue = string.IsNullOrEmpty(rd["payMethod"].ToString()) ? "-- Any --" : rd["payMethod"].ToString();
+                        remarkBox.Value = rd["payRemark"].ToString();
+                        cNoBox.Value = rd["receiptNo"].ToString();
+                        GetReceiptChk.Checked = Convert.ToBoolean(rd["checkReceipt"]);
+                        entranceVal.Text = rd["entranceFee"].ToString();
+                        annualVal.Text = rd["newsletterFee"].ToString();
+                        Label4.Text = rd["tranId"].ToString();
+                        HiddenTranId.Value = rd["tranId"].ToString();
+                        CheckShort.Checked = Convert.ToBoolean(rd["checkShort"]);
+                        ShortFromBox.Value = rd["shortFrom"].ToString();
+                        ShortToBox.Value = rd["shortTo"].ToString();
+                        ddpayat.SelectedValue = string.IsNullOrEmpty(rd["payat"].ToString()) ? "0" : rd["payat"].ToString();
+
+                        if (DropDownList3.SelectedValue == "B" || DropDownList3.SelectedValue == "T" || DropDownList3.SelectedValue == "S")
+                        {
+                            DropDownList4.Attributes.Remove("disabled");
+                            bankPanel.Attributes.Remove("disabled");
+                            bankCodeBox.Attributes.Remove("disabled");
+                            bankPanel.Value = rd["accno"].ToString();
+                            bankCodeBox.Value = rd["bankcode"].ToString();
+                            if (rd["payAccDuration"].ToString() != "")
+                                RadioButtonList1.SelectedValue = rd["payAccDuration"].ToString();
+                            DropDownList4.SelectedValue = rd["accId"].ToString();
+
+                            if (GetReceiptChk.Checked)
+                                cNoBox.Attributes.Remove("disabled");
+                            if (CheckShort.Checked)
+                            {
+                                ShortFromBox.Attributes.Remove("disabled");
+                                ShortToBox.Attributes.Remove("disabled");
+                            }
+                        }
+                        else
+                        {
+                            DropDownList4.Attributes.Add("disabled", "disabled");
+                            bankPanel.Attributes.Add("disabled", "disabled");
+                            bankCodeBox.Attributes.Add("disabled", "disabled");
+                            bankPanel.Value = "";
+                            bankCodeBox.Value = "";
+                            RadioButtonList1.ClearSelection();
+                            DropDownList4.SelectedIndex = 0;
+                            RadioButtonList1.Enabled = false;
+
+                            if (GetReceiptChk.Checked)
+                                cNoBox.Attributes.Remove("disabled");
+                            if (CheckShort.Checked)
+                            {
+                                ShortFromBox.Attributes.Remove("disabled");
+                                ShortToBox.Attributes.Remove("disabled");
+                            }
+                        }
+                    }
+
+                    EnabledFormUpdate();
+                }
+                catch (Exception ex)
+                {
+                    logActivity.LogStaffActivity(staffID, $"ERROR editing tranId={tranId}: {ex.Message}");
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+        /* commentted for use new refactor
         protected void saveBtn_Click(object sender, EventArgs e)
         {
 			var uid = Session["UID"];
@@ -1488,7 +2056,112 @@ namespace JAT.Private
 
 
         }
+        */
 
+        protected void saveBtn_Click(object sender, EventArgs e)
+        {
+            var uid = Session["UID"];
+            int staffID = uid != null ? Convert.ToInt32(uid) : 0;
+
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue != "Yes")
+            {
+                Page.Response.Redirect(Page.Request.Url.ToString(), true);
+                return;
+            }
+
+            string connStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            var repo = new PrivatePaymentRepository(connStr);
+
+            try
+            {
+                // 1️⃣ ตรวจสอบ Bank Account เก่า/ใหม่
+                string sqlCheckAcc = @"SELECT accId 
+                               FROM PrivateAccount 
+                               WHERE memberid = @memberid AND accno = @accno AND bankcode = @bankcode";
+
+                var dtAccCheck = repo.ExecuteSelectQuery(sqlCheckAcc, new Dictionary<string, object>
+        {
+            { "@memberid", showfristMem },
+            { "@accno", bankPanel.Value },
+            { "@bankcode", bankCodeBox.Value }
+        });
+
+                string accIdToUse;
+
+                if (dtAccCheck.Rows.Count > 0)
+                {
+                    // Bank Account มีอยู่แล้ว
+                    accIdToUse = dtAccCheck.Rows[0]["accId"].ToString();
+                }
+                else
+                {
+                    // Bank Account ใหม่ -> insert ลง PrivateAccount
+                    string insertAccSql = @"INSERT INTO PrivateAccount (memberId, accno, bankcode, payAccDuration) 
+                                    VALUES (@memberId, @accno, @bankcode, @payAccDuration);
+                                    SELECT SCOPE_IDENTITY();";
+
+                    var dtNewAcc = repo.ExecuteSelectQuery(insertAccSql, new Dictionary<string, object>
+            {
+                { "@memberId", showfristMem },
+                { "@accno", bankPanel.Value },
+                { "@bankcode", bankCodeBox.Value },
+                { "@payAccDuration", RadioButtonList1.SelectedValue }
+            });
+
+                    accIdToUse = dtNewAcc.Rows[0][0].ToString();
+                    logActivity.LogStaffActivity(staffID, $"Added new Bank Account {bankPanel.Value}/{bankCodeBox.Value} for member {showfristMem}");
+                }
+
+                // 2️⃣ Insert PrivatePayment
+                var paymentParams = new Dictionary<string, object>
+        {
+            { "@memberid", showfristMem },
+            { "@payBy", DropDownList1.SelectedValue },
+            { "@memberType", DropDownList2.SelectedValue },
+            { "@payMethod", DropDownList3.SelectedValue == "-- Any --" ? "" : DropDownList3.SelectedValue },
+            { "@payRemark", remarkBox.Value },
+            { "@payDuration", PayDuration.Text },
+            { "@payNoMember", numMemBox.Text },
+            { "@receiptNo", cNoBox.Value },
+            { "@paymentDate", paymentDateBox.Value },
+            { "@effectiveDate", EffectiveDateInput.Value },
+            { "@expireDate", HiddenExpiredDate.Value },
+            { "@entranceFee", entranceVal.Text },
+            { "@newsletterFee", annualVal.Text },
+            { "@checkShort", CheckShort.Checked },
+            { "@checkReceipt", GetReceiptChk.Checked },
+            { "@updatedBy", staffID },
+            { "@payat", ddpayat.SelectedValue },
+            { "@checkpay", "C" }
+        };
+
+                int tranId = repo.InsertPrivatePayment(paymentParams);
+                logActivity.LogStaffActivity(staffID, $"Added PrivatePayment for member {showfristMem}, tranId={tranId}");
+
+                // 3️⃣ Insert PrivatePayAccount
+                repo.InsertPrivatePayAccount(tranId, accIdToUse);
+                logActivity.LogStaffActivity(staffID, $"Linked tranId={tranId} to accId={accIdToUse} in PrivatePayAccount");
+
+                // 4️⃣ Insert PrivatePayShort
+                repo.InsertPrivatePayShort(tranId, ShortFromBox.Value, ShortToBox.Value);
+                logActivity.LogStaffActivity(staffID, $"Added PrivatePayShort for tranId={tranId} ({ShortFromBox.Value} -> {ShortToBox.Value})");
+
+                // 5️⃣ Redirect
+                Response.Redirect("privateEntryPayment.aspx?firstmemberid=" + showfristMem);
+            }
+            catch (Exception ex)
+            {
+                totolSum.Text = "x";
+                logActivity.LogStaffActivity(staffID, $"saveBtn_Click failed: {ex.Message}");
+            }
+        }
+
+
+
+
+
+        /* commentted to used new refactor
         protected void update_Click(object sender, EventArgs e)
         {
 
@@ -1837,6 +2510,105 @@ namespace JAT.Private
             }
 
         }
+        */
+
+
+
+        protected void update_Click(object sender, EventArgs e)
+        {
+            var uid = Session["UID"];
+            int staffID = uid != null ? Convert.ToInt32(uid) : 0;
+
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue != "Yes")
+            {
+                Response.Redirect("privateEntryPayment.aspx?firstmemberid=" + showfristMem);
+                return;
+            }
+
+            string connStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            var repo = new PrivatePaymentRepository(connStr);
+
+            try
+            {
+                // 1️⃣ ตรวจสอบ Bank Account เก่า/ใหม่
+                string sqlCheckAcc = @"SELECT accId FROM PrivateAccount 
+                               WHERE memberid=@memberid AND accno=@accno AND bankcode=@bankcode";
+
+                var dtAccCheck = repo.ExecuteSelectQuery(sqlCheckAcc, new Dictionary<string, object>
+        {
+            { "@memberid", showfristMem },
+            { "@accno", bankPanel.Value },
+            { "@bankcode", bankCodeBox.Value }
+        });
+
+                string accIdToUse;
+
+                if (dtAccCheck.Rows.Count > 0)
+                {
+                    // Bank Account มีอยู่แล้ว
+                    accIdToUse = dtAccCheck.Rows[0]["accId"].ToString();
+                }
+                else
+                {
+                    // Bank Account ใหม่ -> insert ลง PrivateAccount
+                    string insertAccSql = @"INSERT INTO PrivateAccount (memberId, accno, bankcode, payAccDuration) 
+                                    VALUES (@memberId, @accno, @bankcode, @payAccDuration);
+                                    SELECT SCOPE_IDENTITY();";
+
+                    var dtNewAcc = repo.ExecuteSelectQuery(insertAccSql, new Dictionary<string, object>
+            {
+                { "@memberId", showfristMem },
+                { "@accno", bankPanel.Value },
+                { "@bankcode", bankCodeBox.Value },
+                { "@payAccDuration", RadioButtonList1.SelectedValue }
+            });
+
+                    accIdToUse = dtNewAcc.Rows[0][0].ToString();
+                    logActivity.LogStaffActivity(staffID, $"Added new Bank Account {bankPanel.Value}/{bankCodeBox.Value} for member {showfristMem}");
+                }
+
+                // 2️⃣ Update PrivatePayment
+                var updatePaymentParams = new Dictionary<string, object>
+        {
+            { "@tranId", Label4.Text },
+            { "@memberType", DropDownList2.SelectedValue },
+            { "@payNoMember", numMemBox.Text },
+            { "@payDuration", PayDuration.Text },
+            { "@paymentDate", paymentDateBox.Value },
+            { "@effectiveDate", EffectiveDateInput.Value },
+            { "@expireDate", HiddenExpiredDate.Value },
+            { "@payMethod", DropDownList3.SelectedValue == "-- Any --" ? "" : DropDownList3.SelectedValue },
+            { "@payRemark", remarkBox.Value },
+            { "@receiptNo", cNoBox.Value },
+            { "@checkReceipt", GetReceiptChk.Checked },
+            { "@entranceFee", entranceVal.Text },
+            { "@newsletterFee", annualVal.Text },
+            { "@checkShort", CheckShort.Checked },
+            { "@updatedBy", staffID },
+            { "@payat", ddpayat.SelectedValue }
+        };
+                repo.UpdatePrivatePayment(updatePaymentParams);
+                logActivity.LogStaffActivity(staffID, $"Updated PrivatePayment tranId={Label4.Text}");
+
+                // 3️⃣ Update PrivatePayAccount
+                repo.UpdatePrivatePayAccount(Label4.Text, accIdToUse);
+                logActivity.LogStaffActivity(staffID, $"Updated PrivatePayAccount tranId={Label4.Text} accId={accIdToUse}");
+
+                // 4️⃣ Update PrivatePayShort
+                repo.UpdatePrivatePayShort(Label4.Text, ShortFromBox.Value, ShortToBox.Value);
+                logActivity.LogStaffActivity(staffID, $"Updated PrivatePayShort tranId={Label4.Text}");
+
+                // 5️⃣ Redirect
+                Response.Redirect("privateEntryPayment.aspx?firstmemberid=" + showfristMem);
+            }
+            catch (Exception ex)
+            {
+                logActivity.LogStaffActivity(staffID, $"updateBtn_Click failed: {ex.Message}");
+            }
+        }
+
+
 
         //protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         //{
@@ -1915,7 +2687,7 @@ namespace JAT.Private
 
         }
 
-
+        /* commentted to used new refactor
         protected void calculateFee(object sender, EventArgs e)
         {
 
@@ -2073,16 +2845,17 @@ namespace JAT.Private
                 //annualtmp = annualtmp * nummem * nummon;
             }
             catch { }
-            /*Total fee=entrance fee+annual fee
-             * entrance fee=base case+addition
-             * base case=type==1||3A||3B?600:100
-             * addition=type==x
-             * annual fee=base case+addition
-             * base case=type==1||3A?200:100
-             * addition=type==x
-             * 1 3A count first
-             * 7 3B count member
-             */
+            //*Total fee=entrance fee+annual fee
+            // * entrance fee=base case+addition
+            // * base case=type==1||3A||3B?600:100
+            // * addition=type==x
+           //  * annual fee=base case+addition
+            // * base case=type==1||3A?200:100
+           //  * addition=type==x
+           //  * 1 3A count first
+           //  * 7 3B count member
+             
+
             if (PaymentType.SelectedValue == "Entrance Fee")
             {
                 entranceVal.Text = entrancetmp.ToString();
@@ -2107,6 +2880,126 @@ namespace JAT.Private
             expireDateInit();
             //numMemBox.Text = "1";
         }
+        */
+        protected void calculateFee(object sender, EventArgs e)
+        {
+            if (GetReceiptChk.Checked)
+                cNoBox.Attributes.Remove("disabled");
+
+            int entranceFee = 0;
+            int annualFee = 0;
+
+            try
+            {
+                string memberType = DropDownList2.SelectedValue;
+                int nummem = int.TryParse(numMemBox.Text, out var tmp1) ? tmp1 : 1;
+                int payDuration = int.TryParse(PayDuration.Text, out var tmp2) ? tmp2 : 1;
+
+                // ใช้ repository แทน SelectSqlTable
+                var repo = new PrivatePaymentRepository(connStr);
+
+                // ดึงข้อมูล SMemberType
+                string sqlMemType = @"
+            SELECT * 
+            FROM SMemberType 
+            WHERE MemberType = @memberType 
+              AND EffectiveID = (
+                  SELECT TOP 1 EffectiveID 
+                  FROM tblEffective 
+                  WHERE EffectiveDate <= FLOOR(CAST(GETDATE() AS FLOAT)) 
+                    AND ExpireDate >= FLOOR(CAST(GETDATE() AS FLOAT))
+              )";
+
+                var memTypeData = repo.ExecuteSelectQuery(sqlMemType, new Dictionary<string, object>
+        {
+            { "@memberType", memberType }
+        });
+
+                if (memTypeData.Rows.Count == 0) return; // ไม่มีข้อมูล
+
+                int newsletterFee = int.Parse(memTypeData.Rows[0]["Newsletter"].ToString());
+
+                // ดึงค่า EntranceFee
+                string sqlEntrance = @"
+            SELECT TOP 1 * 
+            FROM SMemberEntranceFee 
+            WHERE EffectiveID = (
+                SELECT TOP 1 EffectiveID 
+                FROM tblEffective 
+                WHERE EffectiveDate <= FLOOR(CAST(GETDATE() AS FLOAT)) 
+                  AND ExpireDate >= FLOOR(CAST(GETDATE() AS FLOAT))
+            ) 
+            ORDER BY EffectiveID";
+
+                var entranceData = repo.ExecuteSelectQuery(sqlEntrance, new Dictionary<string, object>());
+
+                int firstMemberFee = int.Parse(entranceData.Rows[0]["FirstMember"].ToString());
+                int secondMemberFee = int.Parse(entranceData.Rows[0]["SecondMember"].ToString());
+
+                // คำนวณ Entrance Fee
+                if (memberType == "2") // MemberType 2
+                {
+                    entranceFee = firstMemberFee + secondMemberFee;
+                    if (nummem > 1)
+                        entranceFee += (nummem - 1) * newsletterFee;
+                }
+                else if (memberType == "6A" || memberType == "6B")
+                {
+                    entranceFee = 0;
+                }
+                else if (memberType == "7")
+                {
+                    entranceFee = 200;
+                    if (nummem > 1)
+                        entranceFee += (nummem - 1) * newsletterFee;
+                }
+                else
+                {
+                    entranceFee = nummem == 1 ? firstMemberFee : firstMemberFee + (nummem - 1) * newsletterFee;
+                }
+
+                // คำนวณ Annual Fee
+                annualFee = nummem * newsletterFee * payDuration;
+                if (nummem > 1 && (memberType != "2" && memberType != "6A" && memberType != "6B"))
+                {
+                    annualFee += (nummem - 1) * 100 * payDuration;
+                }
+
+                // กำหนดค่าเข้า TextBox ตาม PaymentType
+                switch (PaymentType.SelectedValue)
+                {
+                    case "Entrance Fee":
+                        entranceVal.Text = entranceFee.ToString();
+                        annualVal.Text = "0";
+                        break;
+                    case "Annual Fee":
+                        entranceVal.Text = "0";
+                        annualVal.Text = annualFee.ToString();
+                        break;
+                    case "No Pay":
+                        entranceVal.Text = "0";
+                        annualVal.Text = "0";
+                        break;
+                    default: // Both
+                        entranceVal.Text = entranceFee.ToString();
+                        annualVal.Text = annualFee.ToString();
+                        break;
+                }
+
+                totalCalculate();
+                expireDateInit();
+            }
+            catch (Exception ex)
+            {
+                // Log error
+                Console.WriteLine("calculateFee error: " + ex.Message);
+            }
+        }
+
+
+
+
+
         protected void totalCalculate()
         {
             int tmp = 0;

@@ -31,6 +31,10 @@ namespace JAT.Private
 
         string toDayDate = DateTime.Now.ToString("yyyy-MMM-dd HH:mm:ss", new CultureInfo("en-US"));
         string toDayDateSh = DateTime.Now.ToString("dd/MMM/yyyy", new CultureInfo("en-US"));
+
+        private PrivateChildRepository _repository = new PrivateChildRepository();
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             dateToCancel = DateTime.Now.ToString("dd/MM/yyyy");
@@ -65,12 +69,13 @@ namespace JAT.Private
                 }
             }
         }
-
+        /* unused 2 methods cause PrivateChildRepository.cs did instead
         private void connection()
         {
             var connectionStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"];
             conn = new SqlConnection(connectionStr.ConnectionString);
         }
+       
         public DataTable SelectSqlTable(string Sqlcmd)
         {
             connection();
@@ -83,48 +88,25 @@ namespace JAT.Private
             conn.Close();
             return table;
         }
-
+         */
         protected void BindData()
         {
-            connection();
-            SqlCommand sc;
-            SqlDataReader rd;
+            var repository = new PrivateChildRepository();
+            var data = repository.GetPrivateMember(showfristMem);
 
-            string sql = "SELECT nameJ, CONCAT(prefixNm, nameE) ,ss.staffFName " +
-                "FROM PrivateDetail pd " +
-                "inner join PrivateChild pc on pd.memberid = pc.memberid " +
-                "LEFT OUTER JOIN SStaff ss ON pc.updatedBy = ss.staffID " +
-                "WHERE pc.memberid = '"+ showfristMem + "' ";
-            //string sqlBrithPlace = "SELECT birthPlace FROM PrivateDetail WHERE memberid = '" + companyId +"'";
-            try
+            if (data != null && data.Rows.Count > 0)
             {
-                conn.Open();
-                sc = new SqlCommand(sql, conn);
-                rd = sc.ExecuteReader();
-
-                while (rd.Read())
-                {
-                    //show in member information
-                    Label1.Text = rd.GetValue(0).ToString();
-                    Label2.Text = rd.GetValue(1).ToString();
-                    updateBy.Text = rd.GetValue(2).ToString();
-                }
-
+                Label1.Text = data.Rows[0][0].ToString(); // nameJ
+                Label2.Text = data.Rows[0][1].ToString(); // CONCAT(prefixNm, nameE)
+                updateBy.Text = string.IsNullOrEmpty(data.Rows[0][2].ToString()) ? "N/A" : data.Rows[0][2].ToString(); // staffFName
             }
-            catch { }
-            finally
+            else
             {
-                if (updateBy.Text.Trim() == "" || updateBy.Text.Trim() == null)
-                {
-                    updateBy.Text = "N/A";
-                }
+                updateBy.Text = "N/A";
             }
-
-            //Box2.Value = showVal;
-
-
-            conn.Close();
         }
+
+
 
         protected void memberTab_Click(object sender, EventArgs e)
         {
@@ -172,33 +154,13 @@ namespace JAT.Private
         }
         protected void showInGrid()
         {
-            DataTable td;
+            var repository = new PrivateChildRepository();
+            var td = repository.GetChildrenByMemberId(showfristMem);
 
-            // *** 2024-09-09 10.04am : Toon Jiradej.K have revise code
-            #region 'The old query dosn't soft delete support'
-            //td = SelectSqlTable("SELECT t1.childid, t1.prefixKid, t1.nameKidJ, t1.nameKidE, FORMAT(t1.birthdate, 'dd/MM/yyyy') AS birthDate " +
-            //                    "FROM PrivateChild t1 " +
-            //                    "INNER JOIN PrivateDetail t2 ON t1.memberid = t2.memberid WHERE t2.firstmemberid =" + "'" + showfirstMem + "'");
-            #endregion
-
-            #region 'The old query has soft delete supported'
-            td = SelectSqlTable($"SELECT t1.childid, t1.prefixKid, t1.nameKidJ, t1.nameKidE, " +
-                                $"FORMAT(t1.birthdate, 'dd/MM/yyyy') AS birthDate " +
-                                $"FROM PrivateChild t1 " +
-                                $"INNER JOIN PrivateDetail t2 ON t1.memberid = t2.memberid " +
-                                $"WHERE t2.firstmemberid = '{showfristMem}' AND t1.Deleted_at IS NULL");
-            #endregion
-
-            // *** End Of Revised
-            //GridView1.Columns[0].Visible = false;
             GridView1.DataSource = td;
-            //ImageButton1.Visible = true;
-            //ImageButton2.Visible = true;
-
             GridView1.DataBind();
-            conn.Close();
-
         }
+
 
         private void EnabledForm()
         {
@@ -262,96 +224,68 @@ namespace JAT.Private
             GridView1.Columns[5].Visible = false;
             GridView1.Columns[6].Visible = false;
 
-
             GridViewRow row = (GridViewRow)(sender as ImageButton).NamingContainer;
+            string childId = row.Cells[0].Text;
+            HiddenField1.Value = childId;
 
-            HiddenField1.Value = row.Cells[0].Text;
+            var repository = new PrivateChildRepository();
+            var data = repository.GetChildrenByMemberId(showfristMem);
 
-            connection();
-            SqlCommand sc;
-            SqlDataReader rd;
+            // หา row เด็กที่ตรงกับ childId
+            var childRow = data.AsEnumerable().FirstOrDefault(r => r["childid"].ToString() == childId);
 
-            string sql = "SELECT t1.childid, t1.prefixKid, t1.nameKidJ, t1.nameKidE, FORMAT(t1.birthdate, 'dd/MM/yyyy') AS birthDate " +
-                            "FROM PrivateChild t1 " +
-                            "INNER JOIN PrivateDetail t2 ON t1.memberid = t2.memberid WHERE t1.childid = " + "'" + row.Cells[0].Text + "'"  ;
-
-
-            try
+            if (childRow != null)
             {
-                conn.Open();
-                sc = new SqlCommand(sql, conn);
-                rd = sc.ExecuteReader();
-
-
-                while (rd.Read())
+                string preNmChild = childRow["prefixKid"].ToString();
+                if (preNmChild == "Boy")
                 {
-
-                    string preNmChild = rd.GetValue(1).ToString();
-                    if (preNmChild == "Boy")
-                    {
-                        RadioButtonList1.SelectedIndex = 0;
-                    }
-                    else if (preNmChild == "Girl")
-                    {
-                        RadioButtonList1.SelectedIndex = 1;
-                    }
-                    else
-                    {
-                        RadioButtonList1.ClearSelection();
-                    }
-
-                    Box1.Value = rd.GetValue(2).ToString();
-                    Box2.Value = rd.GetValue(3).ToString();
-                    Box3.Value = rd.GetValue(4).ToString();
-                   
+                    RadioButtonList1.SelectedIndex = 0;
+                }
+                else if (preNmChild == "Girl")
+                {
+                    RadioButtonList1.SelectedIndex = 1;
+                }
+                else
+                {
+                    RadioButtonList1.ClearSelection();
                 }
 
+                Box1.Value = childRow["nameKidJ"].ToString();
+                Box2.Value = childRow["nameKidE"].ToString();
+                Box3.Value = childRow["birthDate"].ToString();
             }
-            catch { }
-
-            conn.Close();
-
         }
+
 
         protected void saveBtn_Click(object sender, EventArgs e)
         {
-			var uid = Session["UID"];
-			int staffID = uid != null ? Convert.ToInt32(uid) : 0;
-			string confirmValue = Request.Form["confirm_value"];
+            var uid = Session["UID"];
+            int staffID = uid != null ? Convert.ToInt32(uid) : 0;
+            string confirmValue = Request.Form["confirm_value"];
+
             if (confirmValue == "Yes")
             {
-                DataTable td;
-
-                //var chkBirth = Box7.Checked;
                 var preFixCho = RadioButtonList1.SelectedValue.ToString();
                 var nameKIDJinput = Box1.Value.ToString();
                 var nameKIDEinput = Box2.Value.ToString();
                 var birthDateinput = Box3.Value.ToString();
 
-                //string removeDateDefault = "";
-
-                //var preFixCho = preFixSel.SelectedValue.ToString();
+                var repository = new PrivateChildRepository();
 
                 try
                 {
-					td = SelectSqlTable("SET dateformat dmy INSERT INTO PrivateChild(memberid, nameKidJ, nameKidE, birthdate, prefixKid,updatedBy,updatedDate)" +
-										"VALUES('" + showfristMem + "'" + "," + "N'" + nameKIDJinput + "'" + "," + "N'" + nameKIDEinput + "'" + "," + "'" + birthDateinput + "'" + "," + "'" + preFixCho + "'" + "," + Session["UID"] + "," + "'" + toDayDate + "'" + ")");
-					string activityDetail = $"Added new data into a table 'PrivateChild' successful (User id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
-				}
-				catch (SqlException ex)
-                {
-					string activityDetail = $"Added new data into a table 'PrivateChild' unsuccessful [{ex.Message}] (User id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
-				}
-				catch (Exception ex)
-				{
-					string activityDetail = $"Added new data into a table 'PrivateChild' unsuccessful [{ex.Message}] (User id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
-				}
+                    repository.AddChild(showfristMem, nameKIDJinput, nameKIDEinput, birthDateinput, preFixCho, staffID, toDayDate);
 
-				//DisabledForm();
-				Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfristMem);
+                    string activityDetail = $"Added new data into a table 'PrivateChild' successful (User id = '{staffID}')";
+                    logActivity.LogStaffActivity(staffID, activityDetail);
+                }
+                catch (Exception ex)
+                {
+                    string activityDetail = $"Added new data into a table 'PrivateChild' unsuccessful [{ex.Message}] (User id = '{staffID}')";
+                    logActivity.LogStaffActivity(staffID, activityDetail);
+                }
+
+                Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfristMem);
                 Context.ApplicationInstance.CompleteRequest();
             }
             else
@@ -361,97 +295,65 @@ namespace JAT.Private
             }
         }
 
+
         protected void GridView_Delete_Click(object sender, EventArgs e)
         {
-			var uid = Session["UID"];
-			int staffID = uid != null ? Convert.ToInt32(uid) : 0;
-
-			DataTable td;
+            var uid = Session["UID"];
+            int staffID = uid != null ? Convert.ToInt32(uid) : 0;
 
             GridViewRow row = (GridViewRow)(sender as ImageButton).NamingContainer;
+            string childId = row.Cells[0].Text;
 
-            //ImageButton _myButton = (ImageButton)e.Item.FindControl("ibtn2");
+            var repository = new PrivateChildRepository();
 
             try
             {
-                // *** 2024-09-06 01.49pm : Toon Jiradech.K Toon Jiradech.k have changed code from hard deleting to soft deleting
-                #region 'Hard Deleting' 
-                //         td = SelectSqlTable("DELETE FROM PrivateChild  " +
-                //              "WHERE childid = " + "'" + row.Cells[0].Text + "'");
-                #endregion
+                repository.SoftDeleteChild(childId);
 
-                #region 'Soft Deleting'
-                td = SelectSqlTable($"UPDATE PrivateChild SET Deleted_at = GETDATE() " +
-                                    $"WHERE childid = '{row.Cells[0].Text}'");
-                #endregion
-                // *** End of Revised
-
-                string activityDetail = $"Soft deleted data in a table 'PrivateChild' where childid is '{row.Cells[0].Text}' successful (user id = {staffID})";
-				logActivity.LogStaffActivity(staffID, activityDetail);
-			}
-            catch (SqlException ex)
-            {
-                //string activityDetail = $"Soft deleted data in a table 'PrivateChild' where childid is '{row.Cells[0].Text}' unsuccessful [{ex.Message}] (user id = {staffID})";
-                logActivity.LogStaffActivity(staffID, $"ERROR at {ex.LineNumber} {ex.StackTrace} " +
-                    $"{ex.Message}");
+                string activityDetail = $"Soft deleted data in a table 'PrivateChild' where childid is '{childId}' successful (user id = {staffID})";
+                logActivity.LogStaffActivity(staffID, activityDetail);
             }
-			catch (Exception ex)
-			{
-                //string activityDetail = $"Soft deleted data in a table 'PrivateChild' where childid is '{row.Cells[0].Text}' unsuccessful [{ex.Message}] (user id = {staffID})";
+            catch (Exception ex)
+            {
                 logActivity.LogStaffActivity(staffID, $"ERROR at {ex.StackTrace} {ex.Message}");
             }
 
-			Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfristMem);
+            Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfristMem);
             Context.ApplicationInstance.CompleteRequest();
-
-            conn.Close();
-
         }
+
 
         protected void updateBtn_Click(object sender, EventArgs e)
         {
-			var uid = Session["UID"];
-			int staffID = uid != null ? Convert.ToInt32(uid) : 0;
+            var uid = Session["UID"];
+            int staffID = uid != null ? Convert.ToInt32(uid) : 0;
 
-			string confirmValue = Request.Form["confirm_value"];
+            string confirmValue = Request.Form["confirm_value"];
             if (confirmValue == "Yes")
             {
-                DataTable td;
-
-                //var chkBirth = Box7.Checked;
+                // ดึงค่าจากฟอร์ม
                 var preFixCho = RadioButtonList1.SelectedValue.ToString();
                 var nameKIDJinput = Box1.Value.ToString();
                 var nameKIDEinput = Box2.Value.ToString();
                 var birthDateinput = Box3.Value.ToString();
+                string childId = HiddenField1.Value;
 
+                var repository = new PrivateChildRepository();
 
-                //string removeDateDefault = "";
+                try
+                {
+                    repository.UpdateChild(childId, nameKIDJinput, nameKIDEinput, birthDateinput, preFixCho, staffID, dateToCancel);
 
-                //var preFixCho = preFixSel.SelectedValue.ToString();
+                    string activityDetail = $"Changed new data into a table 'PrivateChild' where childid is '{childId}' successful (User id = '{staffID}')";
+                    logActivity.LogStaffActivity(staffID, activityDetail);
+                }
+                catch (Exception ex)
+                {
+                    string activityDetail = $"Changed new data into a table 'PrivateChild' where childid is '{childId}' unsuccessful [{ex.Message}] (User id = '{staffID}')";
+                    logActivity.LogStaffActivity(staffID, activityDetail);
+                }
 
-
-                
-				try
-				{
-					td = SelectSqlTable("SET dateformat dmy UPDATE PrivateChild " +
-									"SET nameKidE = '" + nameKIDEinput + "'" + "," + "nameKidJ = N'" + nameKIDJinput + "'" + "," + "prefixKid = '" + preFixCho + "'" + "," + "birthdate = '" + birthDateinput + "'" + "," + "updatedDate = '" + dateToCancel + "'" + "," + "updatedBy = " + Session["UID"] +
-									 "WHERE childid = '" + HiddenField1.Value + "'");
-					string activityDetail = $"Changed new data into a table 'PrivateChild' where childid is '{HiddenField1.Value}' successful (User id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
-				}
-				catch (SqlException ex)
-				{
-					string activityDetail = $"Changed new data into a table 'PrivateChild' where childid is '{HiddenField1.Value}' unsuccessful [{ex.Message}] (User id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
-				}
-				catch (Exception ex)
-				{
-					string activityDetail = $"Changed new data into a table 'PrivateChild' where childid is '{HiddenField1.Value}' unsuccessful [{ex.Message}] (User id = '{staffID}')";
-					logActivity.LogStaffActivity(staffID, activityDetail);
-				}
-
-				//DisabledForm();
-				Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfristMem);
+                Response.Redirect("privateEntryKid.aspx?firstmemberid=" + showfristMem);
                 Context.ApplicationInstance.CompleteRequest();
             }
             else
@@ -460,6 +362,7 @@ namespace JAT.Private
                 Context.ApplicationInstance.CompleteRequest();
             }
         }
+
 
 
     }

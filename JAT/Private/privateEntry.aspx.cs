@@ -296,7 +296,9 @@ namespace JAT.Private
             //BoxChkChild.Enabled = true;
             email.Attributes.Remove("disabled");
         }
-
+        /// <summary>
+        /// lastest check for JAT.Core
+        /// </summary>
         private void DisabledForm()
         {
             addBTN.Visible = true;
@@ -522,6 +524,8 @@ namespace JAT.Private
 
             conn.Close();
         }
+        //527
+
 
         protected void BindDataAddress1()
         {
@@ -728,7 +732,7 @@ namespace JAT.Private
             conn.Close();
 
         }
-
+        //735
         protected void addBTN_Click(object sender, EventArgs e)
         {
             // Response.Redirect("privateEntry.aspx?mode=add");
@@ -956,7 +960,7 @@ namespace JAT.Private
             Response.Redirect("privateEntryMember.aspx?mode=edit&firstmemberid=" + showfirstMem + "&memberid=" + row.Cells[0].Text);
             Context.ApplicationInstance.CompleteRequest();
         }
-
+        //962
         protected void updateBtn_Click(object sender, EventArgs e)
         {
 			var uid = Session["UID"];
