@@ -179,18 +179,26 @@
                             <li>
                                 <a runat="server" href="~/PrivateReport/reportPrivateClub"><%=Resources.Resources.menu_3_item_3 %></a>
                             </li>
+                            <!--
                             <li>
                                 <a runat="server" href="~/PrivateReport/reportPrivateMember"><%=Resources.Resources.menu_3_item_4 %></a>
-                            </li>
+                            </li> -->
+
                             <li>
                                 <a runat="server" href="~/PrivateReport/reportPayment"><%=Resources.Resources.menu_3_item_5 %></a>
                             </li>
+
+                            <!--
                             <li>
                                 <a runat="server" href="~/PrivateReport/reportHistory"><%=Resources.Resources.menu_3_item_6 %></a>
                             </li>
+                            -->
+
                             <li>
                                 <a runat="server" href="~/PrivateReport/reportAccrue"><%=Resources.Resources.menu_3_item_7 %></a>
                             </li>
+
+                            <!--
                             <li>
                                 <a runat="server" href="~/PrivateReport/reportLabel"><%=Resources.Resources.menu_3_item_8 %></a>
                             </li>
@@ -200,7 +208,7 @@
                             <li>
                                 <a runat="server" href="~/PrivateReport/reportSummaryAccrue"><%=Resources.Resources.menu_3_item_10 %></a>
                             </li>
-
+                            -->
                             <!-- commentted for project
                             <li>
                                 <a runat="server" href="~/PrivateReport/reportMonthlyReport">Monthly Report</a>
@@ -231,11 +239,13 @@
                         </ul>
                     </li>
                         -->
+
+                  <!--
                     <li class="">
                         <a href="#inquerySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-info-circle faspace"></i><%=Resources.Resources.menu_5_header %></a>
                         <ul class="collapse list-unstyled subspace" id="inquerySubmenu">
 
-                            <!--new line for project-->
+                            <!--new line for project
                             <li>
                                 <a runat="server" href="~/Inquery/Private/listPrivate"><%=Resources.Resources.menu_5_item_1_1 %></a>
                             </li>
@@ -251,7 +261,7 @@
                             <li>
                                 <a runat="server" href="~/Inquery/Private/listMemberCheck"><%=Resources.Resources.menu_5_item_1_5 %></a>
                             </li>
-
+                           
 
                             <!-- commentted for project
                             <li>
@@ -296,9 +306,11 @@
                                     </li>
                                 </ul>
                             </li>
-                            -->
+                        
                         </ul>
                     </li>
+                    -->
+
 
                     <!-- commentted for project
                     <li>

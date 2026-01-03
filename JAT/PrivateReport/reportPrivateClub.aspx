@@ -91,9 +91,7 @@
                                     <asp:ListItem Value="online_event" Text="<%$Resources:Resources,online_event %>"></asp:ListItem>
                                     <asp:ListItem Value="softball" Text="<%$Resources:Resources,softball %>"></asp:ListItem>
                                     <asp:ListItem Value="yoga" Text="<%$Resources:Resources,yoga %>"></asp:ListItem>
-                                    <asp:ListItem Value="ev_tmp1" Text=""></asp:ListItem>
-                                    <asp:ListItem Value="ev_tmp2" Text=""></asp:ListItem>
-                                    <asp:ListItem Value="ev_tmp3" Text=""></asp:ListItem>
+                                    
                                 </asp:RadioButtonList>
                             </div>
                         </div>
@@ -119,8 +117,7 @@
                                     <asp:ListItem Value="bazaar_volunteer" Text="<%$Resources:Resources,bazaar_volunteer %>"></asp:ListItem>
                                     <asp:ListItem Value="social_gathering_members" Text="<%$Resources:Resources,social_gathering_members %>"></asp:ListItem>
                                     <asp:ListItem Value="youth_circle_members" Text="<%$Resources:Resources,youth_circle_members %>"></asp:ListItem>
-                                    <asp:ListItem Value="sub_tmp1" Text=""></asp:ListItem>
-                                    <asp:ListItem Value="sub_tmp2" Text=""></asp:ListItem>
+                                   
                                 </asp:RadioButtonList>
                             </div>
                         </div>

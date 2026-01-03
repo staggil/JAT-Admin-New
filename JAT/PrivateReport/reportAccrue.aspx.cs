@@ -32,6 +32,9 @@ namespace JAT.PrivateReport
                 alert.Visible = false;
             }
         }
+
+
+        /*
         private void connection()
         {
             var connectionStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"];
@@ -51,97 +54,79 @@ namespace JAT.PrivateReport
             conn.Close();
             return table;
         }
-
+        */
         protected void Print_Click(object sender, EventArgs e)
         {
-			var uid = Session["UID"];
-			int staffID = uid != null ? Convert.ToInt32(uid) : 0;
+            var uid = Session["UID"];
+            int staffID = uid != null ? Convert.ToInt32(uid) : 0;
 
-			var DateFrom = datepicker1Input.Value.ToString();
+            var DateFrom = datepicker1Input.Value.ToString();
             var DateTo = datepicker2Input.Value.ToString();
             var payMeth = drplstPayMethod.SelectedValue.ToString();
             var viewmode = Format.SelectedValue.ToString();
             var splitmode = PaymentSplit.SelectedValue.ToString();
-            bool chk = false;
-            if (viewmode == "M")
+
+            // ตรวจสอบเงื่อนไข chk
+            bool chk = (viewmode != "M") || (payMeth == "J" || payMeth == "S" || payMeth == "T");
+
+            if (!chk)
             {
-                if (payMeth == "J" || payMeth == "S" || payMeth == "T")
+                ReportViewer1.Visible = false;
+                alert.Visible = true;
+                alert.Text = "Please check input again";
+                return;
+            }
+
+            try
+            {
+                // สร้าง repository ด้วย connection string
+                string connStr = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                var repo = new AccrueReportRepository(connStr);
+
+                // ดึง DataTable ผ่าน repository
+                DataTable dt = repo.GetAccrueReport(payMeth, viewmode, splitmode, DateFrom, DateTo);
+
+                // กำหนด report path ตาม viewmode และ payMethod
+                if (viewmode == "L")
                 {
-                    chk = true;
+                    ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivateAccrue.rdlc");
                 }
                 else
                 {
-                    chk = false;
+                    ReportViewer1.LocalReport.ReportPath = Server.MapPath(
+                        (payMeth == "S" || payMeth == "T")
+                            ? "~/PrivateReport/ReportPage/printPrivateAccrueLetter1.rdlc"
+                            : "~/PrivateReport/ReportPage/printPrivateAccrueLetter.rdlc"
+                    );
                 }
+
+                // กำหนด report parameters
+                var reportParameters = new ReportParameterCollection
+        {
+            new ReportParameter("fromDate", DateFrom),
+            new ReportParameter("toDate", DateTo),
+            new ReportParameter("payMethod", payMeth)
+        };
+                ReportViewer1.LocalReport.SetParameters(reportParameters);
+
+                // เพิ่ม DataSource ให้ ReportViewer
+                ReportViewer1.LocalReport.DataSources.Clear();
+                ReportViewer1.LocalReport.DataSources.Add(new ReportDataSource("DataSet1", dt));
+
+                // แสดง report
+                alert.Visible = false;
+                ReportViewer1.Visible = true;
+
+                // log activity
+                string activityDetail = $"Executed procedure 'psPrivateReportAccrue' successful (User id = '{staffID}')";
+                logActivity.LogStaffActivity(staffID, activityDetail);
             }
-            else
+            catch (Exception ex)
             {
-                chk = true;
+                string activityDetail = $"Executed procedure 'psPrivateReportAccrue' unsuccessful [{ex.Message}] (User id = '{staffID}')";
+                logActivity.LogStaffActivity(staffID, activityDetail);
             }
-            try
-            {
-				if (chk)
-				{
-                	connection();
-                	conn.Open();
-                //select any
-					string sql = "SET dateformat dmy EXEC psPrivateReportAccrue '" + payMeth + "','" + viewmode + "','" + splitmode + "','" + DateFrom + "','" + DateTo + "'";
-					if (viewmode == "L")
-					{
-						ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivateAccrue.rdlc");
-						ReportParameterCollection reportParameters = new ReportParameterCollection();
-						reportParameters.Add(new ReportParameter("fromDate", DateFrom));
-						this.ReportViewer1.LocalReport.SetParameters(reportParameters);
-						reportParameters.Add(new ReportParameter("toDate", DateTo));
-						this.ReportViewer1.LocalReport.SetParameters(reportParameters);
-						reportParameters.Add(new ReportParameter("payMethod", payMeth));
-						this.ReportViewer1.LocalReport.SetParameters(reportParameters);
-					}
-					else
-					{
-						if (payMeth == "S" || payMeth == "T")
-						{
-							ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivateAccrueLetter1.rdlc");
-						}
-						else
-						{
-							ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/PrivateReport/ReportPage/printPrivateAccrueLetter.rdlc");
-						}
-					}
-					SqlDataAdapter adapter = new SqlDataAdapter(sql, conn);
-                    string activityDetail = $"Excuted procedure name 'psPrivateReportAccrue' successful (User id = '{staffID}')";
-                    logActivity.LogStaffActivity(staffID,activityDetail);
+        }
 
-					adapter.SelectCommand.CommandTimeout = 3600;
-					DataTable dt = new DataTable();
-					adapter.Fill(dt);
-					ReportDataSource rds = new ReportDataSource("DataSet1", dt);
-
-					conn.Close();
-
-					ReportViewer1.LocalReport.DataSources.Clear();
-					ReportViewer1.LocalReport.DataSources.Add(rds);
-					alert.Visible = false;
-					ReportViewer1.Visible = true;
-				}
-				else
-				{
-					ReportViewer1.Visible = false;
-					alert.Visible = true;
-					alert.Text = "Please check input again";
-				}
-			}
-            catch (SqlException ex)
-			{
-				string activityDetail = $"Excuted procedure name 'psPrivateReportAccrue' unsuccessful [{ex.Message}] (User id = '{staffID}')";
-				logActivity.LogStaffActivity(staffID, activityDetail);
-			}
-			catch (Exception ex)
-			{
-				string activityDetail = $"Excuted procedure name 'psPrivateReportAccrue' unsuccessful [{ex.Message}] (User id = '{staffID}')";
-				logActivity.LogStaffActivity(staffID, activityDetail);
-			}
-
-		}
     }
 }
